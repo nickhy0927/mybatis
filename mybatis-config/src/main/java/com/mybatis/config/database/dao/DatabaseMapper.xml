@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.config.database.entity.Database">
+	<!-- sql备注： 不允许使用$,只能使用#来设值，防止sql注入 -->
+	
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="com.mybatis.config.database.entity.Database">
+		insert into t_config_database (
+		    id, create_time, update_time, status,
+		    connect_url,database_name, username, password, used,
+		    driver_class_name
+		) values (
+		    #{id}, #{createTime}, #{updateTime}, #{status},
+		    #{connectUrl}, #{databaseName}, #{username}, #{password}, #{used},
+		    #{driverClassName}
+		)
+	</insert>
+	<insert id="insertBatchDatabase" parameterType="com.mybatis.config.database.entity.Database">
+		
+	</insert>
+	
+	<!-- 删除数据 -->
+	<delete id="delete" parameterType="java.lang.String">
+
+    </delete>
+
+	<!-- 批量删除数据 -->
+	<delete id="deleteBatch" parameterType="java.util.List">
+
+    </delete>
+
+	<!-- 更新数据 -->
+	<update id="update" parameterType="com.mybatis.config.database.entity.Database">
+
+    </update>
+
+	<!-- 查询一条数据 -->
+	<select id="get" parameterType="String" resultType="com.mybatis.config.database.entity.Database">
+        select * from t_config_database t where 1 = 1 and t.status = 1 and id = #{id}
+    </select>
+
+	<!-- 根据条件查询集合 -->
+	<select id="queryListByMap" parameterType="java.util.Map" resultType="com.mybatis.config.database.entity.Database">
+        select
+            *
+        from
+            t_config_database t
+        where
+            1 = 1
+            and t.status = 1
+            <if test="connectUrl != null and connectUrl!= ''">
+                and connect_url like concat(concat('%',#{connectUrl},'%'))
+            </if>
+            <if test="databaseName != null and databaseName != ''">
+                and database_name like concat(concat('%',#{databaseName},'%'))
+            </if>
+            <if test="username != null and username != ''">
+                and username like concat(concat('%',#{username},'%'))
+            </if>
+            <if test="used != null and used != ''">
+                and used = #{used}
+            </if>
+    </select>
+
+	<!-- 根据条件查询分页 -->
+	<select id="queryPageByMap"
+            parameterType="java.util.Map"
+            resultType="com.mybatis.config.database.entity.Database">
+        select
+            *
+        from
+            t_config_database t
+        where
+            1 = 1 and t.status = 1
+            <if test="connectUrl != null and connectUrl!= ''">
+                and connect_url like concat(concat('%',#{connectUrl},'%'))
+            </if>
+            <if test="databaseName != null and databaseName != ''">
+                and database_name like concat(concat('%',#{databaseName},'%'))
+            </if>
+            <if test="username != null and username != ''">
+                and username like concat(concat('%',#{username},'%'))
+            </if>
+            <if test="used != null and used != ''">
+                and used = #{used}
+            </if>
+        order by
+            <choose>
+                <when test="order != null">${order} ${sort}</when>
+                <when test="order != null">create_time desc</when>
+            </choose>
+        limit #{startRow}, #{size}
+    </select>
+
+    <select id="queryTableNameAndCommentByMap"
+            parameterType="java.util.Map"
+            resultType="com.mybatis.config.database.entity.TableComment">
+        SELECT
+            table_name AS tableName,
+            table_comment AS tableComment
+        FROM
+            information_schema.tables
+        WHERE table_schema = #{databaseName}
+    </select>
+
+    <select id="queryTableNameAndCommentByPageMap"
+            parameterType="java.util.Map"
+            resultType="com.mybatis.config.database.entity.TableComment">
+        SELECT
+            table_name AS tableName,
+            table_comment AS tableComment
+        FROM
+            information_schema.tables
+        WHERE
+            table_schema = #{databaseName}
+        limit #{startRow}, #{size}
+    </select>
+</mapper>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.platform.basedata.entity.BaseData">
+	<insert id="insert" parameterType="com.mybatis.platform.basedata.entity.BaseData">
+		insert into sys_base_data(
+				id,
+				create_time,
+				update_time,
+				status,
+				code,
+				name,
+				val,
+				remark,
+				enable,
+				sys_params_id
+		)
+		values (
+				#{id},
+				#{createTime},
+				#{updateTime},
+				#{status},
+				#{code},
+				#{name},
+				#{val},
+				#{remark},
+				#{enable},
+				#{sysParamsId}
+		)
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from sys_base_data where id = #{baseDataId}
+	</delete>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from sys_base_data where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{baseDataId}
+		</foreach>
+	</delete>
+
+	<update id="update" parameterType="com.mybatis.platform.basedata.entity.BaseData">
+		update sys_base_data 
+		<trim prefix="set" prefixOverrides=",">
+			1=1
+			<if test="id != null">id = #{id},</if>
+			<if test="createTime != null">create_time = #{createTime},</if>
+			<if test="updateTime != null">update_time = #{updateTime},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="code != null">code = #{code},</if>
+			<if test="name != null">name = #{name},</if>
+			<if test="val != null">val = #{val},</if>
+			<if test="remark != null">remark = #{remark},</if>
+			<if test="enable != null">enable = #{enable},</if>
+			<if test="sysParamsId != null">sys_params_id = #{sysParamsId},</if>
+		</trim>	
+	</update>
+
+	<select id="get" parameterType="String" resultType="com.mybatis.platform.basedata.entity.BaseData">
+		select 
+				id,
+				create_time,
+				update_time,
+				status,
+				code,
+				name,
+				val,
+				remark,
+				enable,
+				sys_params_id
+		from sys_base_data where id = #{baseDataId}
+	</select>
+
+	<select id="queryAll" parameterType="String" resultType="com.mybatis.platform.basedata.entity.BaseData">
+		select * from sys_base_data
+	</select>
+
+	<select id="queryListByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.basedata.entity.BaseData">
+		select 
+				id,
+				create_time,
+				update_time,
+				status,
+				code,
+				name,
+				val,
+				remark,
+				enable,
+				sys_params_id
+		from sys_base_data
+			where 1 = 1 
+			<include refid="conditions" />
+	</select>
+
+	<select id="queryPageByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.basedata.entity.BaseData">
+		select 
+				id,
+				create_time,
+				update_time,
+				status,
+				code,
+				name,
+				val,
+				remark,
+				enable,
+				sys_params_id
+		from sys_base_data
+			where 1 = 1 
+			<include refid="conditions" />
+		order by
+            <choose>
+                <when test="order != null">${order} ${sort}</when>
+                <when test="order != null">create_time desc</when>
+            </choose>
+        limit #{startRow}, #{size}
+	</select>
+
+	<sql id="conditions">
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="id != null">and id = #{id}</if>
+			<if test="createTime != null">and create_time = #{createTime}</if>
+			<if test="updateTime != null">and update_time = #{updateTime}</if>
+			<if test="status != null">and status = #{status}</if>
+			<if test="code != null">and code = #{code}</if>
+			<if test="name != null">and name = #{name}</if>
+			<if test="val != null">and val = #{val}</if>
+			<if test="remark != null">and remark = #{remark}</if>
+			<if test="enable != null">and enable = #{enable}</if>
+			<if test="sysParamsId != null">and sys_params_id = #{sysParamsId}</if>
+		</trim>
+	</sql>
+</mapper>

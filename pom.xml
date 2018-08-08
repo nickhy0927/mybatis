@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.mybatis.base</groupId>
+	<artifactId>mybatis-base</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>template</module>
+        <module>mybatis-core</module>
+		<module>mybatis-common</module>
+        <module>mybatis-config</module>
+		<module>mybatis-resources</module>
+        <module>mybatis-platform</module>
+        <module>mybatis-auth</module>
+        <module>mybatis-layui</module>
+    </modules>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.3</version>
+					<configuration>
+						<!--源码的Java版本 -->
+						<source>1.8</source>
+						<!--运行环境的Java版本 -->
+						<target>1.8</target>
+						<encoding>UTF8</encoding>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>
