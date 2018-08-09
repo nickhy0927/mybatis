@@ -14,9 +14,12 @@
 
             //表单验证
             $.validation('addForm', {
-                connectUrl:{ required:true, maxlength:200},
+                ip:{ required:true, maxlength:200},
                 driverClassName:{ required:true,maxlength:100},
                 databaseName:{ required:true,maxlength:100},
+                mysqldumpPath:{ required:true,maxlength:100},
+                params:{ required:true,maxlength:100},
+                databaseType:{ required:true,maxlength:100},
                 username:{ required:true},
                 password:{ required:true,maxlength:50},
             }, function () {
@@ -25,7 +28,7 @@
                     $.submitAjax('${basePath}', {
                         method: 'POST',
                         dataType: 'JSON',
-                        url: '/template/database/database-save.json'
+                        url: '/config/database/database-save.json'
                     },$("#addForm").serialize(), function (result) {
                         if (result.code == 200) {
                             $.openTip(result.msg ,true ,function() {
@@ -60,7 +63,7 @@
             <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span>数据库连接地址：</label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="connectUrl" id="connectUrl" class="input-text" value="" placeholder="请输入数据库连接地址">
+                    <input type="text" name="ip" id="ip" class="input-text" value="" placeholder="请输入数据库连接地址">
                 </div>
             </div>
             <div class="row cl">
@@ -76,20 +79,38 @@
                 </div>
             </div>
             <div class="row cl">
+                <label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span>数据库端口：</label>
+                <div class="formControls col-xs-9 col-sm-9">
+                    <input type="text" name="port" id="port" class="input-text" value="" placeholder="请输入数据库端口">
+                </div>
+            </div>
+            <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span>数据库用户名：</label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <input type="text" name="username" id="username" class="input-text" value="" placeholder="请输入数据库用户名">
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span>数据库密码：</label>
+                <label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span>连接数据库密码：</label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <input type="password" name="password" id="password" class="input-text" value="" placeholder="请输数据库密码">
                 </div>
             </div>
             <div class="row cl">
+                <label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span>导出命令目录：</label>
+                <div class="formControls col-xs-9 col-sm-9">
+                    <input type="text" name="mysqldumpPath" id="mysqldumpPath" class="input-text" value="" placeholder="请输入mysqldump命令目录">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span>连接数据库参数：</label>
+                <div class="formControls col-xs-9 col-sm-9">
+                    <input type="text" name="params" id="params" class="input-text" value="" placeholder="请输入连接数据库参数">
+                </div>
+            </div>
+            <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span>是否可用：</label>
-                <div class="formControls col-xs-9 col-sm-9 skin-minimal">
+                <div class="formControls col-xs-3 col-sm-3 skin-minimal">
                     <div class="radio-box">
                         <input type="radio" name="used" id="base-1" value="1" />
                         <label for="base-1" style="margin-left: 20px;">是</label>
@@ -97,6 +118,17 @@
                     <div class="radio-box">
                         <input type="radio" id="base-2" name="used" value="0" checked="checked">
                         <label for="base-2" style="margin-left: 20px;">否</label>
+                    </div>
+                </div>
+                <label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span>数据库类型：</label>
+                <div class="formControls col-xs-3 col-sm-4 skin-minimal">
+                    <div class="radio-box">
+                        <input type="radio" name="databaseType" id="databaseType-1" value="1" />
+                        <label for="base-1" style="margin-left: 20px;">mysql</label>
+                    </div>
+                    <div class="radio-box">
+                        <input type="radio" id="databaseType-2" name="databaseType" value="2" checked="checked">
+                        <label for="base-2" style="margin-left: 20px;">oracle</label>
                     </div>
                 </div>
             </div>

@@ -7,127 +7,113 @@ import com.mybatis.core.orm.entity.IdEntity;
 @Table(name = "t_config_database", remark = "数据库管理")
 public class Database extends IdEntity {
 
-	/**
-	 * 数据库连接ip
-	 */
 	@Column(comment = "数据库连接ip")
-	private String connectUrl;
+	private String ip;
 
-	/**
-	 * 数据库名称
-	 */
 	@Column(comment = "数据库名称")
 	private String databaseName;
 
-    /**
-     * 数据库驱动名称
-     */
-    @Column(comment = "数据库驱动名称")
+	@Column(comment = "数据库驱动名称")
 	private String driverClassName;
 
-	/**
-	 * 数据库用户名
-	 */
 	@Column(comment = "数据库用户名")
 	private String username;
 
-	/**
-	 * 数据库密码
-	 */
 	@Column(comment = "数据库密码")
 	private String password;
 
-	/**
-	 * 是否启用
-	 */
 	@Column(comment = "是否启用 1 启用 2停用")
 	private Boolean used;
 
-	/**
-	 * 获取：数据库连接ip
-	 * @return
-	 */
-	public String getConnectUrl() {
-		return connectUrl;
+	@Column(comment = "mysqldump命令目录")
+	private String mysqldumpPath;
+
+	@Column(comment = "连接数据库参数")
+	private String params;
+
+	@Column(comment = "数据库类型1 mysql 2 oracle")
+	private Integer databaseType;
+
+	@Column(comment = "连接数据库端口")
+	private Integer port;
+
+	public String getIp() {
+		return ip;
 	}
 
-	/**
-	 * 设置：数据库连接ip
-	 * @param connectUrl
-	 */
-	public void setConnectUrl(String connectUrl) {
-		this.connectUrl = connectUrl;
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 
-	/**
-	 * 获取：数据库名称
-	 * @return
-	 */
 	public String getDatabaseName() {
 		return databaseName;
 	}
 
-	/**
-	 * 设置：数据库名称
-	 * @param databaseName
-	 */
 	public void setDatabaseName(String databaseName) {
 		this.databaseName = databaseName;
 	}
 
-	/**
-	 * 获取：数据库用户名
-	 * @return
-	 */
+	public String getDriverClassName() {
+		return driverClassName;
+	}
+
+	public void setDriverClassName(String driverClassName) {
+		this.driverClassName = driverClassName;
+	}
+
 	public String getUsername() {
 		return username;
 	}
 
-	/**
-	 * 设置：数据库用户名
-	 * @param username
-	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
-	/**
-	 * 获取：数据库密码
-	 * @return
-	 */
 	public String getPassword() {
 		return password;
 	}
 
-	/**
-	 * 设置：数据库用户名
-	 * @param password
-	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	/**
-	 * 获取：启用状态
-	 * @return
-	 */
-	public Boolean isUsed() {
+	public Boolean getUsed() {
 		return used;
 	}
 
-	/**
-	 * 设置：启用状态
-	 * @param used
-	 */
 	public void setUsed(Boolean used) {
 		this.used = used;
 	}
 
-    public String getDriverClassName() {
-        return driverClassName;
-    }
+	public String getMysqldumpPath() {
+		return mysqldumpPath;
+	}
 
-    public void setDriverClassName(String driverClassName) {
-        this.driverClassName = driverClassName;
-    }
+	public void setMysqldumpPath(String mysqldumpPath) {
+		this.mysqldumpPath = mysqldumpPath;
+	}
+
+	public String getParams() {
+		return params;
+	}
+
+	public void setParams(String params) {
+		this.params = params;
+	}
+
+	public Integer getDatabaseType() {
+		return databaseType;
+	}
+
+	public void setDatabaseType(Integer databaseType) {
+		this.databaseType = databaseType;
+	}
+
+	public Integer getPort() {
+		return port;
+	}
+
+	public void setPort(Integer port) {
+		this.port = port;
+	}
 }

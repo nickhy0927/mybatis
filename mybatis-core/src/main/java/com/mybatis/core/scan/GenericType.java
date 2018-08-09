@@ -22,6 +22,8 @@ public class GenericType {
 			dataType = "date";
 		} else if (typeName.equals("java.math.BigInteger")) {
 			dataType = "bigint";
+		} else if (typeName.equals("java.lang.Boolean")) {
+			dataType = "int";
 		} else if (typeName.equals("java.lang.Double")) {
 			dataType = "double";
 		} else if (typeName.equals("java.math.BigDecimal")) {

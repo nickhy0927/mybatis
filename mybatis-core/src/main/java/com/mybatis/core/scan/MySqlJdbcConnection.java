@@ -132,6 +132,9 @@ public class MySqlJdbcConnection {
 		Field[] fields = superclass.getDeclaredFields();
 		for (int i = 0; i < fields.length; i++) {
 			Column column = fields[i].getAnnotation(Column.class);
+			if (column == null) {
+				continue;
+			}
 			String dataType = GenericType.getDataType(fields[i], column);
 			String columnName = StringUtils.isNotEmpty(column.name()) ? column.name() : Underline2Camel.camel2Underline(fields[i].getName()).toLowerCase();
 			if (column.isKey()) {
@@ -149,12 +152,15 @@ public class MySqlJdbcConnection {
 		fields = clazz.getDeclaredFields();
 		for (int i = 0; i < fields.length; i++) {
 			Column column = fields[i].getAnnotation(Column.class);
+			if (column == null) {
+				continue;
+			}
 			if (i != fields.length - 1) {
 				String dataType = GenericType.getDataType(fields[i], column);
 				String columnName = StringUtils.isNotEmpty(column.name()) ? column.name() : Underline2Camel.camel2Underline(fields[i].getName()).toLowerCase();
 				builder.append(columnName).append(" ");
 				builder.append(dataType).append(" comment '");
-				builder.append(column.comment()).append(" '").append(",");;
+				builder.append(column.comment()).append(" '").append(",");
 			} else {
 				String dataType = GenericType.getDataType(fields[i], column);
 				String columnName = StringUtils.isNotEmpty(column.name()) ? column.name() : Underline2Camel.camel2Underline(fields[i].getName()).toLowerCase();

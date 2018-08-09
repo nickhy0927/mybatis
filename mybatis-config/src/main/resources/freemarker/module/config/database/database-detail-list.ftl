@@ -7,7 +7,7 @@
 
         $(document).ready(function () {
             $("#dataGridList").dataGrid({
-                url: ctx + '/template/database/getDatabaseDetailInfo.json?id=${id}',
+                url: ctx + '/config/database/getDatabaseDetailInfo.json?id=${id}',
                 title: '数据库管理列表',
                 method: 'POST',
                 checkbox: true,

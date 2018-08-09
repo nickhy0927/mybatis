@@ -6,13 +6,14 @@
 	<!-- 插入数据 -->
 	<insert id="insert" parameterType="com.mybatis.config.database.entity.Database">
 		insert into t_config_database (
-		    id, create_time, update_time, status,
-		    connect_url,database_name, username, password, used,
-		    driver_class_name
+		    id, create_time, update_time, status,ip,
+		    database_name, username, password, used,
+		    driver_class_name,mysqldump_path, database_type,
+		    params
 		) values (
 		    #{id}, #{createTime}, #{updateTime}, #{status},
-		    #{connectUrl}, #{databaseName}, #{username}, #{password}, #{used},
-		    #{driverClassName}
+		    #{ip}, #{databaseName}, #{username}, #{password}, #{used},
+		    #{driverClassName},#{mysqldumpPath},#{databaseType},#{params}
 		)
 	</insert>
 	<insert id="insertBatchDatabase" parameterType="com.mybatis.config.database.entity.Database">
@@ -48,8 +49,8 @@
         where
             1 = 1
             and t.status = 1
-            <if test="connectUrl != null and connectUrl!= ''">
-                and connect_url like concat(concat('%',#{connectUrl},'%'))
+            <if test="ip != null and ip!= ''">
+                and ip like concat(concat('%',#{ip},'%'))
             </if>
             <if test="databaseName != null and databaseName != ''">
                 and database_name like concat(concat('%',#{databaseName},'%'))
@@ -72,8 +73,8 @@
             t_config_database t
         where
             1 = 1 and t.status = 1
-            <if test="connectUrl != null and connectUrl!= ''">
-                and connect_url like concat(concat('%',#{connectUrl},'%'))
+            <if test="ip != null and ip!= ''">
+                and ip like concat(concat('%',#{ip},'%'))
             </if>
             <if test="databaseName != null and databaseName != ''">
                 and database_name like concat(concat('%',#{databaseName},'%'))
