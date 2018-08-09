@@ -1,4 +1,4 @@
-<#include "../../../common/header.ftl">
+<#include "/common/header.ftl">
 <@htmlHead>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -14,15 +14,10 @@
 
             //表单验证
             $.validation('addForm', {
-            	id: { required:true, maxlength:200},
-            	createTime: { required:true, maxlength:200},
-            	updateTime: { required:true, maxlength:200},
-            	status: { required:true, maxlength:200},
             	code: { required:true, maxlength:200},
             	name: { required:true, maxlength:200},
             	url: { required:true, maxlength:200},
             	alias: { required:true, maxlength:200},
-            	menuId: { required:true, maxlength:200},
             	enable: { required:true, maxlength:200},
             	shows: { required:true, maxlength:200},
             	remark: { required:true, maxlength:200},
@@ -108,15 +103,6 @@
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <input type="text" name="menuId" id="menuId" class="input-text" value="${menu.menuId}" placeholder="please enter menuId">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		是否启用 1 启用 0 停用 ：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="enable" id="enable" class="input-text" value="${menu.enable}" placeholder="please enter enable">
                 </div>
             </div>
 			<div class="row cl">
