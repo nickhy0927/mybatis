@@ -26,7 +26,7 @@ import com.mybatis.common.utils.RequestData;
 /**
  * @Title: userRoleController.java
  * @Package com.mybatis.platform.userRole.controller
- * @Description TODO(用一句话描述该文件做什么)
+ * @Description 用户角色管理
  * @author yuanhuangd
  * @version V1.0
  * @Date: 2018年6月9日 下午6:03:46

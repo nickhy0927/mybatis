@@ -1,7 +1,7 @@
 /**
  * @Title: GeneratorConfiguration.java  
  * @Package com.iss.code.parser 
- * @Description TODO(用一句话描述该文件做什么)  
+ * @Description 代码生成器配置 
  * @author yuanhuangd
  * @version V1.0 
  * @Date: 2018年6月2日 下午3:42:17

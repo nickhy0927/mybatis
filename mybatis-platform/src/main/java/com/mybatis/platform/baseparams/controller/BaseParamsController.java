@@ -26,7 +26,7 @@ import com.mybatis.common.utils.RequestData;
 /**
  * @Title: baseParamsController.java
  * @Package com.mybatis.platform.baseParams.controller
- * @Description TODO(用一句话描述该文件做什么)
+ * @Description 系统参数配置
  * @author yuanhuangd
  * @version V1.0
  * @Date: 2018年6月9日 下午6:03:46

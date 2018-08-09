@@ -26,7 +26,7 @@ import com.mybatis.common.utils.RequestData;
 /**
  * @Title: baseDataController.java
  * @Package com.mybatis.platform.baseData.controller
- * @Description TODO(用一句话描述该文件做什么)
+ * @Description 基础数据设置
  * @author yuanhuangd
  * @version V1.0
  * @Date: 2018年6月9日 下午6:03:46
