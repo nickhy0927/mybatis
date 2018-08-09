@@ -1,4 +1,4 @@
-<#include "../../../common/header.ftl">
+<#include "/common/header.ftl">
 <@htmlHead>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -31,7 +31,7 @@
                     },$("#addForm").serialize(), function (result) {
                         if (result.code == 200) {
                             $.openTip(result.msg ,true ,function() {
-                                parent.window.location.href = ctx + '/platform/menu/menu-list.do';
+                            	window.parent.initData();
                                 var index = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(index);
                             });

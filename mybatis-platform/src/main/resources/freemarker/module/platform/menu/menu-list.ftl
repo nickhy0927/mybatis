@@ -30,7 +30,7 @@
 		function initData() {
 			$("#dataGridList").dataGrid({
                 url: ctx + '/platform/menu/menu-list.json',
-                title: 'Menu管理列表',
+                title: '菜单管理列表',
                 method: 'POST',
                 checkbox: true,
                 pageSize: 6,
@@ -57,7 +57,7 @@
                                 + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
                              + "</a>&nbsp;&nbsp;"
                              + "<a href=\"#\" title=\"删除\" onclick=\"del('" + row.id + "', 'true')\">"
-                                + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
+                                + "<i class=\"Hui-iconfont\">&#xe609;</i>"
                              + "</a>";
                     }}
                 ]
@@ -71,8 +71,8 @@
 <@htmlBody>
 	<nav class="breadcrumb">
         <i class="Hui-iconfont">&#xe67f;</i> 首页
-        <span class="c-gray en">&gt;</span> Menu管理
-        <span class="c-gray en">&gt;</span> Menu列表
+        <span class="c-gray en">&gt;</span> 菜单管理
+        <span class="c-gray en">&gt;</span> 菜单管理列表
         <a class="btn btn-refresh radius r" style="line-height:1.6em;margin-top:3px"
            href="javascript:location.replace(location.href);" title="刷新">
             <i class="Hui-iconfont">&#xe68f;</i>

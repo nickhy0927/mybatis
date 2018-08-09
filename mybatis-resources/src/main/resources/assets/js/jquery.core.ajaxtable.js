@@ -21,6 +21,19 @@ var _sort = function (arr) {
     return arr;
 }
 
+Array.prototype.distinct = function() {
+	var arr = this, result = [], i, j, len = arr.length;
+	for (i = 0; i < len; i++) {
+		for (j = i + 1; j < len; j++) {
+			if (arr[i] === arr[j]) {
+				j = ++i;
+			}
+		}
+		result.push(arr[i]);
+	}
+	return result;
+}
+
 function sortarr(data) {
     var arrs = [], datas = [];
     for (var index in data) {
@@ -158,6 +171,10 @@ $.extend({
             onLoadSuccess: undefined
         }, options || {});
         tableData = $(settings.tableId);
+        var limits = [settings.pageSize, 10, 20, 30, 40, 50, 60];
+        limits = limits.distinct();
+        _sort(limits);
+        settings.limits = limits;
         var array = settings.checkedIds;
         for (var i = 0; i < array.length; i++) {
             var a = array[i];
@@ -446,8 +463,8 @@ var _create_grid_table = function (data, settings) {
             elem: 'paged',
             count: data.totalRecord,
             theme: '#1E9FFF',
-            limit: 6,
-            limits: [10, 20, 30, 40, 50, 60],
+            limit: settings.pageSize,
+            limits: settings.limits,
             curr: data.currentPage,
             layout: ['prev', 'page', 'next', 'limit', 'refresh', 'skip'],
             jump: function (obj, first) {
@@ -455,7 +472,8 @@ var _create_grid_table = function (data, settings) {
                     $("#" + tableId + "_currentPage").val(obj.curr);
                     $.openLoading('正在加载数据，请稍等...');
                     setTimeout(function () {
-                        _query_data_ajxa(settings);
+                    	settings.pageSize = obj.limit;
+                    	_query_data_ajxa(settings);
                         _select_checkbox_all();
                         var num = 0;
                         $('input[name="checkOne"]').each(function () {

@@ -23,11 +23,11 @@ ${r'<@htmlHead>'}
                     $.submitAjax("${r'${basePath}'}", {
                         method: 'POST',
                         dataType: 'JSON',
-                        url: ctx + '/${accessPath}-update.json'
+                        url: '/${accessPath}-update.json'
                     },$("#addForm").serialize(), function (result) {
                         if (result.code == 200) {
                             $.openTip(result.msg ,true ,function() {
-                                parent.window.location.href = ctx + '/${accessPath}-list.do';
+                                window.parent.initData();
                                 var index = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(index);
                             });

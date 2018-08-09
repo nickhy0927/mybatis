@@ -12,8 +12,8 @@ ${r'<@htmlHead>'}
         function delete(id, single) {
             $.datadel({
             	url: "${r'${basePath}'}/${accessPath}-edit/"+ ${r'id'} +".do",
-                type:"post",
-                data:{id: id},
+                type: "post",
+                data: {id: id},
                 success:function(data){
                     if(data.code == 200) {
                     	$.openTip(data.msg, true, function () {
@@ -49,7 +49,7 @@ ${r'<@htmlHead>'}
                                 + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
                              + "</a>&nbsp;&nbsp;"
                              + "<a href=\"#\" title=\"删除\" onclick=\"delete('" + row.id + "', true)\">"
-                                + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
+                                + "<i class=\"Hui-iconfont\">&#xe609;</i>"
                              + "</a>";
                     }}
                 ]

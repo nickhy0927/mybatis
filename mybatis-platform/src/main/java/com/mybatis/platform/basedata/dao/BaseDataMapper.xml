@@ -29,20 +29,19 @@
 	</insert>
 
 	<delete id="delete" parameterType="java.lang.String">
-		delete from sys_base_data where id = #{baseDataId}
+		delete from sys_base_data where id = #{id}
 	</delete>
 
 	<delete id="deleteBatch" parameterType="java.util.List">
 		delete from sys_base_data where id in 
 		<foreach item="id" collection="array" open="(" separator="," close=")">
-			#{baseDataId}
+			#{id}
 		</foreach>
 	</delete>
 
 	<update id="update" parameterType="com.mybatis.platform.basedata.entity.BaseData">
 		update sys_base_data 
-		<trim prefix="set" prefixOverrides=",">
-			1=1
+		<trim prefix="set" suffixOverrides=",">
 			<if test="id != null">id = #{id},</if>
 			<if test="createTime != null">create_time = #{createTime},</if>
 			<if test="updateTime != null">update_time = #{updateTime},</if>
@@ -54,6 +53,7 @@
 			<if test="enable != null">enable = #{enable},</if>
 			<if test="sysParamsId != null">sys_params_id = #{sysParamsId},</if>
 		</trim>	
+		where id = #{id}
 	</update>
 
 	<select id="get" parameterType="String" resultType="com.mybatis.platform.basedata.entity.BaseData">
@@ -68,7 +68,7 @@
 				remark,
 				enable,
 				sys_params_id
-		from sys_base_data where id = #{baseDataId}
+		from sys_base_data where id = #{id}
 	</select>
 
 	<select id="queryAll" parameterType="String" resultType="com.mybatis.platform.basedata.entity.BaseData">

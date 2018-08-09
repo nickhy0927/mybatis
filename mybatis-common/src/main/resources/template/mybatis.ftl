@@ -30,18 +30,18 @@
 	<delete id="deleteBatch" parameterType="java.util.List">
 		delete from ${tableName} where id in 
 		<foreach item="id" collection="array" open="(" separator="," close=")">
-			${"#{" + domainName +"Id}"}
+			${r'#{id}'}
 		</foreach>
 	</delete>
 
 	<update id="update" parameterType="${packages}.${domainObjectName?lower_case}.entity.${domainObjectName}">
 		update ${tableName} 
 		<trim prefix="set" prefixOverrides=",">
-			1=1
 			<#list columnList as column>
 			<if test="${column.javaProperty?uncap_first} != null">${column.actualColumnName} = ${"#{" + column.javaProperty?uncap_first + "}"},</if>
 			</#list>
 		</trim>	
+		where id = ${r'#{id}'}
 	</update>
 
 	<select id="get" parameterType="String" resultType="${packages}.${domainObjectName?lower_case}.entity.${domainObjectName}">
@@ -53,7 +53,7 @@
 				${column.actualColumnName}
 			</#if>
 		</#list>
-		from ${tableName} where id = ${"#{" + domainName +"Id}"}
+		from ${tableName} where id = ${r'#{id}'}
 	</select>
 
 	<select id="queryAll" parameterType="String" resultType="${packages}.${domainObjectName?lower_case}.entity.${domainObjectName}">

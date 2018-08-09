@@ -37,20 +37,19 @@
 	</insert>
 
 	<delete id="delete" parameterType="java.lang.String">
-		delete from sys_user where id = #{userId}
+		delete from sys_user where id = #{id}
 	</delete>
 
 	<delete id="deleteBatch" parameterType="java.util.List">
 		delete from sys_user where id in 
 		<foreach item="id" collection="array" open="(" separator="," close=")">
-			#{userId}
+			#{id}
 		</foreach>
 	</delete>
 
 	<update id="update" parameterType="com.mybatis.platform.user.entity.User">
 		update sys_user 
-		<trim prefix="set" prefixOverrides=",">
-			1=1
+		<trim prefix="set" suffixOverrides=",">
 			<if test="realName != null">real_name = #{realName},</if>
 			<if test="loginName != null">login_name = #{loginName},</if>
 			<if test="password != null">password = #{password},</if>
@@ -66,6 +65,7 @@
 			<if test="updateTime != null">update_time = #{updateTime},</if>
 			<if test="status != null">status = #{status},</if>
 		</trim>	
+		where id = #{id}
 	</update>
 
 	<select id="get" parameterType="String" resultType="com.mybatis.platform.user.entity.User">
@@ -84,7 +84,7 @@
 				create_time,
 				update_time,
 				status
-		from sys_user where id = #{userId}
+		from sys_user where id = #{id}
 	</select>
 
 	<select id="queryAll" parameterType="String" resultType="com.mybatis.platform.user.entity.User">

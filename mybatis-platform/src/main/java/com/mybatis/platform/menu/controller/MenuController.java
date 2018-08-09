@@ -78,12 +78,13 @@ public class MenuController {
 	 */
 	@ResponseBody
     @RequestMapping(value = "/platform/menu/menu-update.json", method = RequestMethod.POST)
-    public MessageObject menuupdate(Menu menu) {
+    public MessageObject menuUpdate(Menu menu) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             menuService.update(menu);
-            messageObject.ok("修改信息成功", menu);
+            messageObject.ok("修改信息成功", null);
         } catch (Exception e) {
+        	e.printStackTrace();
             messageObject.error("修改信息失败");
         }
         return messageObject;

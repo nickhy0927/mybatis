@@ -27,7 +27,7 @@
                     $.submitAjax("${basePath}", {
                         method: 'POST',
                         dataType: 'JSON',
-                        url: ctx + '/platform/menu/menu-update.json'
+                        url: '/platform/menu/menu-update.json'
                     },$("#addForm").serialize(), function (result) {
                         if (result.code == 200) {
                             $.openTip(result.msg ,true ,function() {

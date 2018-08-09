@@ -33,14 +33,13 @@
 	<delete id="deleteBatch" parameterType="java.util.List">
 		delete from sys_role where id in 
 		<foreach item="id" collection="array" open="(" separator="," close=")">
-			#{roleId}
+			#{id}
 		</foreach>
 	</delete>
 
 	<update id="update" parameterType="com.mybatis.platform.role.entity.Role">
 		update sys_role 
-		<trim prefix="set" prefixOverrides=",">
-			1=1
+		<trim prefix="set" suffixOverrides=",">
 			<if test="id != null">id = #{id},</if>
 			<if test="createTime != null">create_time = #{createTime},</if>
 			<if test="updateTime != null">update_time = #{updateTime},</if>
@@ -51,6 +50,7 @@
 			<if test="remark != null">remark = #{remark},</if>
 			<if test="frozen != null">frozen = #{frozen},</if>
 		</trim>	
+		where id = #{id}
 	</update>
 
 	<select id="get" parameterType="String" resultType="com.mybatis.platform.role.entity.Role">
@@ -64,7 +64,7 @@
 				role_id,
 				remark,
 				frozen
-		from sys_role where id = #{roleId}
+		from sys_role where id = #{id}
 	</select>
 
 	<select id="queryAll" parameterType="String" resultType="com.mybatis.platform.role.entity.Role">

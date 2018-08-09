@@ -33,8 +33,7 @@
 
 	<update id="update" parameterType="com.mybatis.platform.rolemenu.entity.RoleMenu">
 		update sys_role_menu 
-		<trim prefix="set" prefixOverrides=",">
-			1=1
+		<trim prefix="set" suffixOverrides=",">
 			<if test="id != null">id = #{id},</if>
 			<if test="createTime != null">create_time = #{createTime},</if>
 			<if test="updateTime != null">update_time = #{updateTime},</if>

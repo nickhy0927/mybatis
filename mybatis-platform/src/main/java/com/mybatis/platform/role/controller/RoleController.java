@@ -76,7 +76,7 @@ public class RoleController {
 	 */
 	@ResponseBody
     @RequestMapping(value = "/platform/role/role-update.json", method = RequestMethod.POST)
-    public MessageObject roleupdate(Role role) {
+    public MessageObject roleUpdate(Role role) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             roleService.update(role);
