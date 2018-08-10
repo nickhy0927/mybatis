@@ -95,8 +95,7 @@ public class BaseParamsController {
 	public MessageObject baseParamsDelete(@PathVariable(value = "id") String id) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
-			String[] ids = id.split(",");
-			List<String> list = Arrays.asList(ids);
+			List<String> list = Arrays.asList(id.split(","));
 			baseParamsService.deleteBatch(list);
 			messageObject.ok("删除信息成功", null);
 		} catch (Exception e) {
