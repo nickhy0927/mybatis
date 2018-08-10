@@ -1,12 +1,14 @@
 package org.mybatis.auth;
 
-import com.mybatis.copy.CopyInit;
-import com.mybatis.core.orm.config.SpringContextHolder;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.mybatis.singleton.UserSingleton;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.mybatis.copy.CopyInit;
+import com.mybatis.core.orm.config.SpringContextHolder;
 
 public class AuthHandlerInterceptor implements HandlerInterceptor {
 
@@ -14,7 +16,7 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         CopyInit copyInit = SpringContextHolder.getBean(CopyInit.class);
         copyInit.init();
-//        System.out.println(request.getRequestURI());
+        UserSingleton.set(request, response);
         return true;
     }
 

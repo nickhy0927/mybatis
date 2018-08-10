@@ -3,32 +3,14 @@
 <mapper namespace="com.mybatis.platform.menu.entity.Menu">
 	<insert id="insert" parameterType="com.mybatis.platform.menu.entity.Menu">
 		insert into sys_menu(
-				id,
-				create_time,
-				update_time,
-				status,
-				code,
-				name,
-				url,
-				alias,
-				menu_id,
-				enable,
-				shows,
-				remark
+			id, create_time, update_time, status,
+			code, name, url, alias, menu_id,
+			enable, shows, remark
 		)
 		values (
-				#{id},
-				#{createTime},
-				#{updateTime},
-				#{status},
-				#{code},
-				#{name},
-				#{url},
-				#{alias},
-				#{menuId},
-				#{enable},
-				#{shows},
-				#{remark}
+			#{id}, #{createTime}, #{updateTime}, #{status},
+			#{code}, #{name}, #{url}, #{alias}, #{menuId},
+			#{enable}, #{shows}, #{remark}
 		)
 	</insert>
 
@@ -95,6 +77,25 @@
         <if test="order != null">order by ${order} ${sort}</if>
         limit #{startRow}, #{size}
 	</select>
+
+
+	<select id="queryMenuByTree" parameterType="java.util.Map" resultType="com.mybatis.platform.menu.entity.MenuTemplate">
+        select
+            id, name, url, alias, menu_id
+        from
+            sys_menu t
+        where
+            t.status = 1
+            and t.shows = 1
+            and t.enable = 1
+            <if test="menuId == null">
+                and t.menu_id is not null
+            </if>
+            <if test="menuId != null">
+                and t.menu_id = #{menuId}
+            </if>
+
+    </select>
 
 	<sql id="conditions">
 		<trim prefix="where" prefixOverrides="and|or">
