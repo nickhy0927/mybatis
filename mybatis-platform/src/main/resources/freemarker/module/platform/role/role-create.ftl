@@ -44,7 +44,7 @@
                         }
                     },function (err) {
                         console.log(err);
-                        $.openTip("信息保存失败" ,true, function() {
+                        $.openTip("保存数据失败，请稍后再试." ,true, function() {
                             $.closeLoading();
                         });
                     })
