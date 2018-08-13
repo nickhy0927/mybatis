@@ -70,8 +70,7 @@
 			</#if>
 		</#list>
 		from ${tableName}
-			where 1 = 1 
-			<include refid="conditions" />
+		<include refid="conditions" />
 	</select>
 
 	<select id="queryPageByMap" parameterType="java.util.Map" resultType="${packages}.${domainObjectName?lower_case}.entity.${domainObjectName}">
@@ -84,8 +83,7 @@
 			</#if>
 		</#list>
 		from ${tableName}
-			where 1 = 1 
-			<include refid="conditions" />
+		<include refid="conditions" />
 		order by
             <choose>
                 <when test="order != null">${r'${order}'} ${r'${sort}'}</when>

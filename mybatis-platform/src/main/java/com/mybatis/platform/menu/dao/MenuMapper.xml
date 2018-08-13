@@ -62,8 +62,7 @@
 			code, name, url, alias, menu_id,
 			enable, shows, remark
 		from sys_menu
-			where 1 = 1 
-			<include refid="conditions" />
+		<include refid="conditions" />
 	</select>
 
 	<select id="queryPageByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.menu.entity.Menu">
@@ -72,8 +71,7 @@
 			code, name, url, alias, menu_id,
 			enable, shows, remark
 		from sys_menu
-			where 1 = 1 
-			<include refid="conditions" />
+		<include refid="conditions" />
         <if test="order != null">order by ${order} ${sort}</if>
         limit #{startRow}, #{size}
 	</select>
