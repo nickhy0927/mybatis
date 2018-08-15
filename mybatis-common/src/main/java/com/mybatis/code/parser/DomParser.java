@@ -31,6 +31,7 @@ public class DomParser {
 			String connetionUrl = connection.element("connect.url").getStringValue();
 			String username = connection.element("username").getStringValue();
 			String password = connection.element("password").getStringValue();
+			String templateType = connection.element("templateType").getStringValue();
 			Element config = element.element("config");
 			String projectPath = config.attributeValue("projectPath");
 			List<Element> elements = config.elements();
@@ -39,6 +40,7 @@ public class DomParser {
 				generatorConfiguration.setProjectPath(projectPath);
 				generatorConfiguration.setDriverClassName(driverClassName);
 				generatorConfiguration.setConnectUrl(connetionUrl);
+				generatorConfiguration.setTemplateType(Integer.parseInt(templateType));
 				generatorConfiguration.setUsername(username);
 				generatorConfiguration.setPassword(password);
 				String baseDir = ele.attributeValue("baseDir");

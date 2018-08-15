@@ -88,7 +88,7 @@
         <property name="suffix" value=".jsp"/>
         <property name="targetDir" value="views"/>
         <property name="fileType" value="2" />
-        <property name="absoluteWebappPath" value="E:\workspaces\IdeaProjects\mybatis\mybatis-base\mybatis-layui\src\main\webapp"/>
+        <property name="absoluteWebappPath" value="D:\develop\tools\sts\works\20180522\mybatis\mybatis-layui\src\main\webapp"/>
         <property name="jars">
             <list>
                 <value>mybatis-config-1.0-SNAPSHOT.jar</value>

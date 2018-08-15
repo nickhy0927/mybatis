@@ -51,13 +51,24 @@ public class FileGenerator {
 		if (configuration.isEntitywrite()) {
 			domainFile(root, configuration);
 		}
-		if (configuration.isDaowrite()) {
-			daoFile(root, configuration);
-			daoImplFile(root, configuration);
-			xmlFile(root, configuration);
-		}
-		if (configuration.isServicewrite()) {
-			serviceFile(root, configuration);
+		if(configuration.getTemplateType() == 1) {
+			if (configuration.isDaowrite()) {
+				daoFile(root, configuration);
+				daoImplFile(root, configuration);
+				xmlFile(root, configuration);
+			}
+			if (configuration.isServicewrite()) {
+				serviceFile(root, configuration);
+			}
+		} else {
+			if (configuration.isDaowrite()) {
+				mapperFile(root, configuration);
+				mapperXmlFile(root, configuration);
+			}
+			if (configuration.isServicewrite()) {
+				mapperServiceFile(root, configuration);
+				mapperServiceImplFile(root, configuration);
+			}
 		}
 		if (configuration.isControllerwrite()) {
 			controllerFile(root, configuration);
@@ -112,6 +123,16 @@ public class FileGenerator {
 		writeSingleFile(cfg, root, template, projectPath, packagePath, configuration.getEntityName(), suffix,
 				configuration.isDaowrite());
 	}
+	private static void mapperFile(Map<String, Object> root, GeneratorConfiguration configuration) throws Exception {
+		Configuration cfg = getConfig();
+		String suffix = "Mapper.java";
+		String projectPath = configuration.getProjectPath();
+		String domainObjectName = getDomainObjectName(configuration.getEntityName());
+		String packagePath = getPackages(configuration) + "/" + domainObjectName + "/dao";
+		String template = "mapper.ftl";
+		writeSingleFile(cfg, root, template, projectPath, packagePath, configuration.getEntityName(), suffix,
+				configuration.isDaowrite());
+	}
 
 	/**
 	 * 生成dao实现类
@@ -137,6 +158,26 @@ public class FileGenerator {
 		String projectPath = configuration.getProjectPath();
 		String packagePath = getPackages(configuration) + "/" + getDomainObjectName(configuration.getEntityName()) + "/service";
 		String template = "service.ftl";
+		writeSingleFile(cfg, root, template, projectPath, packagePath, configuration.getEntityName(), suffix,
+				configuration.isServicewrite());
+	}
+	
+	private static void mapperServiceFile(Map<String, Object> root, GeneratorConfiguration configuration) throws Exception {
+		Configuration cfg = getConfig();
+		String suffix = "Service.java";
+		String projectPath = configuration.getProjectPath();
+		String packagePath = getPackages(configuration) + "/" + getDomainObjectName(configuration.getEntityName()) + "/service";
+		String template = "mapperService.ftl";
+		writeSingleFile(cfg, root, template, projectPath, packagePath, configuration.getEntityName(), suffix,
+				configuration.isServicewrite());
+	}
+	
+	private static void mapperServiceImplFile(Map<String, Object> root, GeneratorConfiguration configuration) throws Exception {
+		Configuration cfg = getConfig();
+		String suffix = "ServiceImpl.java";
+		String projectPath = configuration.getProjectPath();
+		String packagePath = getPackages(configuration) + "/" + getDomainObjectName(configuration.getEntityName()) + "/service/impl";
+		String template = "mapperServiceImpl.ftl";
 		writeSingleFile(cfg, root, template, projectPath, packagePath, configuration.getEntityName(), suffix,
 				configuration.isServicewrite());
 	}
@@ -218,6 +259,18 @@ public class FileGenerator {
 		String packagePath = javaFilePackage + "/" + domainObjectName + "/dao";
 		writeSingleFile(cfg, root, template, projectPath, packagePath, configuration.getEntityName(), suffix,
 				configuration.isOverwrite());
+	}
+	
+	private static void mapperXmlFile(Map<String, Object> root, GeneratorConfiguration configuration) throws Exception {
+		Configuration cfg = getConfig();
+		String suffix = "Mapper.xml";
+		String template = "mybatisMapper.ftl";
+		String projectPath = configuration.getProjectPath();
+		String javaFilePackage = getPackages(configuration);
+		String domainObjectName = getDomainObjectName(configuration.getEntityName());
+		String packagePath = javaFilePackage + "/" + domainObjectName + "/dao";
+		writeSingleFile(cfg, root, template, projectPath, packagePath, configuration.getEntityName(), suffix,
+				configuration.isDaowrite());
 	}
 
 	private static String getDomainObjectName(String domainObjectName) {

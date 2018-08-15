@@ -5,6 +5,8 @@ package com.mybatis.core.orm.entity;
 
 import org.apache.ibatis.session.RowBounds;
 
+import com.mybatis.common.utils.PageSupport;
+
 /**
  * @author yuanghuangd
  * @date 2018年8月15日 上午10:19:20
@@ -20,17 +22,28 @@ public class PageRowBounds extends RowBounds {
 
 	private int offset;
 	private int limit;
-
+	
+	private PageSupport support;
+	
 	public PageRowBounds() {
 		this.offset = NO_ROW_OFFSET;
 		this.limit = NO_ROW_LIMIT;
 	}
 
-	public PageRowBounds(int offset, int limit) {
-		this.offset = offset;
-		this.limit = limit;
+	public PageRowBounds(PageSupport support) {
+		this.offset = support.getStartRow();
+		this.limit = support.getpageSize();
+		setSupport(support);
 	}
 
+	public PageSupport getSupport() {
+		return support;
+	}
+	
+	public void setSupport(PageSupport support) {
+		this.support = support;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
