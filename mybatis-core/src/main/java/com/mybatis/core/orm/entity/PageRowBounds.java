@@ -1,0 +1,54 @@
+/**
+ * 
+ */
+package com.mybatis.core.orm.entity;
+
+import org.apache.ibatis.session.RowBounds;
+
+/**
+ * @author yuanghuangd
+ * @date 2018年8月15日 上午10:19:20
+ */
+public class PageRowBounds extends RowBounds {
+
+	/* 默认offset是0 **/
+	public static final int NO_ROW_OFFSET = 0;
+
+	/* 默认Limit是int的最大值，因此它使用的是逻辑分页 **/
+	public static final int NO_ROW_LIMIT = Integer.MAX_VALUE;
+	public static final RowBounds DEFAULT = new RowBounds();
+
+	private int offset;
+	private int limit;
+
+	public PageRowBounds() {
+		this.offset = NO_ROW_OFFSET;
+		this.limit = NO_ROW_LIMIT;
+	}
+
+	public PageRowBounds(int offset, int limit) {
+		this.offset = offset;
+		this.limit = limit;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.apache.ibatis.session.RowBounds#getOffset()
+	 */
+	@Override
+	public int getOffset() {
+		return offset;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.apache.ibatis.session.RowBounds#getLimit()
+	 */
+	@Override
+	public int getLimit() {
+		return limit;
+	}
+
+}
