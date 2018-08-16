@@ -56,7 +56,7 @@
                 }
             });
         }
-        
+
         function getDevTypeObj(dataObj, treeNodes) {
             for (var i = 0; i < dataObj.length; i++) {
                 treeNodes.push({

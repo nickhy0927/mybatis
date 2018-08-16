@@ -1,95 +1,63 @@
-<#include "/common/header.ftl">
-<@htmlHead>
+[#ftl encoding="utf-8" strict_syntax=true]
+[#include "/common/header.ftl"]
+[@htmlHead]
+    <style type="text/css">
+        ul.ztree {
+            margin-top: 0px;
+            border: 1px solid #617775;
+            background: #f0f6e4;
+            width: auto;
+            height: auto;
+            overflow-y: scroll;
+            overflow-x: auto;
+        }
+    </style>
     <script type="text/javascript">
         function removeIframe() {
             var index = parent.layer.getFrameIndex(window.name);
             parent.layer.close(index);
         }
 
-        var settings = {
-            view: {
-                dblClickExpand: false
-            },
+        var zNodes = ${menuList};
+        function showTree() {
+            $("#treeDemo").attr('style', "display:block;z-index:100;position：absolute");
+        }
+        function zTreeOnClick(event, treeId, treeNode) {
+            $("#menuName").val(treeNode.name);
+            $("#menuId").val(treeNode.id);
+            $("#treeDemo").attr('style', "display:none;z-index:100;position：absolute");
+        }
+        var setting = {
             data: {
                 simpleData: {
                     enable: true
                 }
             },
             callback: {
-                onClick: deviceTypeOnClick
+                onClick: zTreeOnClick
             }
         };
 
-        function deviceTypeOnClick(e, treeId, treeNode) {
-            // var zTree = $.fn.zTree.getZTreeObj("deviceTypeTree");
-            // var nodes = zTree.getSelectedNodes();
-            // $(".selectDevTypeid").val(nodes[0].id);
-            // $("#selectDevType").val(nodes[0].name);
-        }
-
-        showDevTypeTree();
-        function showDevTypeTree() {
-            $.ajax({
-                url: ctx + '/platform/menu/query-menu.json',
-                type: 'POST',
-                data: {
-                    menuId: ""
-                },
-                async: false,
-                success: function (msg) {
-                    var obj = eval("(" + msg + ")");
-                    var deviceTypeNodes = [];
-                    getDevTypeObj(obj, deviceTypeNodes);
-                    console.log(deviceTypeNodes);
-                    $.fn.zTree.init($("#deviceTypeTree"), settings, deviceTypeNodes);
-                    var deptObj = $("#selectDevType");
-                    var deptOffset = $("#selectDevType").offset();
-                    /* $("#devTreeContent").css({
-                        left: deptOffset.left + "px",
-                        top: deptOffset.top + deptObj.outerHeight() + "px"
-                    }).slideDown("fast"); */
-                    $('#deviceTypeTree').css({width: deptObj.outerWidth() - 12 + "px"});
-                    var zTree = $.fn.zTree.getZTreeObj("deviceTypeTree");
-                    var node = zTree.getNodeByParam("id", $('.selectDevTypeid').val(), null);
-                    zTree.selectNode(node);
-                    $("body").bind("mousedown", onBodyDownByDevType);
-                }
-            });
-        }
-        
-        function getDevTypeObj(dataObj, treeNodes) {
-            for (var i = 0; i < dataObj.length; i++) {
-                treeNodes.push({
-                    id: dataObj[i].id,
-                    pId: dataObj[i].pId,
-                    name: dataObj[i].name
-                });
-                loadChildDevTypeObj(dataObj[i], treeNodes);
-            }
-        }
-
-        function loadChildDevTypeObj(dataObj, treeNodes) {
-            var childObj = dataObj.children;
-            for (var j = 0; j < childObj.length; j++) {
-                treeNodes.push({
-                    id: childObj[j].id,
-                    pId: childObj[j].menuId,
-                    name: childObj[j].name
-                });
-                loadChildDevTypeObj(childObj[j], treeNodes);
-            }
-        }
-
-        function onBodyDownByDevType(event) {
-            if (event.target.id.indexOf('switch') == -1) {
-                hideDeviceTypeMenu();
-            }
-        }
-        function hideDeviceTypeMenu() {
-            $("#devTreeContent").fadeOut("fast");
-            $("body").unbind("mousedown", onBodyDownByDevType);
+        function showMenu(){
+            var cityObj = $("#menuId");
+            var cityOffset = $("#menuId").offset();
+            $("#treeDemo").css({left:cityOffset.left+"px",top:cityOffset.top+cityObj.outerHeight()+"px"}).slideDown("fast");
         }
         $(document).ready(function () {
+            $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            $("body").bind("mousedown", function(event){
+                if (!(event.target.id == "treeDemo" || $(event.target).parents("#DropdownMenuBackground").length>0)) {
+                    hideMenu();
+                }
+            });
+        });
+
+        function hideMenu() {
+            $("#treeDemo").fadeOut("fast");
+        }
+
+        $(document).ready(function () {
+
             $('.skin-minimal input').iCheck({
                 checkboxClass: 'icheckbox-blue',
                 radioClass: 'iradio-blue',
@@ -100,7 +68,6 @@
                 return this.optional(element) || reg.test(value);
             }, "输入的电话号码不正确");
 
-            //è¡¨åéªè¯
             $.validation('addForm', {
                 code: {required: true, maxlength: 200},
                 name: {required: true, maxlength: 200},
@@ -110,7 +77,7 @@
                 shows: {required: true, maxlength: 200},
                 remark: {required: true, maxlength: 200},
             }, function () {
-            	$.openTip('你确定要保存吗？',false ,function() {
+                $.openTip('你确定要保存吗？', false, function () {
                     $.openLoading("正在保存数据，请稍等...");
                     $.submitAjax("${basePath}", {
                         method: 'POST',
@@ -138,8 +105,8 @@
             });
         });
     </script>
-</@htmlHead>
-<@htmlBody>
+[/@htmlHead]
+[@htmlBody]
     <article class="page-container">
         <form class="form form-horizontal" id="addForm">
             <div class="row cl">
@@ -176,15 +143,14 @@
             <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
                     <span class="c-red">*</span>上级菜单:
-               	</label>
+                </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="menuId" id="menuId" class="input-text device_select"
-                           onfocus="showDevTypeTree()" onclick="showDevTypeTree()" readonly="readonly" value=""
-                           placeholder="请选择上级菜单">
-                    <input type="hidden" class="selectDevTypeid">
-                    <div id="devTreeContent" class="menuContent"
-                         style="display: none; position: absolute; border: 1px #CCC solid; background-color: #F0F6E4;">
-                        <ul id="deviceTypeTree" class="ztree" style="margin-top:0;"></ul>
+                    <div class="input-append">
+                        <input type="text" name="menuName" id="menuName" class="input-text device_select"
+                               onfocus="showTree()" onclick="showTree()" readonly="readonly" value=""
+                               placeholder="请选择上级菜单">
+                        <input name="menuId" type="hidden" id="menuId">
+                        <ul id="treeDemo" class="ztree"></ul>
                     </div>
                 </div>
             </div>
@@ -204,7 +170,7 @@
                 </div>
                 <label class="form-label col-xs-3 col-sm-2">
                     <span class="c-red">*</span>
-                   	是否显示:
+                    是否显示:
                 </label>
                 <div class="formControls col-xs-3 col-sm-4 skin-minimal">
                     <div class="radio-box">
@@ -225,7 +191,7 @@
                     <input type="text" name="remark" id="remark" class="input-text" value="" placeholder="请输入菜单备注信息">
                 </div>
             </div>
-           <div class="row cl">
+            <div class="row cl">
                 <div class="col-xs-7 col-sm-8 col-xs-offset-2 col-sm-offset-2">
                     <button class="btn btn-primary radius" type="submit">&nbsp;&nbsp;保存&nbsp;&nbsp;</button>
                     <button onClick="removeIframe();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
@@ -233,4 +199,4 @@
             </div>
         </form>
     </article>
-</@htmlBody>
+[/@htmlBody]

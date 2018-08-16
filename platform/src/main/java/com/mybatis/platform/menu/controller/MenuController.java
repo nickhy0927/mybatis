@@ -8,6 +8,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.common.collect.Lists;
+import com.mybatis.common.utils.*;
+import com.mybatis.core.orm.constant.SysConstant;
+import com.mybatis.platform.menu.entity.MenuTree;
+import com.mybatis.utils.NumberCreate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mybatis.platform.menu.entity.Menu;
 import com.mybatis.platform.menu.service.MenuService;
-import com.mybatis.common.utils.MessageObject;
-import com.mybatis.common.utils.PageSupport;
-import com.mybatis.common.utils.PagerInfo;
-import com.mybatis.common.utils.RequestData;
 import com.mybatis.core.orm.entity.PageRowBounds;
 
 /**
@@ -42,9 +43,22 @@ public class MenuController {
 	 * 新增页面
 	 */
 	@RequestMapping(value = "/platform/menu/menu-create.do", method = RequestMethod.GET)
-	public String menuCreate() {
-		return "module/platform/menu/menu-create";
-	}
+    public String menuCreate(Model model, HttpServletRequest request) {
+        try {
+            model.addAttribute("code", NumberCreate.generateNumber2());
+            Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
+            paramsMap.put("status", SysConstant.DataStatus.VALID);
+            List<Menu> menuList = menuService.queryListByMap(paramsMap);
+            List<MenuTree> menuTrees = Lists.newArrayList();
+            for (Menu menu : menuList) {
+                menuTrees.add(new MenuTree(menu));
+            }
+            model.addAttribute("menuList", JsonMapper.toJson(menuTrees));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "module/platform/menu/menu-create";
+    }
 	
 	/**
 	 * 新增数据到数据库
