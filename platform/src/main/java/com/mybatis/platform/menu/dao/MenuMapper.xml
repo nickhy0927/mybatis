@@ -45,20 +45,19 @@
 
 	<update id="update" parameterType="com.mybatis.platform.menu.entity.Menu">
 		update sys_menu 
-		<trim prefix="set" prefixOverrides=",">
-			<if test="id != null">id = #{id},</if>
-			<if test="createTime != null">create_time = #{createTime},</if>
-			<if test="updateTime != null">update_time = #{updateTime},</if>
-			<if test="status != null">status = #{status},</if>
-			<if test="code != null">code = #{code},</if>
-			<if test="name != null">name = #{name},</if>
-			<if test="url != null">url = #{url},</if>
-			<if test="alias != null">alias = #{alias},</if>
-			<if test="menuId != null">menu_id = #{menuId},</if>
-			<if test="enable != null">enable = #{enable},</if>
-			<if test="shows != null">shows = #{shows},</if>
-			<if test="remark != null">remark = #{remark},</if>
-		</trim>	
+        <trim prefix="set" prefixOverrides="," suffixOverrides=",">
+            <if test="id != null">id = #{id},</if>
+            <if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="code != null and code != ''">code = #{code},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="url != null and url != ''">url = #{url},</if>
+            <if test="alias != null and alias != ''">alias = #{alias},</if>
+            <if test="menuId != null and menuId != ''">menu_id = #{menuId},</if>
+            <if test="enable != null and enable != ''">enable = #{enable},</if>
+            <if test="shows != null and shows != ''">shows = #{shows},</if>
+            remark = #{remark}
+        </trim>
 		where id = #{id}
 	</update>
 	
@@ -66,18 +65,17 @@
 		update sys_menu 
 		<trim prefix="set" prefixOverrides=",">
 			<if test="id != null">id = #{id},</if>
-			<if test="createTime != null">create_time = #{createTime},</if>
-			<if test="updateTime != null">update_time = #{updateTime},</if>
-			<if test="status != null">status = #{status},</if>
-			<if test="code != null">code = #{code},</if>
-			<if test="name != null">name = #{name},</if>
-			<if test="url != null">url = #{url},</if>
-			<if test="alias != null">alias = #{alias},</if>
-			<if test="menuId != null">menu_id = #{menuId},</if>
-			<if test="enable != null">enable = #{enable},</if>
-			<if test="shows != null">shows = #{shows},</if>
-			<if test="remark != null">remark = #{remark},</if>
-		</trim>	
+			<if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
+			<if test="status != null and status != ''">status = #{status},</if>
+			<if test="code != null and code != ''">code = #{code},</if>
+			<if test="name != null and name != ''">name = #{name},</if>
+			<if test="url != null and url != ''">url = #{url},</if>
+			<if test="alias != null and alias != ''">alias = #{alias},</if>
+			<if test="menuId != null and menuId != ''">menu_id = #{menuId},</if>
+			<if test="enable != null and enable != ''">enable = #{enable},</if>
+			<if test="shows != null and shows != ''">shows = #{shows},</if>
+            remark = #{remark}
+		</trim>
 		where id = #{id}
 	</update>
 
@@ -179,18 +177,16 @@
 
 	<sql id="conditions">
 		<trim prefix="where" prefixOverrides="and|or">
-			<if test="id != null">and id = #{id}</if>
-			<if test="createTime != null">and create_time = #{createTime}</if>
-			<if test="updateTime != null">and update_time = #{updateTime}</if>
-			<if test="status != null">and status = #{status}</if>
-			<if test="code != null">and code = #{code}</if>
-			<if test="name != null">and name = #{name}</if>
-			<if test="url != null">and url = #{url}</if>
-			<if test="alias != null">and alias = #{alias}</if>
-			<if test="menuId != null">and menu_id = #{menuId}</if>
-			<if test="enable != null">and enable = #{enable}</if>
-			<if test="shows != null">and shows = #{shows}</if>
-			<if test="remark != null">and remark = #{remark}</if>
+			<if test="id != null and alias != ''">and id = #{id}</if>
+			<if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+			<if test="status != null and status != ''">and status = #{status}</if>
+			<if test="code != null and code != ''">and code = #{code}</if>
+			<if test="name != null and name != ''">and name like concat('%',#{name},'%')</if>
+			<if test="url != null and url != ''">and url like concat('%',#{url},'%')</if>
+			<if test="alias != null and alias != ''">and alias like concat('%',#{alias},'%')</if>
+			<if test="menuId != null and menuId != ''">and menu_id = #{menuId}</if>
+			<if test="enable != null and enable != ''">and enable = #{enable}</if>
+			<if test="shows != null and shows != ''">and shows = #{shows}</if>
 		</trim>
 	</sql>
 </mapper>

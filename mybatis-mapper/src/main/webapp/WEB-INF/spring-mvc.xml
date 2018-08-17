@@ -38,12 +38,12 @@
     </mvc:annotation-driven>
 
     <mvc:default-servlet-handler/>
-    <!-- <mvc:interceptors>
+    <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <bean class="org.mybatis.auth.AuthHandlerInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors> -->
+    </mvc:interceptors>
 
     <bean id="freeMarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF/views/"></property>

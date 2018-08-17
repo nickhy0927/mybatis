@@ -1,17 +1,12 @@
 package com.mybatis.platform.menu.controller;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.google.common.collect.Lists;
 import com.mybatis.common.utils.*;
 import com.mybatis.core.orm.constant.SysConstant;
+import com.mybatis.core.orm.entity.PageRowBounds;
+import com.mybatis.platform.menu.entity.Menu;
 import com.mybatis.platform.menu.entity.MenuTree;
+import com.mybatis.platform.menu.service.MenuService;
 import com.mybatis.utils.NumberCreate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mybatis.platform.menu.entity.Menu;
-import com.mybatis.platform.menu.service.MenuService;
-import com.mybatis.core.orm.entity.PageRowBounds;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Title: menuController.java
@@ -59,47 +56,69 @@ public class MenuController {
         }
         return "module/platform/menu/menu-create";
     }
-	
+
 	/**
 	 * 新增数据到数据库
 	 */
-	@ResponseBody
     @RequestMapping(value = "/platform/menu/menu-save.json", method = RequestMethod.POST)
-    public MessageObject menuSave(Menu menu) {
+    public void menuSave(Menu menu) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             menuService.insert(menu);
             messageObject.ok("保存信息成功", menu);
         } catch (Exception e) {
             messageObject.error("保存信息失败");
+        } finally {
+            try {
+                messageObject.returnData(messageObject);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return messageObject;
     }
     
     /**
 	 * 修改页面
 	 */
 	@RequestMapping(value = "/platform/menu/menu-edit/{id}.do", method = RequestMethod.GET)
-	public String menuEdit(@PathVariable(value = "id") String id, Model model) {
-		Menu menu = menuService.get(id);
-		model.addAttribute("menu", menu);
+	public String menuEdit(@PathVariable(value = "id") String id, Model model,HttpServletRequest request) {
+		try {
+            Menu menu = menuService.get(id);
+            model.addAttribute("menu", menu);
+            Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
+            paramsMap.put("status", SysConstant.DataStatus.VALID);
+            List<Menu> menuList = menuService.queryListByMap(paramsMap);
+            List<MenuTree> menuTrees = Lists.newArrayList();
+            for (Menu m : menuList) {
+                menuTrees.add(new MenuTree(m));
+            }
+            model.addAttribute("menuList", JsonMapper.toJson(menuTrees));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 		return "module/platform/menu/menu-edit";
 	}
 	
 	/**
 	 * 更新数据到数据库
 	 */
-	@ResponseBody
     @RequestMapping(value = "/platform/menu/menu-update.json", method = RequestMethod.POST)
-    public MessageObject menuupdate(Menu menu) {
+    public void menuupdate(Menu menu) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             menuService.update(menu);
             messageObject.ok("修改信息成功", menu);
         } catch (Exception e) {
+            e.printStackTrace();
             messageObject.error("修改信息失败");
+        } finally {
+            try {
+                messageObject.returnData(messageObject);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return messageObject;
+
     }
 	
 	/**
@@ -132,21 +151,26 @@ public class MenuController {
 	 * 获取列表数据
 	 */
 	@RequestMapping(value = "/platform/menu/menu-list.json", method = RequestMethod.POST)
-	public void menuList(HttpServletRequest request, HttpServletResponse response, PageSupport support) {
+	public void menuList(HttpServletRequest request, PageSupport support) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
 			PagerInfo<Menu> pagerInfo = menuService.queryPage(paramsMap, new PageRowBounds(support));
-			messageObject.ok("获取模版输出成功", pagerInfo);
+            List<Menu> menuList = pagerInfo.getContent();
+            for(Menu menu : menuList) {
+                menu.setMenu(menuService.get(menu.getMenuId()));
+            }
+            pagerInfo.setContent(menuList);
+            messageObject.ok("获取模版输出成功", pagerInfo);
 		} catch (IOException e) {
 			e.printStackTrace();
 			messageObject.error("获取模版数据异常");
 		} finally {
-			try {
-				messageObject.returnData(response, messageObject);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+            try {
+                messageObject.returnData(messageObject);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 	}
 }

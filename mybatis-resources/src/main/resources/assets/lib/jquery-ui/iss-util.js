@@ -85,9 +85,10 @@ function openLoading(msg) {
     layer.msg(msg, {icon: 16, time: 1000 * 10000, shade: [0.3, '#000']});
 }
 
-function _openTip(content, isAlert, callback) {
+function _openTip(content, isAlert, callback, title) {
     if (isAlert) {
         layer.confirm(content, {
+            title: title ? title : '提示信息',
             closeBtn: 0,
             btn: ['确定'] //按钮
         }, function () {
@@ -101,6 +102,7 @@ function _openTip(content, isAlert, callback) {
         });
     } else {
         layer.confirm(content, {
+            title: title ? title : false,
             closeBtn: 0,
             btn: ['确定', '取消'] //按钮
         }, function () {
@@ -162,7 +164,16 @@ function _submitAjax(ctx, opt, data, success, error) {
         data: data,
         async: false,
         success: function (data) {
+            try {
+                data = eval('(' + data +')');
+            } catch (err) {}
             console.log(data);
+            if (data.status != 200 && data.code != 200) {
+                $.openTip(data.message, true, function () {
+                    $.closeLoading();
+                }, '提示信息');
+                return;
+            }
             $.closeLoading();
             success(data);
         },

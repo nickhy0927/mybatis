@@ -1,10 +1,12 @@
 package com.mybatis.platform.menu.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.mybatis.core.orm.annotation.Column;
 import com.mybatis.core.orm.annotation.Table;
 import com.mybatis.core.orm.entity.IdEntity;
 
-@Table(name = "sys_menu", remark = "")
+@Table(name = "sys_menu", remark = "菜单")
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Menu extends IdEntity {
 	
 	/**
@@ -54,6 +56,17 @@ public class Menu extends IdEntity {
 	  */
     @Column(name = "remark",comment = "信息备注")
 	private String remark;
+
+
+    private Menu menu;
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
 
     /**
      * 获取：菜单编号 

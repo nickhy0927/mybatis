@@ -1,10 +1,12 @@
 package com.mybatis.platform.role.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.mybatis.core.orm.annotation.Column;
 import com.mybatis.core.orm.annotation.Table;
 import com.mybatis.core.orm.entity.IdEntity;
 
-@Table(name = "sys_role", remark = "")
+@Table(name = "sys_role", remark = "角色")
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Role extends IdEntity {
 	
 	/**
