@@ -30,37 +30,34 @@ public class ReturnFormat {
         messageMap.put("1005", "[服务器]数组越界异常");
         messageMap.put("1006", "[服务器]网络异常");
 
-        messageMap.put("1010", "用户未注册");
-        messageMap.put("1011", "用户已注册");
-        messageMap.put("1012", "用户名或密码错误");
-        messageMap.put("1013", "用户帐号冻结");
-        messageMap.put("1014", "用户信息编辑失败");
-        messageMap.put("1015", "用户信息失效，请重新获取");
 
-        messageMap.put("1020", "验证码发送失败");
-        messageMap.put("1021", "验证码失效");
-        messageMap.put("1022", "验证码错误");
-        messageMap.put("1023", "验证码不可用");
-        messageMap.put("1029", "短信平台异常");
+        messageMap.put("200", "数据保存成功");
+        messageMap.put("201", "数据保存失败");
 
-        messageMap.put("1030", "周边无店铺");
-        messageMap.put("1031", "店铺添加失败");
-        messageMap.put("1032", "编辑店铺信息失败");
-        messageMap.put("1033", "每个用户只能添加一个商铺");
-        messageMap.put("1034", "店铺不存在");
+        messageMap.put("301", "数据修改成功");
+        messageMap.put("302", "数据修改失败");
 
-        messageMap.put("1040", "无浏览商品");
-        messageMap.put("1041", "添加失败,商品种类超出上限");
-        messageMap.put("1042", "商品不存在");
-        messageMap.put("1043", "商品删除失败");
+        messageMap.put("401", "数据删除成功");
+        messageMap.put("402", "数据删除失败");
 
-        messageMap.put("2010", "缺少参数或值为空");
+        messageMap.put("501", "获取数据列表成功");
+        messageMap.put("502", "获取数据列表失败");
+    }
 
-        messageMap.put("2029", "参数不合法");
-        messageMap.put("2020", "无效的Token");
-        messageMap.put("2021", "无操作权限");
-        messageMap.put("2022", "RSA解密失败,密文数据已损坏");
-        messageMap.put("2023", "请重新登录");
+    public static class StatusCode {
+        public static final int CODE_400 = 400;
+        public static final int CODE_401 = 401;
+        public static final int CODE_405 = 405;
+        public static final int CODE_406 = 406;
+        public static final int CODE_500 = 500;
+        public static final int CODE_1000 = 1000;
+        public static final int CODE_1001 = 1001;
+        public static final int CODE_1002 = 1002;
+        public static final int CODE_1003 = 1003;
+        public static final int CODE_1004 = 1004;
+        public static final int CODE_41005 = 1005;
+        public static final int CODE_1006 = 1006;
+        public static final int CODE_1007 = 1007;
     }
 
     public static String retParam(int status, Object data) {

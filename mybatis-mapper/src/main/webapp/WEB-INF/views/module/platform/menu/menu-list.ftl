@@ -45,7 +45,7 @@
 					{field: 'name', className: 'text-l', description: '菜单名称 ', sort: true},
 					{field: 'url', className: 'text-l', description: '菜单地址 ', sort: true},
 					{field: 'alias', className: 'text-l', description: '菜单别名 ', sort: true},
-					{field: 'menuId', className: 'text-l', description: '上级菜单 ', sort: true},
+					{field: 'menu.name', className: 'text-l', description: '上级菜单 ', sort: true},
 					{field: 'enable', className: 'text-l', description: '是否启用 ', sort: true, paramFormatter: function (row) {
 						return row.enable == 1 ? '启用' : '停用';
 					}},

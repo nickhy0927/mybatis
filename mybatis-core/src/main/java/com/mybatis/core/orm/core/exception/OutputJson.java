@@ -11,32 +11,32 @@ public class OutputJson implements Serializable {
      */
     private static final long serialVersionUID = 1L;
     //状态码
-    private int status;
+    private int code;
     //必要的提示信息
-    private String message;
+    private String msg;
     //业务数据
     private Object data;
 
-    public OutputJson(int status, String message, Object data) {
-        this.status = status;
-        this.message = message;
+    public OutputJson(int code, String msg, Object data) {
+        this.code = code;
+        this.msg = msg;
         this.data = data;
     }
 
-    public int getStatus() {
-        return status;
+    public int getCode() {
+        return code;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public Object getData() {

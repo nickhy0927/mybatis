@@ -3,32 +3,14 @@
 <mapper namespace="com.mybatis.platform.menu.dao.MenuMapper">
 	<insert id="insert" parameterType="com.mybatis.platform.menu.entity.Menu">
 		insert into sys_menu(
-				id,
-				create_time,
-				update_time,
-				status,
-				code,
-				name,
-				url,
-				alias,
-				menu_id,
-				enable,
-				shows,
-				remark
+            id,create_time, update_time, status,
+            code, name, url, alias, menu_id,
+            enable, shows, remark
 		)
 		values (
-				#{id},
-				#{createTime},
-				#{updateTime},
-				#{status},
-				#{code},
-				#{name},
-				#{url},
-				#{alias},
-				#{menuId},
-				#{enable},
-				#{shows},
-				#{remark}
+            #{id}, #{createTime}, #{updateTime}, #{status},
+            #{code}, #{name}, #{url}, #{alias},
+            #{menuId}, #{enable}, #{shows}, #{remark}
 		)
 	</insert>
 
@@ -81,53 +63,26 @@
 
 	<select id="get" parameterType="String" resultType="com.mybatis.platform.menu.entity.Menu">
 		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				code,
-				name,
-				url,
-				alias,
-				menu_id,
-				enable,
-				shows,
-				remark
+            id, create_time, update_time,
+            status, code, name, url, alias,
+            menu_id, enable, shows, remark
 		from sys_menu where id = #{id}
 	</select>
 	<select id="getObject" 
 			parameterType="com.mybatis.platform.menu.entity.Menu" 
 			resultType="com.mybatis.platform.menu.entity.Menu">
 		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				code,
-				name,
-				url,
-				alias,
-				menu_id,
-				enable,
-				shows,
-				remark
+            id, create_time, update_time,
+            status, code, name, url, alias,
+            menu_id, enable, shows, remark
 		from sys_menu where id = #{id}
 	</select>
 
 	<select id="queryListByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.menu.entity.Menu">
-		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				code,
-				name,
-				url,
-				alias,
-				menu_id,
-				enable,
-				shows,
-				remark
+		select
+            id, create_time, update_time,
+            status, code, name, url, alias,
+            menu_id, enable, shows, remark
 		from sys_menu
 		<include refid="conditions" />
 	</select>
@@ -135,37 +90,19 @@
 	<select id="queryListByObject" 
 			parameterType="com.mybatis.platform.menu.entity.Menu" 
 			resultType="com.mybatis.platform.menu.entity.Menu">
-		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				code,
-				name,
-				url,
-				alias,
-				menu_id,
-				enable,
-				shows,
-				remark
+		select
+            id, create_time, update_time,
+            status, code, name, url, alias,
+            menu_id, enable, shows, remark
 		from sys_menu
 		<include refid="conditions" />
 	</select>
 
 	<select id="queryPageByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.menu.entity.Menu">
-		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				code,
-				name,
-				url,
-				alias,
-				menu_id,
-				enable,
-				shows,
-				remark
+		select
+            id, create_time, update_time,
+            status, code, name, url, alias,
+            menu_id, enable, shows, remark
 		from sys_menu
 		<include refid="conditions" />
 		order by

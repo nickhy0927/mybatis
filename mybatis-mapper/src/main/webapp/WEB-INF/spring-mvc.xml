@@ -71,4 +71,6 @@
         <property name="exposeSessionAttributes" value="true"/>
         <property name="requestContextAttribute" value="request"/>
     </bean>
+
+    <mvc:view-controller path="/" view-name="index.do"/>
 </beans>

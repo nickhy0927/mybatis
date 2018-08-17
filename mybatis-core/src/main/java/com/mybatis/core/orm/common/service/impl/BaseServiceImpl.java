@@ -1,9 +1,15 @@
 package com.mybatis.core.orm.common.service.impl;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import com.mybatis.core.orm.annotation.Column;
+import com.mybatis.core.orm.constant.SysConstant;
+import com.mybatis.core.orm.core.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,13 +31,55 @@ public abstract class BaseServiceImpl<E, ID extends Serializable, T extends Base
 	private T mapper;
 
 	@Override
-	public int insert(E t) {
-		return mapper.insert(t);
+	public int insert(E t) throws ServiceException {
+        try {
+            Class<? extends Object> objClass = t.getClass();
+            Field[] fields = objClass.getSuperclass().getDeclaredFields();
+            for (Field field : fields) {
+                Column column = field.getAnnotation(Column.class);
+                field.setAccessible(true);
+                if (column != null) {
+                    if (column.isKey()) {
+                        field.set(t, UUID.randomUUID().toString().replaceAll("-", ""));
+                    } else if (column.createTime()) {
+                        field.set(t, new Date());
+                    } else if (column.status() == SysConstant.DataStatus.VALID) {
+                        field.set(t, SysConstant.DataStatus.VALID);
+                    } else if (column.status() == SysConstant.DataStatus.INVALID) {
+                        field.set(t, SysConstant.DataStatus.INVALID);
+                    }
+                }
+            }
+            return mapper.insert(t);
+        } catch (ServiceException e) {
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return 0;
 	}
 
 	@Override
-	public int update(E t) {
-		return mapper.update(t);
+	public int update(E t) throws ServiceException {
+	    try {
+            Class<? extends Object> objClass = t.getClass();
+            Field[] fields = objClass.getSuperclass().getDeclaredFields();
+            for (Field field : fields) {
+                Column column = field.getAnnotation(Column.class);
+                field.setAccessible(true);
+                if (column != null) {
+                    if (column.updateTime()) {
+                        field.set(t, new Date());
+                    }
+                }
+            }
+            return mapper.update(t);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return 0;
 	}
 
 	@Override

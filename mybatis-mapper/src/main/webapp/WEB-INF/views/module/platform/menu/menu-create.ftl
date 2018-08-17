@@ -45,8 +45,11 @@
         }
         $(document).ready(function () {
             $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-            $("body").bind("mousedown", function(event){
-                if (!(event.target.id == "treeDemo" || $(event.target).parents("#DropdownMenuBackground").length>0)) {
+            $("body").bind("mousedown", function (event) {
+                console.log(event.target.id);
+                var reg = RegExp(/switch/);
+                var target = event.target.id;
+                if (!target.match(reg)) {
                     hideMenu();
                 }
             });

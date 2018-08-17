@@ -13,6 +13,8 @@ public @interface Column {
 
 	boolean createTime() default false;
 
+	boolean updateTime() default false;
+
 	int status() default -1;
 
 	String comment();

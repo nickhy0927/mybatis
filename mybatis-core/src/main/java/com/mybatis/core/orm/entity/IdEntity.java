@@ -30,7 +30,7 @@ public class IdEntity {
     /**
      * 修改时间
      */
-    @Column(comment = "修改时间")
+    @Column(comment = "修改时间", updateTime = true)
     @JsonSerialize(using = CustomDateOne.class)
     protected Date updateTime;
 

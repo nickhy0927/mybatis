@@ -50,8 +50,8 @@
                 console.log(event.target.id);
                 var reg = RegExp(/switch/);
                 var target = event.target.id;
-                if (target.match(reg)) {
-                    $("#treeDemo").fadeOut("fast");
+                if (!target.match(reg)) {
+                    hideMenu();
                 }
             });
         });
