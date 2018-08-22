@@ -35,10 +35,12 @@
                 <nav class="nav navbar-nav">
                     <ul class="cl">
                         [#list menuList as menu]
-                            <li class="navbar-levelone current"><a href="javascript:;">${menu.name}</a></li>
+                            [#if menu_index == 0]
+                                <li class="navbar-levelone current"><a href="javascript:;">${menu.name}</a></li>
+                            [#else]
+                                <li class="navbar-levelone"><a href="javascript:;">${menu.name}</a></li>
+                            [/#if]
                         [/#list]
-                        <li class="navbar-levelone"><a href="javascript:;">财务</a></li>
-                        <li class="navbar-levelone"><a href="javascript:;">手机</a></li></li>
                     </ul>
                 </nav>
                 <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
@@ -77,8 +79,28 @@
         </div>
     </header>
     <aside class="Hui-aside">
-        <div class="menu_dropdown bk_2">
-            <dl id="menu-article">
+        [#list menuList as menu]
+            [#if menu.children?? && menu.children?size > 0]
+                <div class="menu_dropdown bk_2" [#if menu_index == 0]style="display:block"[#else]style="display:none" [/#if]>
+                    [#list menu.children as children]
+                        <dl>
+                            <dt><i class="Hui-iconfont">&#xe616;</i> ${children.name}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+                            <dd>
+                                [#if children.children??]
+                                    <ul>
+                                        [#list children.children as cMenu]
+                                            <li><a data-href="${cMenu.url}" data-title="${cMenu.name}" href="javascript:void(0)">${cMenu.name}</a></li>
+                                        [/#list]
+                                    </ul>
+                                [/#if]
+                            </dd>
+                        </dl>
+                    [/#list]
+                </div>
+            [/#if]
+        [/#list]
+        <div class="menu_dropdown bk_2" style="display: none">
+            <dl>
                 <dt><i class="Hui-iconfont">&#xe616;</i> 资讯管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
                 <dd>
                     <ul>
@@ -86,7 +108,7 @@
                     </ul>
                 </dd>
             </dl>
-            <dl id="menu-picture">
+            <dl>
                 <dt><i class="Hui-iconfont">&#xe613;</i> 图片管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
                 <dd>
                     <ul>
@@ -94,7 +116,7 @@
                     </ul>
                 </dd>
             </dl>
-            <dl id="menu-product">
+            <dl>
                 <dt><i class="Hui-iconfont">&#xe620;</i> 产品管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
                 <dd>
                     <ul>
@@ -104,7 +126,7 @@
                     </ul>
                 </dd>
             </dl>
-            <dl id="menu-comments">
+            <dl>
                 <dt><i class="Hui-iconfont">&#xe622;</i> 评论管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
                 <dd>
                     <ul>
@@ -174,7 +196,6 @@
                 </dd>
             </dl>
         </div>
-
         <div class="menu_dropdown bk_2" style="display:none">
             <dl id="menu-bbbbb">
                 <dt><i class="Hui-iconfont">&#xe616;</i> 二级导航2<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
