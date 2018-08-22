@@ -3,7 +3,7 @@
 [@htmlHead title="菜单列表"]
     <script type="text/javascript">
         function create() {
-            $.openWindow('新增图标', '80%', '80%', "${basePath}/platform/icon/icon-create.do");
+            $.openWindow('新增图标', '80%', '60%', "${basePath}/platform/icon/icon-create.do");
         }
         
         function edit(id) {
@@ -45,11 +45,12 @@
                 tableId: '#dataGridList',
                 columns: [
                     {field: 'id', className: 'text-c'},
-					{field: 'name', className: 'text-l', description: '菜单名称 ', sort: true},
-					{field: 'attr', className: 'text-l', description: '菜单地址 ', sort: true},
-					{field: 'enable', className: 'text-l', description: '是否启用 ', sort: true, paramFormatter: function (row) {
-						return row.enable == 1 ? '启用' : '停用';
-					}},
+                    {field: 'name', className: 'text-l', description: '图标名称 ', sort: true},
+                    {field: 'attr', className: 'text-l', description: '图标属性 ', sort: true},
+                    {field: 'enable', className: 'text-l', description: '是否启用 ', sort: true, paramFormatter: function (row) {
+                            return row.enable == 1 ? '启用' : '停用';
+                        }},
+                    {field: 'remark', className: 'text-c', description: '图标备注'},
                     {field: 'operate', className: 'text-c', description: '操作', paramFormatter: function (row) {
                         return "<a href=\"#\" title=\"修改\" onclick=\"edit('" + row.id + "')\">"
                                 + "<i class=\"Hui-iconfont\">&#xe60c;</i>"

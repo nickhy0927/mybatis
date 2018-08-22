@@ -1,15 +1,16 @@
-<#include "../../../common/header.ftl">
-<@htmlHead>
+[#ftl encoding="utf-8" strict_syntax=true]
+[#include "/common/header.ftl"]
+[@htmlHead]
     <script type="text/javascript">
         function create() {
-            $.openWindow('创建模板', '80%', '80%', "${basePath}/platform/user/user-create.do");
+            $.openWindow('新增用户信息', '90%', '95%', "${basePath}/platform/user/user-create.do");
         }
         
         function edit() {
-            $.openWindow('修改模板', '80%', '80%', "${basePath}/platform/user/user-edit/"+ id +".do");
+            $.openWindow('修改用户信息', '80%', '80%', "${basePath}/platform/user/user-edit/"+ id +".do");
         }
         
-        function delete(id, single) {
+        function del(id, single) {
             $.datadel({
             	url: "${basePath}/platform/user/user-edit/"+ id +".do",
                 type:"post",
@@ -30,7 +31,7 @@
 		function initData() {
 			$("#dataGridList").dataGrid({
                 url: ctx + '/platform/user/user-list.json',
-                title: 'User管理列表',
+                title: '用户管理列表',
                 method: 'POST',
                 checkbox: true,
                 pageSize: 6,
@@ -41,25 +42,22 @@
                 tableId: '#dataGridList',
                 columns: [
                     {field: 'id', className: 'text-c'},
-					{field: 'realName', className: 'text-l', description: '真实姓名 ', sort: true, paramFormatter: function (row) {}},
-					{field: 'loginName', className: 'text-l', description: '登录账号 ', sort: true, paramFormatter: function (row) {}},
-					{field: 'password', className: 'text-l', description: '登录密码 ', sort: true, paramFormatter: function (row) {}},
-					{field: 'locked', className: 'text-l', description: '是否锁定 1 锁定 0 未锁定 ', sort: true, paramFormatter: function (row) {}},
-					{field: 'enable', className: 'text-l', description: '是否启用 1 启用 0 停用 ', sort: true, paramFormatter: function (row) {}},
-					{field: 'email', className: 'text-l', description: '电子邮箱 ', sort: true, paramFormatter: function (row) {}},
-					{field: 'mobile', className: 'text-l', description: '电话号码 ', sort: true, paramFormatter: function (row) {}},
-					{field: 'remark', className: 'text-l', description: '信息备注 ', sort: true, paramFormatter: function (row) {}},
-					{field: 'position', className: 'text-l', description: '用户职位 ', sort: true, paramFormatter: function (row) {}},
+					{field: 'realName', className: 'text-l', description: '真实姓名 ', sort: true},
+					{field: 'loginName', className: 'text-l', description: '登录账号 ', sort: true},
+					{field: 'password', className: 'text-l', description: '登录密码 ', sort: true},
+					{field: 'locked', className: 'text-l', description: '是否锁定', sort: true, paramFormatter: function (row) {
+                        return row.locked == 1 ? '锁定' : '未锁定';
+                    }},
+					{field: 'enable', className: 'text-l', description: '是否启用', sort: true, paramFormatter: function (row) {
+					    return row.enable == 1 ? '启用' : '停用';
+                    }},
+					{field: 'position', className: 'text-c', description: '用户职位 '},
 					{field: 'lastLoginTime', className: 'text-l', description: '最后一次登录时间', sort: true, paramFormatter: function (row) {}},
-					{field: 'id', className: 'text-l', description: '', sort: true, paramFormatter: function (row) {}},
-					{field: 'createTime', className: 'text-l', description: '', sort: true, paramFormatter: function (row) {}},
-					{field: 'updateTime', className: 'text-l', description: '', sort: true, paramFormatter: function (row) {}},
-					{field: 'status', className: 'text-l', description: '', sort: true, paramFormatter: function (row) {}},
                     {field: 'operate', className: 'text-c', description: '操作', paramFormatter: function (row) {
                         return "<a href=\"#\" title=\"修改\" onclick=\"edit('" + row.id + "')\">"
                                 + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
                              + "</a>&nbsp;&nbsp;"
-                             + "<a href=\"#\" title=\"删除\" onclick=\"delete('" + row.id + "', true)\">"
+                             + "<a href=\"#\" title=\"删除\" onclick=\"del('" + row.id + "', true)\">"
                                 + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
                              + "</a>";
                     }}
@@ -70,8 +68,8 @@
             initData();
         })
     </script>
-</@htmlHead>
-<@htmlBody>
+[/@htmlHead]
+[@htmlBody]
 	<nav class="breadcrumb">
         <i class="Hui-iconfont">&#xe67f;</i> 首页
         <span class="c-gray en">&gt;</span> User管理
@@ -113,4 +111,4 @@
             <table id="dataGridList" class="table table-border table-bordered table-hover table-bg table-sort"></table>
         </div>
     </div>
-</@htmlBody>
+[/@htmlBody]

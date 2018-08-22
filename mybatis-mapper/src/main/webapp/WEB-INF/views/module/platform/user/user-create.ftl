@@ -23,18 +23,13 @@
             	mobile: { required:true, maxlength:200},
             	remark: { required:true, maxlength:200},
             	position: { required:true, maxlength:200},
-            	lastLoginTime: { required:true, maxlength:200},
-            	id: { required:true, maxlength:200},
-            	createTime: { required:true, maxlength:200},
-            	updateTime: { required:true, maxlength:200},
-            	status: { required:true, maxlength:200},
             }, function () {
                 $.openTip('你确定要保存吗？',false ,function() {
                     $.openLoading("正在保存数据，请稍等...");
                     $.submitAjax("${basePath}", {
                         method: 'POST',
                         dataType: 'JSON',
-                        url: ctx + '/platform/user/user-save.json'
+                        url: '/platform/user/user-save.json'
                     },$("#addForm").serialize(), function (result) {
                         if (result.code == 200) {
                             $.openTip(result.msg ,true ,function() {
@@ -72,7 +67,7 @@
                 		真实姓名 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="realName" id="realName" class="input-text" value="" placeholder="please enter realName">
+                    <input type="text" name="realName" id="realName" class="input-text" value="" placeholder="请输入真是姓名">
                 </div>
             </div>
 			<div class="row cl">
@@ -81,7 +76,7 @@
                 		登录账号 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="loginName" id="loginName" class="input-text" value="" placeholder="please enter loginName">
+                    <input type="text" name="loginName" id="loginName" class="input-text" value="" placeholder="请输入登录账户">
                 </div>
             </div>
 			<div class="row cl">
@@ -90,25 +85,36 @@
                 		登录密码 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="password" id="password" class="input-text" value="" placeholder="please enter password">
+                    <input type="text" name="password" id="password" class="input-text" value="" placeholder="请输入账户密码">
                 </div>
             </div>
-			<div class="row cl">
+            <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		是否锁定 1 锁定 0 未锁定 ：
+                    <span class="c-red">*</span>是否锁定：
                 </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="locked" id="locked" class="input-text" value="" placeholder="please enter locked">
+                <div class="formControls col-xs-3 col-sm-3 skin-minimal">
+                    <div class="radio-box">
+                        <input name="locked" value="1" type="radio" id="locked-1" checked>
+                        <label for="locked-1">锁定</label>
+                    </div>
+                    <div class="radio-box">
+                        <input type="radio" value="0" id="locked-2" name="locked">
+                        <label for="locked-2">解锁</label>
+                    </div>
                 </div>
-            </div>
-			<div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		是否启用 1 启用 0 停用 ：
+                    <span class="c-red">*</span>
+                    是否启用：
                 </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="enable" id="enable" class="input-text" value="" placeholder="please enter enable">
+                <div class="formControls col-xs-3 col-sm-4 skin-minimal">
+                    <div class="radio-box">
+                        <input name="enable" value="1" type="radio" id="enable-1" checked>
+                        <label for="enable-1">启用</label>
+                    </div>
+                    <div class="radio-box">
+                        <input type="radio" value="0" id="enable-2" name="enable">
+                        <label for="enable-2">停用</label>
+                    </div>
                 </div>
             </div>
 			<div class="row cl">
@@ -117,7 +123,7 @@
                 		电子邮箱 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="email" id="email" class="input-text" value="" placeholder="please enter email">
+                    <input type="text" name="email" id="email" class="input-text" value="" placeholder="请输入电子邮箱">
                 </div>
             </div>
 			<div class="row cl">
@@ -126,7 +132,16 @@
                 		电话号码 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="mobile" id="mobile" class="input-text" value="" placeholder="please enter mobile">
+                    <input type="text" name="mobile" id="mobile" class="input-text" value="" placeholder="请输入电话号码">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3 col-sm-2">
+                    <span class="c-red">*</span>
+                    用户职位 ：
+                </label>
+                <div class="formControls col-xs-9 col-sm-9">
+                    <input type="text" name="position" id="position" class="input-text" value="" placeholder="请输入用户职位">
                 </div>
             </div>
 			<div class="row cl">
@@ -135,61 +150,7 @@
                 		信息备注 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="remark" id="remark" class="input-text" value="" placeholder="please enter remark">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		用户职位 ：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="position" id="position" class="input-text" value="" placeholder="please enter position">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		最后一次登录时间：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="lastLoginTime" id="lastLoginTime" class="input-text" value="" placeholder="please enter lastLoginTime">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="id" id="id" class="input-text" value="" placeholder="please enter id">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="createTime" id="createTime" class="input-text" value="" placeholder="please enter createTime">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="updateTime" id="updateTime" class="input-text" value="" placeholder="please enter updateTime">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="status" id="status" class="input-text" value="" placeholder="please enter status">
+                    <input type="text" name="remark" id="remark" class="input-text" value="" placeholder="请输入用户备注信息">
                 </div>
             </div>
             <div class="row cl">

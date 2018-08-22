@@ -1,4 +1,4 @@
-package com.mybatis.platform.icon;
+package com.mybatis.platform.icon.controller;
 
 import com.mybatis.common.utils.MessageObject;
 import com.mybatis.common.utils.PageSupport;
@@ -8,7 +8,6 @@ import com.mybatis.core.orm.controller.BaseController;
 import com.mybatis.core.orm.entity.PageRowBounds;
 import com.mybatis.platform.icon.entity.Icon;
 import com.mybatis.platform.icon.service.IconService;
-import com.mybatis.utils.NumberCreate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -41,8 +40,7 @@ public class IconController extends BaseController{
      * 新增页面
      */
     @RequestMapping(value = "/platform/icon/icon-create.do", method = RequestMethod.GET)
-    public String iconCreate(Model model, HttpServletRequest request) {
-        model.addAttribute("code", NumberCreate.generateNumber2());
+    public String iconCreate() {
         return "module/platform/icon/icon-create";
     }
 

@@ -31,6 +31,9 @@ public class Icon extends IdEntity {
     @Column(name = "enable", comment = "是否启用： 1 启用 0 停用")
     private Integer enable;
 
+    @Column(name = "remark", comment = "图标备注信息", lenght = 500)
+    private String remark;
+
     /**
      * 获取图标名称
      *
@@ -83,5 +86,21 @@ public class Icon extends IdEntity {
      */
     public void setEnable(Integer enable) {
         this.enable = enable;
+    }
+
+    /**
+     * 获取备注信息
+     * @return
+     */
+    public String getRemark() {
+        return remark;
+    }
+
+    /**
+     * 设置备注信息
+     * @param remark
+     */
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

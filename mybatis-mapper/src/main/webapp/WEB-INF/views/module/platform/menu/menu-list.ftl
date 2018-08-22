@@ -3,7 +3,7 @@
 [@htmlHead title="菜单列表"]
     <script type="text/javascript">
         function create() {
-            $.openWindow('新增菜单', '80%', '80%', "${basePath}/platform/menu/menu-create.do");
+            $.openWindow('新增菜单', '80%', '95%', "${basePath}/platform/menu/menu-create.do");
         }
         
         function edit(id) {

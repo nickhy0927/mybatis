@@ -9,7 +9,7 @@ ${r'<@htmlHead>'}
             $.openWindow('修改模板', '80%', '80%', "${r'${basePath}'}/${accessPath}-edit/"+ ${r'id'} +".do");
         }
         
-        function delete(id, single) {
+        function del(id, single) {
             $.datadel({
             	url: "${r'${basePath}'}/${accessPath}-edit/"+ ${r'id'} +".do",
                 type: "post",
@@ -48,7 +48,7 @@ ${r'<@htmlHead>'}
                         return "<a href=\"#\" title=\"修改\" onclick=\"edit('" + row.id + "')\">"
                                 + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
                              + "</a>&nbsp;&nbsp;"
-                             + "<a href=\"#\" title=\"删除\" onclick=\"delete('" + row.id + "', true)\">"
+                             + "<a href=\"#\" title=\"删除\" onclick=\"del('" + row.id + "', true)\">"
                                 + "<i class=\"Hui-iconfont\">&#xe609;</i>"
                              + "</a>";
                     }}

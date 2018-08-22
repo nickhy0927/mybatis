@@ -89,7 +89,7 @@
                                 [#if children.children??]
                                     <ul>
                                         [#list children.children as cMenu]
-                                            <li><a data-href="${cMenu.url}" data-title="${cMenu.name}" href="javascript:void(0)">${cMenu.name}</a></li>
+                                            <li><a data-href="${basePath}/${cMenu.url}" data-title="${cMenu.name}" href="javascript:void(0)">${cMenu.name}</a></li>
                                         [/#list]
                                     </ul>
                                 [/#if]

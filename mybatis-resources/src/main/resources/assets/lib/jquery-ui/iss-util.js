@@ -147,7 +147,7 @@ function _openWindow(title, width, height, url) {
         type: 2,
         title: title,
         area: [width || '700px', height || '450px'],
-        fixed: true, //不固定
+        fixed: false, //不固定
         move: false,
         shadeClose: false,
         shade: 0.6,
@@ -169,7 +169,7 @@ function _submitAjax(ctx, opt, data, success, error) {
             } catch (err) {}
             console.log(data);
             if (data.status != 200 && data.code != 200) {
-                $.openTip(data.message, true, function () {
+                $.openTip(data.msg, true, function () {
                     $.closeLoading();
                 }, '提示信息');
                 return;
