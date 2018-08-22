@@ -21,7 +21,23 @@ public class MenuTemplate {
      */
     private String url;
 
+    private String alias;
+
+    /**
+     * 上级菜单
+     */
+    private String menuId;
+
     private List<MenuTemplate> children;
+
+    public MenuTemplate(Menu menu, List<MenuTemplate> children) {
+        this.id = menu.getId();
+        this.alias = menu.getAlias();
+        this.name = menu.getName();
+        this.url = menu.getUrl();
+        this.menuId = menu.getMenuId();
+        this.children = children;
+    }
 
     public List<MenuTemplate> getChildren() {
         return children;
@@ -31,10 +47,13 @@ public class MenuTemplate {
         this.children = children;
     }
 
-    /**
-     * 上级菜单
-     */
-    private String menuId;
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
 
     public String getId() {
         return id;
@@ -66,5 +85,17 @@ public class MenuTemplate {
 
     public void setMenuId(String menuId) {
         this.menuId = menuId;
+    }
+
+    @Override
+    public String toString() {
+        return "MenuTemplate{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", alias='" + alias + '\'' +
+                ", menuId='" + menuId + '\'' +
+                ", children=" + children +
+                '}';
     }
 }

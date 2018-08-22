@@ -50,13 +50,21 @@ public class Menu extends IdEntity {
 	  */
     @Column(name = "shows",comment = "是否显示 1 显示 0 隐藏 ")
 	private Integer shows;
-	
+
 	/**
 	  * 信息备注
 	  */
     @Column(name = "remark",comment = "信息备注")
 	private String remark;
 
+    @Column(name = "sort",comment = "菜单排序")
+    private Integer sort;
+
+    /**
+     * 是否主页显示
+     */
+    @Column(comment = "是否主页显示 1 是 0 否")
+    private Integer showIndex;
 
     private Menu menu;
 
@@ -178,5 +186,36 @@ public class Menu extends IdEntity {
      */
     public void setRemark(String remark) {
        this.remark = remark;
+    }
+
+    /**
+     * 获取：菜单排序
+     */
+    public Integer getSort() {
+        return sort;
+    }
+
+    /**
+     * 设置：菜单排序
+     * @param sort
+     */
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    /**
+     * 获取：是否主页显示
+     * @return
+     */
+    public Integer getShowIndex() {
+        return showIndex;
+    }
+
+    /**
+     * 设置：是否主页显示
+     * @param showIndex
+     */
+    public void setShowIndex(Integer showIndex) {
+        this.showIndex = showIndex;
     }
 }

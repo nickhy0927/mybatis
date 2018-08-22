@@ -5,12 +5,13 @@
 		insert into sys_menu(
             id,create_time, update_time, status,
             code, name, url, alias, menu_id,
-            enable, shows, remark
+            enable, shows, remark, sort, show_index
 		)
 		values (
             #{id}, #{createTime}, #{updateTime}, #{status},
             #{code}, #{name}, #{url}, #{alias},
-            #{menuId}, #{enable}, #{shows}, #{remark}
+            #{menuId}, #{enable}, #{shows}, #{remark}, #{sort},
+            #{showIndex}
 		)
 	</insert>
 
@@ -20,7 +21,7 @@
 
 	<delete id="deleteBatch" parameterType="java.util.List">
 		delete from sys_menu where id in 
-		<foreach item="id" collection="array" open="(" separator="," close=")">
+		<foreach item="id" collection="list" open="(" separator="," close=")">
 			#{id}
 		</foreach>
 	</delete>
@@ -31,11 +32,13 @@
             <if test="id != null">id = #{id},</if>
             <if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
             <if test="status != null and status != ''">status = #{status},</if>
+            <if test="sort != null and sort != ''">sort = #{sort},</if>
             <if test="code != null and code != ''">code = #{code},</if>
             <if test="name != null and name != ''">name = #{name},</if>
             <if test="url != null and url != ''">url = #{url},</if>
             <if test="alias != null and alias != ''">alias = #{alias},</if>
             <if test="menuId != null and menuId != ''">menu_id = #{menuId},</if>
+            <if test="showIndex != null and showIndex != ''">show_index = #{showIndex},</if>
             <if test="enable != null and enable != ''">enable = #{enable},</if>
             <if test="shows != null and shows != ''">shows = #{shows},</if>
             remark = #{remark}
@@ -65,7 +68,7 @@
 		select 
             id, create_time, update_time,
             status, code, name, url, alias,
-            menu_id, enable, shows, remark
+            menu_id, enable, shows, remark, sort
 		from sys_menu where id = #{id}
 	</select>
 	<select id="getObject" 
@@ -74,7 +77,7 @@
 		select 
             id, create_time, update_time,
             status, code, name, url, alias,
-            menu_id, enable, shows, remark
+            menu_id, enable, shows, remark, sort
 		from sys_menu where id = #{id}
 	</select>
 
@@ -82,8 +85,8 @@
 		select
             id, create_time, update_time,
             status, code, name, url, alias,
-            menu_id, enable, shows, remark
-		from sys_menu
+        menu_id, enable, shows, remark, t.sort sort
+		from sys_menu t
 		<include refid="conditions" />
 	</select>
 	
@@ -93,8 +96,8 @@
 		select
             id, create_time, update_time,
             status, code, name, url, alias,
-            menu_id, enable, shows, remark
-		from sys_menu
+            menu_id, enable, shows, remark, t.sort sort
+		from sys_menu t
 		<include refid="conditions" />
 	</select>
 
@@ -102,8 +105,8 @@
 		select
             id, create_time, update_time,
             status, code, name, url, alias,
-            menu_id, enable, shows, remark
-		from sys_menu
+            menu_id, enable, shows, remark, t.sort sort
+		from sys_menu t
 		<include refid="conditions" />
 		order by
             <choose>
@@ -112,12 +115,45 @@
             </choose>
 	</select>
 
+    <select id="queryMenuByParentIsNull" resultType="com.mybatis.platform.menu.entity.Menu">
+        select
+            *
+        from
+            sys_menu m
+        where
+            m.status = 1
+            and (
+                m.menu_id = ''
+                or m.menu_id = null
+                or m.menu_id is null
+            )
+        order by
+            m.sort asc
+    </select>
+    <!--根据父节点查询菜单-->
+    <select id="queryMenuByMenuId"
+            parameterType="com.mybatis.platform.menu.entity.Menu"
+            resultType="com.mybatis.platform.menu.entity.Menu">
+        select
+            *
+        from
+            sys_menu m
+        where
+            m.menu_id = #{id}
+            and m.enable = 1
+            and m.shows = 1
+            and m.status = 1
+        order by
+            m.sort asc
+    </select>
+
 	<sql id="conditions">
 		<trim prefix="where" prefixOverrides="and|or">
 			<if test="id != null and alias != ''">and id = #{id}</if>
 			<if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
 			<if test="status != null and status != ''">and status = #{status}</if>
 			<if test="code != null and code != ''">and code = #{code}</if>
+			<if test="sort != null and sort != ''">and sort = #{sort}</if>
 			<if test="name != null and name != ''">and name like concat('%',#{name},'%')</if>
 			<if test="url != null and url != ''">and url like concat('%',#{url},'%')</if>
 			<if test="alias != null and alias != ''">and alias like concat('%',#{alias},'%')</if>

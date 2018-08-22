@@ -114,7 +114,7 @@
         <form class="form form-horizontal" id="addForm">
             <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                    <span class="c-red">*</span>菜单编号:
+                    <span class="c-red">*</span>菜单编号：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <input type="text" readonly="readonly" name="code" id="code" class="input-text" value="${code}">
@@ -122,7 +122,7 @@
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                    <span class="c-red">*</span> 菜单名称:
+                    <span class="c-red">*</span> 菜单名称：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <input type="text" name="name" id="name" class="input-text" value="" placeholder="请输入菜单名称">
@@ -130,14 +130,14 @@
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                    <span class="c-red">*</span>访问地址:</label>
+                    <span class="c-red">*</span>访问地址：</label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <input type="text" name="url" id="url" class="input-text" value="" placeholder="请输入菜单地址">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                    <span class="c-red">*</span>菜单别名:
+                    <span class="c-red">*</span>菜单别名：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <input type="text" name="alias" id="alias" class="input-text" value="" placeholder="请输入菜单别名">
@@ -145,7 +145,7 @@
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                    <span class="c-red">*</span>上级菜单:
+                    <span class="c-red">*</span>上级菜单：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <div class="input-append">
@@ -159,31 +159,57 @@
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                    <span class="c-red">*</span>是否启用:
+                    <span class="c-red">*</span>是否启用：
                 </label>
                 <div class="formControls col-xs-3 col-sm-3 skin-minimal">
                     <div class="radio-box">
                         <input name="enable" value="1" type="radio" id="enable-1" checked>
-                        <label for="sex-1">是</label>
+                        <label for="sex-1">启用</label>
                     </div>
                     <div class="radio-box">
                         <input type="radio" value="2" id="enable-2" name="enable">
-                        <label for="sex-2">否</label>
+                        <label for="sex-2">停用</label>
                     </div>
                 </div>
                 <label class="form-label col-xs-3 col-sm-2">
                     <span class="c-red">*</span>
-                    是否显示:
+                    是否显示：
                 </label>
                 <div class="formControls col-xs-3 col-sm-4 skin-minimal">
                     <div class="radio-box">
                         <input name="shows" value="1" type="radio" id="shows-1" checked>
-                        <label for="sex-1">是</label>
+                        <label for="sex-1">显示</label>
                     </div>
                     <div class="radio-box">
                         <input type="radio" value="2" id="shows-2" name="shows">
-                        <label for="sex-2">否</label>
+                        <label for="sex-2">隐藏</label>
                     </div>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3 col-sm-2">
+                    <span class="c-red">*</span>
+                    是否主页显示：
+                </label>
+                <div class="formControls col-xs-9 col-sm-9 skin-minimal">
+                    <div class="radio-box">
+                        <input name="showIndex" value="1" type="radio" id="showIndex-1" checked>
+                        <label for="sex-1">显示</label>
+                    </div>
+                    <div class="radio-box">
+                        <input type="radio" value="2" id="showIndex-2" name="showIndex">
+                        <label for="sex-2">隐藏</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3 col-sm-2">
+                    <span class="c-red">*</span>
+                    菜单排序：
+                </label>
+                <div class="formControls col-xs-9 col-sm-9">
+                    <input type="text" name="sort" id="sort" class="input-text"
+                           placeholder="请输入菜单顺序">
                 </div>
             </div>
             <div class="row cl">

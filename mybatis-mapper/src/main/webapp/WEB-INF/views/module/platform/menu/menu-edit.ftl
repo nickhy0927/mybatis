@@ -66,10 +66,10 @@
                 radioClass: 'iradio-blue',
                 increaseArea: '20%'
             });
-            $.validator.addMethod("phone", function (value, element) {
-                var reg = /^(\d{1,12})$/;
+            $.validator.addMethod("num", function (value, element) {
+                var reg = /^(\d{1,7})$/;
                 return this.optional(element) || reg.test(value);
-            }, "请输入12位以内的纯数字号码");
+            }, "请输入7位以内的纯数字");
 
             //表单验证
             $.validation('addForm', {
@@ -77,9 +77,10 @@
                 name: {required: true, maxlength: 200},
                 url: {required: true, maxlength: 200},
                 alias: {required: true, maxlength: 200},
+                sort: {required: true, num: true},
                 enable: {required: true, maxlength: 200},
                 shows: {required: true, maxlength: 200},
-                remark: {required: true, maxlength: 200},
+                remark: {required: true, maxlength: 200}
             }, function () {
                 $.openTip('你确定要保存吗？', false, function () {
                     $.openLoading("正在保存数据，请稍等...");
@@ -136,7 +137,7 @@
                     菜单名称 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="name" id="name" class="input-text" value="${menu.name}"
+                    <input type="text" name="name" id="name" class="input-text" value="${menu.name!''}"
                            placeholder="请输入菜单名称">
                 </div>
             </div>
@@ -146,7 +147,7 @@
                     菜单地址 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="url" id="url" class="input-text" value="${menu.url}" placeholder="请输入菜单地址">
+                    <input type="text" name="url" id="url" class="input-text" value="${menu.url!''}" placeholder="请输入菜单地址">
                 </div>
             </div>
             <div class="row cl">
@@ -155,7 +156,7 @@
                     菜单别名 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="alias" id="alias" class="input-text" value="${menu.alias}"
+                    <input type="text" name="alias" id="alias" class="input-text" value="${menu.alias!''}"
                            placeholder="请输入菜单别名">
                 </div>
             </div>
@@ -166,9 +167,9 @@
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <input type="text" name="menuName" id="menuName" class="input-text device_select"
-                           onfocus="showTree()" onclick="showTree()" readonly="readonly" value=""
+                           onfocus="showTree()" onclick="showTree()" readonly="readonly" <#if parent??>value="${parent.name}"</#if>
                            placeholder="请选择上级菜单">
-                    <input name="menuId" type="hidden" id="menuId" value="${menu.menuId}">
+                    <input name="menuId" type="hidden" id="menuId" value="${menu.menuId!''}">
                     <ul style="display: none" id="treeDemo" class="ztree"></ul>
                 </div>
             </div>
@@ -209,10 +210,36 @@
             <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
                     <span class="c-red">*</span>
+                    是否主页显示：
+                </label>
+                <div class="formControls col-xs-9 col-sm-9 skin-minimal">
+                    <div class="radio-box">
+                        <input type="radio" name="showIndex" value="1" <#if menu.showIndex?? && menu.showIndex == 1>checked="checked"</#if> id="showIndex-1" checked>
+                        <label for="sex-1">显示</label>
+                    </div>
+                    <div class="radio-box">
+                        <input type="radio" name="showIndex" value="2" <#if menu.showIndex?? && menu.showIndex == 0>checked="checked"</#if> id="showIndex-2">
+                        <label for="sex-2">隐藏</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3 col-sm-2">
+                    <span class="c-red">*</span>
+                    菜单排序：
+                </label>
+                <div class="formControls col-xs-9 col-sm-9">
+                    <input type="text" name="sort" id="sort" class="input-text" value="${menu.sort!''}"
+                           placeholder="请输入菜单顺序">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3 col-sm-2">
+                    <span class="c-red">*</span>
                     信息备注：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="remark" id="remark" class="input-text" value="${menu.remark}"
+                    <input type="text" name="remark" id="remark" class="input-text" value="${menu.remark!''}"
                            placeholder="please enter remark">
                 </div>
             </div>

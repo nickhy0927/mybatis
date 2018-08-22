@@ -12,7 +12,7 @@
         
         function del(id, single) {
             $.datadel({
-            	url: "${basePath}/platform/menu/menu-edit/"+ id +".do",
+            	url: "${basePath}/platform/menu/menu-delete/"+ id +".json",
                 type:"post",
                 data:{id: id},
                 success:function(data){
@@ -23,8 +23,11 @@
                     }
                 },
                 error:function(e){
-                    alert("错误！！");
-                    window.clearInterval(timer);
+                    // alert("错误！！");
+                    console.log(e);
+                    $.openTip('删除菜单信息失败，请稍后再试.', true, function () {
+                        initData();
+                    })
                 }
             }, single)
         }
@@ -52,7 +55,7 @@
 					{field: 'shows', className: 'text-l', description: '是否显示 ', sort: true, paramFormatter: function (row) {
 						return row.shows == 1 ? '显示' : '隐藏';
 					}},
-					{field: 'remark', className: 'text-l', description: '信息备注', sort: true},
+					{field: 'sort', className: 'text-c', description: '排序'},
                     {field: 'operate', className: 'text-c', description: '操作', paramFormatter: function (row) {
                         return "<a href=\"#\" title=\"修改\" onclick=\"edit('" + row.id + "')\">"
                                 + "<i class=\"Hui-iconfont\">&#xe60c;</i>"

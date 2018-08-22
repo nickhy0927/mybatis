@@ -61,15 +61,20 @@ public class MenuController {
      * 新增数据到数据库
      */
     @RequestMapping(value = "/platform/menu/menu-save.json", method = RequestMethod.POST, produces = "application/json")
-    public String menuSave(Menu menu) {
+    public void menuSave(Menu menu) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             menuService.insert(menu);
-            messageObject.ok("保存信息成功", menu);
+            messageObject.ok("菜单信息保存成功", menu);
         } catch (Exception e) {
-            messageObject.error("保存信息失败");
+            messageObject.error("菜单信息保存失败");
+        } finally {
+            try {
+                messageObject.returnData(messageObject);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return messageObject.toJson(messageObject);
     }
 
     /**
@@ -87,6 +92,7 @@ public class MenuController {
             for (Menu m : menuList) {
                 menuTrees.add(new MenuTree(m));
             }
+            model.addAttribute("parent", menuService.get(menu.getMenuId()));
             model.addAttribute("menuList", JsonMapper.toJson(menuTrees));
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,8 +103,7 @@ public class MenuController {
     /**
      * 更新数据到数据库
      */
-    @RequestMapping(value = "/platform/menu/menu-update.json",
-            method = RequestMethod.POST)
+    @RequestMapping(value = "/platform/menu/menu-update.json", method = RequestMethod.POST, produces = "application/json")
     public void menuupdate(Menu menu) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
@@ -154,6 +159,8 @@ public class MenuController {
             PagerInfo<Menu> pagerInfo = menuService.queryPage(paramsMap, new PageRowBounds(support));
             List<Menu> menuList = pagerInfo.getContent();
             for (Menu menu : menuList) {
+                if (menu.getId().equals("505c56a20ac14891bf85b5a97636f693"))
+                    System.out.println("--------------------");
                 menu.setMenu(menuService.get(menu.getMenuId()));
             }
             pagerInfo.setContent(menuList);

@@ -102,7 +102,7 @@ function _openTip(content, isAlert, callback, title) {
         });
     } else {
         layer.confirm(content, {
-            title: title ? title : false,
+            title: title ? title : '提示信息',
             closeBtn: 0,
             btn: ['确定', '取消'] //按钮
         }, function () {

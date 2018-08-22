@@ -1,5 +1,6 @@
-<#include "common/header.ftl">
-<@htmlHead title="FreeMarker宏测试 ">
+[#ftl encoding="utf-8" strict_syntax=true]
+[#include "common/header.ftl"]
+[@htmlHead title="FreeMarker宏测试 "]
     <script type="text/javascript" src="${basePath}/assets/lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
     <script type="text/javascript">
         $(function () {
@@ -23,8 +24,8 @@
             });
         }
     </script>
-</@htmlHead>
-<@htmlBody>
+[/@htmlHead]
+[@htmlBody]
 　　<header class="navbar-wrapper">
         <div class="navbar navbar-fixed-top">
             <div class="container-fluid cl"><a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">测试系统</a>
@@ -33,8 +34,9 @@
                 <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
                 <nav class="nav navbar-nav">
                     <ul class="cl">
-                        <li class="navbar-levelone current"><a href="javascript:;">平台</a></li>
-                        <li class="navbar-levelone"><a href="javascript:;">商城</a></li>
+                        [#list menuList as menu]
+                            <li class="navbar-levelone current"><a href="javascript:;">${menu.name}</a></li>
+                        [/#list]
                         <li class="navbar-levelone"><a href="javascript:;">财务</a></li>
                         <li class="navbar-levelone"><a href="javascript:;">手机</a></li></li>
                     </ul>
@@ -230,4 +232,4 @@
             <li id="closeall">关闭全部</li>
         </ul>
     </div>
-</@htmlBody>
+[/@htmlBody]
