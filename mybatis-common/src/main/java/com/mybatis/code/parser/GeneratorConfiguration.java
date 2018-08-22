@@ -28,6 +28,16 @@ public class GeneratorConfiguration {
 	private boolean edit;
 	private String baseDir;
 	private String target;
+	
+	private Integer templateType;
+	
+	public Integer getTemplateType() {
+		return templateType;
+	}
+	
+	public void setTemplateType(Integer templateType) {
+		this.templateType = templateType;
+	}
 
 	public String getBaseDir() {
 		return baseDir;

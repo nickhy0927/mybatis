@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.mybatis.common.singleton.UserSingleton;
 
 public class MessageObject {
 
@@ -48,14 +49,39 @@ public class MessageObject {
 		this.code = ResultCode.FAILIAR;
 	}
 
+    public void unauth() {
+        this.msg = "你没有权限访问，详情请联系管理员";
+        this.code = ResultCode.UNAUTH;
+    }
+
 	public void ok(String successMsg, Object object) {
 		this.msg = successMsg;
 		this.code = ResultCode.SUCCESS;
 		this.object = object;
 	}
 
+	public String toJson(MessageObject messageObject) {
+	    return JsonMapper.toJson(messageObject);
+    }
+
 	public void returnData(HttpServletResponse response, MessageObject messageObject) throws IOException {
 		// 这句话的意思，是让浏览器用utf8来解析返回的数据
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		// 这句话的意思，是告诉servlet用UTF-8转码，而不是用默认的ISO8859
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter writer = response.getWriter();
+		String json = new Gson().toJson(messageObject);
+		if (writer != null) {
+			writer.write(json);
+			if (writer != null) {
+				writer.flush();
+				writer.close();
+			}
+		}
+	}
+	public void returnData(MessageObject messageObject) throws IOException {
+        HttpServletResponse response = UserSingleton.getHttpServletResponse();
+        // 这句话的意思，是让浏览器用utf8来解析返回的数据
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		// 这句话的意思，是告诉servlet用UTF-8转码，而不是用默认的ISO8859
 		response.setCharacterEncoding("UTF-8");

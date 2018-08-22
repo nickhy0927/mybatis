@@ -37,7 +37,7 @@
                 margin-bottom: 0px;
             }
             .breadcrumb {
-                top: -22px;
+                top: -14px;
             }
             .page-container {
                 padding: 0 20px;
@@ -46,6 +46,11 @@
                 padding-left: 5px;
             }
         </style>
+        <link rel="stylesheet" href="${basePath}/layerui/layui/css/layui.css" media="all">
+    	<link rel="stylesheet" href="${basePath}/layerui/font-awesome/css/font-awesome.min.css" media="all">
+    	<link rel="stylesheet" href="${basePath}/layerui/build/css/app.css" media="all">
+    	<link rel="stylesheet" href="${basePath}/layerui/build/css/themes/green.css" media="all">
+    	<script src="${basePath}/layerui/layui/layui.js"></script>
         <script type="text/javascript">
             var ctx = '${basePath}';
             console.log(ctx);

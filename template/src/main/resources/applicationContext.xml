@@ -89,7 +89,7 @@
         <property name="suffix" value=".ftl"/>
         <property name="targetDir" value="freemarker"/>
         <property name="fileType" value="2" />
-        <property name="absoluteWebappPath" value="E:\workspaces\IdeaProjects\mybatis\mybatis-base\mybatis-layui\src\main\webapp"/>
+        <property name="absoluteWebappPath" value="D:\develop\tools\sts\works\20180522\mybatis\template\src\main\webapp"/>
         <property name="jars">
             <list>
                 <value>mybatis-config-1.0-SNAPSHOT.jar</value>

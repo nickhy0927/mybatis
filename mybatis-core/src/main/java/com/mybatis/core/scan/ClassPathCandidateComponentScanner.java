@@ -27,22 +27,25 @@ public class ClassPathCandidateComponentScanner {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
      */
-    public static Set<Class<?>> getClzFromPkg(String pkg) throws InstantiationException, IllegalAccessException {
+    public static Set<Class<?>> getClzFromPkg(String pkgs) throws InstantiationException, IllegalAccessException {
         Set<Class<?>> classes = new LinkedHashSet<>();
-        String pkgDirName = pkg.replace('.', '/');
+        String[] pkgList = pkgs.split(",");
         try {
-            Enumeration<URL> urls = ClassPathCandidateComponentScanner.class.getClassLoader().getResources(pkgDirName);
-            while (urls.hasMoreElements()) {
-                URL url = urls.nextElement();
-                String protocol = url.getProtocol();
-                if ("file".equals(protocol)) {// 如果是以文件的形式保存在服务器上
-                    String filePath = URLDecoder.decode(url.getFile(), "UTF-8");// 获取包的物理路径
-                    findClassesByFile(pkg, filePath, classes);
-                } else if ("jar".equals(protocol)) {// 如果是jar包文件
-                    JarFile jar = ((JarURLConnection) url.openConnection()).getJarFile();
-                    findClassesByJar(pkg, jar, classes);
+        	for (String pkg : pkgList) {
+        		String pkgDirName = pkg.replace('.', '/');
+                Enumeration<URL> urls = ClassPathCandidateComponentScanner.class.getClassLoader().getResources(pkgDirName);
+                while (urls.hasMoreElements()) {
+                    URL url = urls.nextElement();
+                    String protocol = url.getProtocol();
+                    if ("file".equals(protocol)) {// 如果是以文件的形式保存在服务器上
+                        String filePath = URLDecoder.decode(url.getFile(), "UTF-8");// 获取包的物理路径
+                        findClassesByFile(pkg, filePath, classes);
+                    } else if ("jar".equals(protocol)) {// 如果是jar包文件
+                        JarFile jar = ((JarURLConnection) url.openConnection()).getJarFile();
+                        findClassesByJar(pkg, jar, classes);
+                    }
                 }
-            }
+			}
         } catch (IOException e) {
             e.printStackTrace();
         }

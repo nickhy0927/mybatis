@@ -87,8 +87,6 @@ public class MySqlJdbcConnection {
 					createTable(table, clazz);
 				}
 			}
-			
-			System.out.println(connection);
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

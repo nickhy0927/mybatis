@@ -21,6 +21,7 @@ import ${packages}.${domainObjectName?lower_case}.service.${domainObjectName}Ser
 import com.mybatis.common.utils.MessageObject;
 import com.mybatis.common.utils.PageSupport;
 import com.mybatis.common.utils.PagerInfo;
+import com.mybatis.core.orm.entity.PageRowBounds;
 import com.mybatis.common.utils.RequestData;
 
 /**
@@ -53,7 +54,7 @@ public class ${domainObjectName}Controller {
     public MessageObject ${domainObjectName?uncap_first}Save(${domainObjectName} ${domainObjectName?uncap_first}) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
-            ${domainObjectName?uncap_first} = ${domainObjectName?uncap_first}Service.insert(${domainObjectName?uncap_first});
+            ${domainObjectName?uncap_first}Service.insert(${domainObjectName?uncap_first});
             messageObject.ok("保存信息成功", ${domainObjectName?uncap_first});
         } catch (Exception e) {
             messageObject.error("保存信息失败");
@@ -121,7 +122,7 @@ public class ${domainObjectName}Controller {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
-			PagerInfo<${domainObjectName}> pagerInfo = ${domainObjectName?uncap_first}Service.queryPageByMap(paramsMap, support);
+			PagerInfo<${domainObjectName}> pagerInfo = ${domainObjectName?uncap_first}Service.queryPage(paramsMap, new PageRowBounds(support));
 			messageObject.ok("获取模版输出成功", pagerInfo);
 		} catch (IOException e) {
 			e.printStackTrace();

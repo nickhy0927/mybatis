@@ -20,6 +20,7 @@ public class SysConstant {
 
         public static String getName(Integer code) {
             String name = "";
+            if (code == null) return name;
             switch (code) {
                 case INVALID:
                     name = INVALID_NAME;
