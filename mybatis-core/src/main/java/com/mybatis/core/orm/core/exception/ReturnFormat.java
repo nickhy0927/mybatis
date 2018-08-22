@@ -37,7 +37,7 @@ public class ReturnFormat {
         messageMap.put("301", "数据修改成功");
         messageMap.put("302", "数据修改失败");
 
-        messageMap.put("401", "数据删除成功");
+        messageMap.put("407", "数据删除成功");
         messageMap.put("402", "数据删除失败");
 
         messageMap.put("501", "获取数据列表成功");
@@ -46,7 +46,7 @@ public class ReturnFormat {
 
     public static class StatusCode {
         public static final int CODE_400 = 400;
-        public static final int CODE_401 = 401;
+        public static final int CODE_407 = 401;
         public static final int CODE_405 = 405;
         public static final int CODE_406 = 406;
         public static final int CODE_500 = 500;
