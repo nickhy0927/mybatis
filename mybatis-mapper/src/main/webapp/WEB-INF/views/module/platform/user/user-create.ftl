@@ -25,6 +25,7 @@
             	position: { required:true, maxlength:200},
             }, function () {
                 $.openTip('你确定要保存吗？',false ,function() {
+                    $.closeLoading();
                     $.openLoading("正在保存数据，请稍等...");
                     $.submitAjax("${basePath}", {
                         method: 'POST',

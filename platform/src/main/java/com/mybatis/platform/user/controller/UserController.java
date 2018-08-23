@@ -55,9 +55,9 @@ public class UserController {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             userService.insert(user);
-            messageObject.ok("保存信息成功", user);
+            messageObject.ok("保存用户信息成功", user);
         } catch (Exception e) {
-            messageObject.error("保存信息失败");
+            messageObject.error("保存用户信息失败");
         }
         return messageObject;
     }
@@ -81,9 +81,10 @@ public class UserController {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             userService.update(user);
-            messageObject.ok("修改信息成功", user);
+            messageObject.ok("修改用户信息成功", user);
         } catch (Exception e) {
-            messageObject.error("修改信息失败");
+        	e.printStackTrace();
+            messageObject.error("修改用户信息失败");
         }
         return messageObject;
     }
@@ -99,9 +100,9 @@ public class UserController {
 			String[] ids = id.split(",");
 			List<String> list = Arrays.asList(ids);
 			userService.deleteBatch(list);
-			messageObject.ok("删除信息成功", null);
+			messageObject.ok("删除用户信息成功", null);
 		} catch (Exception e) {
-			messageObject.error("删除信息失败");
+			messageObject.error("删除用户信息失败");
 		}
 		return messageObject;
 	}
@@ -118,18 +119,18 @@ public class UserController {
 	 * 获取列表数据
 	 */
 	@RequestMapping(value = "/platform/user/user-list.json", method = RequestMethod.POST)
-	public void userList(HttpServletRequest request, HttpServletResponse response, PageSupport support) {
+	public void userList(HttpServletRequest request, PageSupport support) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
 			PagerInfo<User> pagerInfo = userService.queryPage(paramsMap, new PageRowBounds(support));
-			messageObject.ok("获取模版输出成功", pagerInfo);
+			messageObject.ok("获取用户信息成功", pagerInfo);
 		} catch (IOException e) {
 			e.printStackTrace();
-			messageObject.error("获取模版数据异常");
+			messageObject.error("获取用户信息异常");
 		} finally {
 			try {
-				messageObject.returnData(response, messageObject);
+				messageObject.returnData(messageObject);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

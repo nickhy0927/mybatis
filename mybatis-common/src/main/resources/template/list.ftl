@@ -6,12 +6,12 @@ ${r'<@htmlHead>'}
         }
         
         function edit(id) {
-            $.openWindow('修改模板', '80%', '80%', "${r'${basePath}'}/${accessPath}-edit/"+ ${r'id'} +".do");
+            $.openWindow('修改模板', '80%', '80%', "${r'${basePath}'}/${accessPath}-edit/"+ id +".do");
         }
         
         function del(id, single) {
             $.datadel({
-            	url: "${r'${basePath}'}/${accessPath}-edit/"+ ${r'id'} +".do",
+            	url: "${r'${basePath}'}/${accessPath}-delete/"+ id +".do",
                 type: "post",
                 data: {id: id},
                 success:function(data){
@@ -19,11 +19,18 @@ ${r'<@htmlHead>'}
                     	$.openTip(data.msg, true, function () {
                     		initData();
                     	});
+                    } else {
+                        $.openTip(data.msg, true, function () {
+                            $.closeLoading();
+                        });
+                        return;
                     }
                 },
-                error:function(e){
-                    alert("错误！！");
-                    window.clearInterval(timer);
+                error:function(){
+                    $.openTip('删除信息出现异常，稍后再试.', true, function () {
+                        $.closeLoading();
+                    });
+                    return;
                 }
             }, single)
         }
@@ -34,10 +41,13 @@ ${r'<@htmlHead>'}
                 method: 'POST',
                 checkbox: true,
                 pageSize: 6,
-                orderField: 'createTime',
+                order: 'createTime',
                 sort: 'desc',
                 searchButtonId: '#searchButton',
-                queryParamsId: ['#connectUrl', "#databaseName", "#username"],
+                queryParams: {
+                    connectUrl: $('#connectUrl').val(),
+                    databaseName: $("#databaseName").val()
+                },
                 tableId: '#dataGridList',
                 columns: [
                     {field: 'id', className: 'text-c'},

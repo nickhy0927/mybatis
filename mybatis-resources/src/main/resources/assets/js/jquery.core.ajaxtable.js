@@ -133,7 +133,6 @@ $.extend({
      * 获取所选数据的对象
      */
     $.fn.getCheckedObjArray = function () {
-    	var that = this;
     	var array = [];
     	$.each(_dataIds, function(index, id) {
     		array.push(tableData.data(id));
@@ -306,7 +305,7 @@ var _order_by_sort = function (settings, theadId) {
             });
         }
     });
-}
+};
 //获取所有的查询条件
 var _get_query_condition = function (settings) {
     var ids = settings.queryParamsId;
@@ -329,7 +328,7 @@ var _get_query_condition = function (settings) {
     var object = eval("(" + jsonStr + ")");
     var orderField = settings.orderField.replace(/([A-Z])/g,"_$1").toLowerCase();
     object.order = orderField;
-    object.reorder = settings.sort;
+    object.sort = settings.sort;
     return object;
 };
 // 查询服务器数据

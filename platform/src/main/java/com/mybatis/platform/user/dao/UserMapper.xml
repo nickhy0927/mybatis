@@ -27,7 +27,7 @@
 
 	<update id="update" parameterType="com.mybatis.platform.user.entity.User">
 		update sys_user 
-		<trim prefix="set" prefixOverrides=",">
+		<trim prefix="set" prefixOverrides="," suffixOverrides=",">
 			<if test="realName != null">real_name = #{realName},</if>
 			<if test="loginName != null">login_name = #{loginName},</if>
 			<if test="password != null">password = #{password},</if>
@@ -39,7 +39,6 @@
 			<if test="position != null">position = #{position},</if>
 			<if test="lastLoginTime != null">last_login_time = #{lastLoginTime},</if>
 			<if test="id != null">id = #{id},</if>
-			<if test="createTime != null">create_time = #{createTime},</if>
 			<if test="updateTime != null">update_time = #{updateTime},</if>
 			<if test="status != null">status = #{status},</if>
 		</trim>	
@@ -48,7 +47,7 @@
 	
 	<update id="updateBatch" parameterType="com.mybatis.platform.user.entity.User">
 		update sys_user 
-		<trim prefix="set" prefixOverrides=",">
+		<trim prefix="set" prefixOverrides="," suffixOverrides=",">
 			<if test="realName != null">real_name = #{realName},</if>
 			<if test="loginName != null">login_name = #{loginName},</if>
 			<if test="password != null">password = #{password},</if>
@@ -120,20 +119,18 @@
 
 	<sql id="conditions">
 		<trim prefix="where" prefixOverrides="and|or">
-			<if test="realName != null">and real_name = #{realName}</if>
-			<if test="loginName != null">and login_name = #{loginName}</if>
-			<if test="password != null">and password = #{password}</if>
-			<if test="locked != null">and locked = #{locked}</if>
-			<if test="enable != null">and enable = #{enable}</if>
-			<if test="email != null">and email = #{email}</if>
-			<if test="mobile != null">and mobile = #{mobile}</if>
-			<if test="remark != null">and remark = #{remark}</if>
-			<if test="position != null">and position = #{position}</if>
-			<if test="lastLoginTime != null">and last_login_time = #{lastLoginTime}</if>
-			<if test="id != null">and id = #{id}</if>
-			<if test="createTime != null">and create_time = #{createTime}</if>
-			<if test="updateTime != null">and update_time = #{updateTime}</if>
-			<if test="status != null">and status = #{status}</if>
+			<if test="realName != null and realName != ''">and real_name like concat('%', #{realName}, '%')</if>
+			<if test="loginName != null and loginName != ''">and login_name  like concat('%', #{loginName}, '%')</if>
+			<if test="locked != null and locked != ''">and locked = #{locked}</if>
+			<if test="enable != null and enable != ''">and enable = #{enable}</if>
+			<if test="email != null and email != ''">and email = #{email}</if>
+			<if test="mobile != null and mobile != ''">and mobile = #{mobile}</if>
+			<if test="remark != null and remark != ''">and remark = #{remark}</if>
+			<if test="position != null and position != ''">and position = #{position}</if>
+			<if test="lastLoginTime != null and lastLoginTime != ''">and last_login_time = #{lastLoginTime}</if>
+			<if test="id != null and id != ''">and id = #{id}</if>
+			<if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+			<if test="status != null and status != ''">and status = #{status}</if>
 		</trim>
 	</sql>
 </mapper>

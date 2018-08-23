@@ -10,7 +10,7 @@ public class PageSupport {
     private int currentPage;// 当前页
     private boolean layui;// 是否是layui
     private String order = "createTime";
-    private Sortable sort = Sortable.DESC;
+    private String sort = Sortable.DESC.toString().toLowerCase();
 
     private int limit;
 
@@ -152,7 +152,7 @@ public class PageSupport {
         return lowerCase;
     }
 
-    public Sortable getSort() {
+    public String getSort() {
         return sort;
     }
 
@@ -160,7 +160,7 @@ public class PageSupport {
         this.order = order;
     }
 
-    public void setSort(Sortable sort) {
+    public void setSort(String sort) {
         this.sort = sort;
     }
 

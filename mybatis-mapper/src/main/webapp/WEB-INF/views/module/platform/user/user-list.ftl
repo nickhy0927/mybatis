@@ -38,7 +38,7 @@
                 orderField: 'createTime',
                 sort: 'desc',
                 searchButtonId: '#searchButton',
-                queryParamsId: ['#connectUrl', "#databaseName", "#username"],
+                queryParamsId: ['#realName', "#loginName"],
                 tableId: '#dataGridList',
                 columns: [
                     {field: 'id', className: 'text-c'},
@@ -82,11 +82,11 @@
         <form name="listForm">
             <div class="text-l cl">
                 <ul class="sel-list">
-                    <li>数据库名称：
-                        <input type="text" name="connectUrl" id="connectUrl" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
+                    <li>真实姓名：
+                        <input type="text" name="realName" id="realName" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
                     </li>
-                    <li>数据库名称：
-                        <input type="text" name="databaseName" id="databaseName" class="input-text" style="width:auto;"  placeholder="输入数据库名称">
+                    <li>登录账户：
+                        <input type="text" name="loginName" id="loginName" class="input-text" style="width:auto;"  placeholder="输入数据库名称">
                     </li>
                     <li>数据库用户名：
                         <input type="text" name="username" id="username" class="input-text" style="width:auto;"

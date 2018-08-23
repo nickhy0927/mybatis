@@ -1,5 +1,6 @@
-<#include "../../../common/header.ftl">
-<@htmlHead>
+[#ftl encoding="utf-8" strict_syntax=true]
+[#include "/common/header.ftl"]
+[@htmlHead]
     <script type="text/javascript">
         $(document).ready(function () {
             $('.skin-minimal input').iCheck({
@@ -8,7 +9,7 @@
                 increaseArea: '20%'
             });
             $.validator.addMethod("phone", function(value, element) {
-                var reg = /^(\d{1,12})$/;
+                var reg = /^(\d{1,13})$/;
                 return this.optional(element) || reg.test(value);
             }, "请输入12位以内的纯数字号码");
 
@@ -16,25 +17,20 @@
             $.validation('addForm', {
             	realName: { required:true, maxlength:200},
             	loginName: { required:true, maxlength:200},
-            	password: { required:true, maxlength:200},
             	locked: { required:true, maxlength:200},
             	enable: { required:true, maxlength:200},
-            	email: { required:true, maxlength:200},
-            	mobile: { required:true, maxlength:200},
+            	email: { required:true, maxlength:200, email: true},
+            	mobile: { required:true, maxlength:200, phone: true},
             	remark: { required:true, maxlength:200},
             	position: { required:true, maxlength:200},
-            	lastLoginTime: { required:true, maxlength:200},
-            	id: { required:true, maxlength:200},
-            	createTime: { required:true, maxlength:200},
-            	updateTime: { required:true, maxlength:200},
-            	status: { required:true, maxlength:200},
             }, function () {
                 $.openTip('你确定要保存吗？',false ,function() {
+                    $.closeLoading();
                     $.openLoading("正在保存数据，请稍等...");
                     $.submitAjax("${basePath}", {
                         method: 'POST',
                         dataType: 'JSON',
-                        url: ctx + '/platform/user/user-update.json'
+                        url: '/platform/user/user-update.json'
                     },$("#addForm").serialize(), function (result) {
                         if (result.code == 200) {
                             $.openTip(result.msg ,true ,function() {
@@ -62,17 +58,18 @@
             parent.layer.close(index);
         }
     </script>
-</@htmlHead>
-<@htmlBody>
+[/@htmlHead]
+[@htmlBody]
     <article class="page-container">
         <form class="form form-horizontal" id="addForm">
 			<div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
+                    <input type="hidden" value="${user.id}" id="id" name="id">
                 	<span class="c-red">*</span>
                 		真实姓名 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="realName" id="realName" class="input-text" value="${user.realName}" placeholder="please enter realName">
+                    <input type="text" name="realName" id="realName" class="input-text" value="${user.realName}" placeholder="请输入真实姓名">
                 </div>
             </div>
 			<div class="row cl">
@@ -81,34 +78,36 @@
                 		登录账号 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="loginName" id="loginName" class="input-text" value="${user.loginName}" placeholder="please enter loginName">
+                    <input type="text" disabled="disabled" readonly="readonly" name="loginName" id="loginName" class="input-text" value="${user.loginName}" placeholder="请输入登录账户">
                 </div>
             </div>
-			<div class="row cl">
+            <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		登录密码 ：
+                    <span class="c-red">*</span>是否锁定：
                 </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="password" id="password" class="input-text" value="${user.password}" placeholder="please enter password">
+                <div class="formControls col-xs-3 col-sm-3 skin-minimal">
+                    <div class="radio-box">
+                        <input name="locked" value="1" [#if user.locked == 1]checked="checked"[/#if] type="radio" id="locked-1" checked>
+                        <label for="locked-1">锁定</label>
+                    </div>
+                    <div class="radio-box">
+                        <input type="radio" value="0" [#if user.locked == 0]checked="checked"[/#if] id="locked-2" name="locked">
+                        <label for="locked-2">解锁</label>
+                    </div>
                 </div>
-            </div>
-			<div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		是否锁定 1 锁定 0 未锁定 ：
+                    <span class="c-red">*</span>
+                    是否启用：
                 </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="locked" id="locked" class="input-text" value="${user.locked}" placeholder="please enter locked">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		是否启用 1 启用 0 停用 ：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="enable" id="enable" class="input-text" value="${user.enable}" placeholder="please enter enable">
+                <div class="formControls col-xs-3 col-sm-4 skin-minimal">
+                    <div class="radio-box">
+                        <input name="enable" value="1" [#if user.enable == 1]checked="checked"[/#if] type="radio" id="enable-1" checked>
+                        <label for="enable-1">启用</label>
+                    </div>
+                    <div class="radio-box">
+                        <input type="radio" value="0" [#if user.enable == 0]checked="checked"[/#if] id="enable-2" name="enable">
+                        <label for="enable-2">停用</label>
+                    </div>
                 </div>
             </div>
 			<div class="row cl">
@@ -129,19 +128,10 @@
                     <input type="text" name="mobile" id="mobile" class="input-text" value="${user.mobile}" placeholder="please enter mobile">
                 </div>
             </div>
-			<div class="row cl">
+            <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		信息备注 ：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="remark" id="remark" class="input-text" value="${user.remark}" placeholder="please enter remark">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		用户职位 ：
+                    <span class="c-red">*</span>
+                    用户职位 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <input type="text" name="position" id="position" class="input-text" value="${user.position}" placeholder="please enter position">
@@ -150,46 +140,10 @@
 			<div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
                 	<span class="c-red">*</span>
-                		最后一次登录时间：
+                		信息备注 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="lastLoginTime" id="lastLoginTime" class="input-text" value="${user.lastLoginTime}" placeholder="please enter lastLoginTime">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="id" id="id" class="input-text" value="${user.id}" placeholder="please enter id">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="createTime" id="createTime" class="input-text" value="${user.createTime}" placeholder="please enter createTime">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="updateTime" id="updateTime" class="input-text" value="${user.updateTime}" placeholder="please enter updateTime">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="status" id="status" class="input-text" value="${user.status}" placeholder="please enter status">
+                    <input type="text" name="remark" id="remark" class="input-text" value="${user.remark}" placeholder="please enter remark">
                 </div>
             </div>
             <div class="row cl">
@@ -200,4 +154,4 @@
             </div>
         </form>
     </article>
-</@htmlBody>
+[/@htmlBody]
