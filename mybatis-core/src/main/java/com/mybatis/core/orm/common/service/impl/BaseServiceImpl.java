@@ -99,8 +99,10 @@ public abstract class BaseServiceImpl<E, ID extends Serializable, T extends Base
 
 	@Override
 	public PagerInfo<E> queryPage(Map<String, Object> paramMap, PageRowBounds rowBounds) {
-		List<E> list = mapper.queryPageByMap(paramMap, rowBounds);
-		PageSupport support = rowBounds.getSupport();
+        PageSupport support = rowBounds.getSupport();
+        paramMap.put("order", support.getOrder());
+        paramMap.put("sort", support.getSort());
+        List<E> list = mapper.queryPageByMap(paramMap, rowBounds);
 		support.setTotalRecord(queryListByMap(paramMap).size());
 		return new PagerInfo<>(support, list);
 	}

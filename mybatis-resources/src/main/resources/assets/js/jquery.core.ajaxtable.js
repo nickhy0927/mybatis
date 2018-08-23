@@ -461,7 +461,7 @@ var _create_grid_table = function (data, settings) {
         var laypage = layui.laypage;
         laypage.render({
             elem: 'paged',
-            count: data.totalRecord,
+            count: data['totalRecord'],
             theme: '#1E9FFF',
             limit: settings.pageSize,
             limits: settings.limits,

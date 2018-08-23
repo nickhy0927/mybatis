@@ -44,7 +44,6 @@
                     {field: 'id', className: 'text-c'},
 					{field: 'realName', className: 'text-l', description: '真实姓名 ', sort: true},
 					{field: 'loginName', className: 'text-l', description: '登录账号 ', sort: true},
-					{field: 'password', className: 'text-l', description: '登录密码 ', sort: true},
 					{field: 'locked', className: 'text-l', description: '是否锁定', sort: true, paramFormatter: function (row) {
                         return row.locked == 1 ? '锁定' : '未锁定';
                     }},

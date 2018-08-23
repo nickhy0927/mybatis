@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.platform.icon.dao.IconMapper">
+	<insert id="insert" parameterType="com.mybatis.platform.icon.entity.Icon">
+		insert into sys_icon (
+            id,create_time, update_time,
+            status, name, attr, enable, remark
+		)
+		values (
+            #{id}, #{createTime}, #{updateTime}, #{status},
+            #{name}, #{attr}, #{enable}, #{remark}
+		)
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from sys_icon where id = #{id}
+	</delete>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from sys_icon where id in 
+		<foreach item="id" collection="list" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<update id="update" parameterType="com.mybatis.platform.icon.entity.Icon">
+		update sys_icon 
+        <trim prefix="set" prefixOverrides="," suffixOverrides=",">
+            <if test="id != null">id = #{id},</if>
+            <if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="attr != null and attr != ''">attr = #{attr},</if>
+            <if test="enable != null and enable != ''">enable = #{enable},</if>
+            remark = #{remark}
+        </trim>
+		where id = #{id}
+	</update>
+	
+	<update id="updateBatch" parameterType="com.mybatis.platform.icon.entity.Icon">
+		update sys_icon 
+		<trim prefix="set" prefixOverrides=",">
+			<if test="id != null">id = #{id},</if>
+			<if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
+			<if test="status != null and status != ''">status = #{status},</if>
+			<if test="name != null and name != ''">name = #{name},</if>
+			<if test="attr != null and attr != ''">attr = #{attr},</if>
+			<if test="enable != null and enable != ''">enable = #{enable},</if>
+            remark = #{remark}
+		</trim>
+		where id = #{id}
+	</update>
+
+	<select id="get" parameterType="String" resultType="com.mybatis.platform.icon.entity.Icon">
+		select 
+            id,create_time, update_time,
+            status, name, attr, enable, remark
+		from sys_icon where id = #{id}
+	</select>
+	<select id="getObject" 
+			parameterType="com.mybatis.platform.icon.entity.Icon" 
+			resultType="com.mybatis.platform.icon.entity.Icon">
+		select 
+            id,create_time, update_time,
+            status, name, attr, enable, remark
+		from sys_icon where id = #{id}
+	</select>
+
+	<select id="queryListByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.icon.entity.Icon">
+		select
+            id,create_time, update_time,
+            status, name, attr, enable, remark
+		from sys_icon t
+		<include refid="conditions" />
+	</select>
+	
+	<select id="queryListByObject" 
+			parameterType="com.mybatis.platform.icon.entity.Icon" 
+			resultType="com.mybatis.platform.icon.entity.Icon">
+		select
+            id,create_time, update_time,
+            status, name, attr, enable, remark
+		from sys_icon t
+		<include refid="conditions" />
+	</select>
+
+	<select id="queryPageByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.icon.entity.Icon">
+		select
+            id,create_time, update_time,
+            status, name, attr, enable, remark
+		from sys_icon t
+		<include refid="conditions" />
+		order by
+            <choose>
+                <when test="order != null">${order} ${sort}</when>
+                <when test="order != null">create_time desc</when>
+            </choose>
+	</select>
+
+	<sql id="conditions">
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="id != null and alias != ''">and id = #{id}</if>
+			<if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+			<if test="status != null and status != ''">and status = #{status}</if>
+			<if test="name != null and name != ''">and name like concat('%',#{name},'%')</if>
+			<if test="attr != null and attr != ''">and attr like concat('%',#{attr},'%')</if>
+			<if test="enable != null and enable != ''">and enable = #{enable}</if>
+		</trim>
+	</sql>
+</mapper>

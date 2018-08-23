@@ -153,7 +153,6 @@
 			<if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
 			<if test="status != null and status != ''">and status = #{status}</if>
 			<if test="code != null and code != ''">and code = #{code}</if>
-			<if test="sort != null and sort != ''">and sort = #{sort}</if>
 			<if test="name != null and name != ''">and name like concat('%',#{name},'%')</if>
 			<if test="url != null and url != ''">and url like concat('%',#{url},'%')</if>
 			<if test="alias != null and alias != ''">and alias like concat('%',#{alias},'%')</if>
