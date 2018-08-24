@@ -92,11 +92,11 @@ $.extend({
 		var array = [];
 		$.each(_dataIds, function(index, id) {
 			array.push(tableData.data(id));
-		})
-		return array
+		});
+		return array;
 	},
 	getCheckedValue: function() {
-		return _dataIds	
+		return _dataIds;
 	}
 });
 
@@ -121,14 +121,14 @@ $.extend({
                 html += "<option value=\"" + data.value + "\">" + data.name + "</>";
         }
         $(this).html(html);
-    }
+    };
     
     /**
      * 获取checkbox选中的值
      */
     $.fn.getCheckedValue = function () {
     	return _dataIds
-    }
+    };
     /**
      * 获取所选数据的对象
      */
@@ -136,9 +136,9 @@ $.extend({
     	var array = [];
     	$.each(_dataIds, function(index, id) {
     		array.push(tableData.data(id));
-    	})
-    	return array
-    }
+    	});
+    	return array;
+    };
     /**
      * 列表组件
      */
@@ -360,6 +360,7 @@ var _query_data_ajxa = function (settings) {
         },
         error: function (err) {
             $.openTip('获取数据失败，请稍后再试...', true, function () {
+                console.log(err);
                 $.closeLoading();
             });
         }
@@ -379,21 +380,12 @@ var _each_value = function (key, json) {
         return json ? json[key] : "";
 };
 // 创建表格
-var dataList = [];
 var _create_grid_table = function (data, settings) {
     var tableId = settings.tableId.substring(1);
-    var objs;
-    try {
-        objs = data.content;
-        if (!objs)
-            objs = data.maps;
-    } catch (e) {
-        objs = data.maps;
-    }
+    var objs = data.content;
     var trStr = "";
     var array = settings.columns;
-    var num = 0,
-        len;
+    var len;
     for (var j = 0; len = objs.length, j < len; j++) {
     	var id = objs[j]['id'];
     	tableData.data(id, objs[j]);
@@ -554,11 +546,11 @@ var _select_checkbox_all = function () {
             var that = this;
             $("input[name='checkOne']").each(function () {
                 var id = $(this).attr('data-id');
-                var obj = tableData.data(id);
+                tableData.data(id);
                 var disabled = $(this).attr('disabled');
                 if (disabled == undefined) {
                     $(this).prop("checked", that.checked);
-                    $(this).parent().parent().css(trBackgroundChecked)
+                    $(this).parent().parent().css(trBackgroundChecked);
                     if ($(this).is(":checked")) {
                         if (!_is_exsit(_dataIds, id)) {
                             _dataIds.push(id);

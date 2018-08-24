@@ -72,24 +72,16 @@
         <i class="Hui-iconfont">&#xe67f;</i> 首页
         <span class="c-gray en">&gt;</span> 菜单管理
         <span class="c-gray en">&gt;</span> 菜单管理列表
-        <a class="btn btn-refresh radius r" style="line-height:1.6em;margin-top:3px"
-           href="javascript:location.replace(location.href);" title="刷新">
-            <i class="Hui-iconfont">&#xe68f;</i>
-        </a>
     </nav>
     <div class="page-container">
         <form name="listForm">
             <div class="text-l cl">
                 <ul class="sel-list">
-                    <li>菜单名称：
+                    <li>图标名称：
                         <input type="text" name="name" id="name" class="input-text" style="width:auto;" placeholder="输入菜单名称">
                     </li>
-                    <li>菜单地址：
-                        <input type="text" name="url" id="url" class="input-text" style="width:auto;"  placeholder="输入菜单地址">
-                    </li>
-                    <li>菜单别名：
-                        <input type="text" name="alias" id="alias" class="input-text" style="width:auto;"
-                               placeholder="输入菜单别名">
+                    <li>图标属性：
+                        <input type="text" name="attr" id="attr" class="input-text" style="width:auto;"  placeholder="输入菜单地址">
                     </li>
                     <li>
                         <button type="button" class="btn btn-success radius" id="searchButton" name=""><i

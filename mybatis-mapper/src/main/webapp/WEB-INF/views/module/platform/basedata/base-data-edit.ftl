@@ -1,5 +1,6 @@
-<#include "../../../common/header.ftl">
-<@htmlHead>
+[#ftl encoding="utf-8" strict_syntax=true]
+[#include "/common/header.ftl"]
+[@htmlHead]
     <script type="text/javascript">
         $(document).ready(function () {
             $('.skin-minimal input').iCheck({
@@ -30,7 +31,7 @@
                     $.submitAjax("${basePath}", {
                         method: 'POST',
                         dataType: 'JSON',
-                        url: ctx + '/platform/basedata/base-data-update.json'
+                        url: '/platform/basedata/base-data-update.json'
                     },$("#addForm").serialize(), function (result) {
                         if (result.code == 200) {
                             $.openTip(result.msg ,true ,function() {
@@ -58,46 +59,10 @@
             parent.layer.close(index);
         }
     </script>
-</@htmlHead>
-<@htmlBody>
+[/@htmlHead]
+[@htmlBody]
     <article class="page-container">
         <form class="form form-horizontal" id="addForm">
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		主键ID：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="id" id="id" class="input-text" value="${baseData.id}" placeholder="please enter id">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		新增时间：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="createTime" id="createTime" class="input-text" value="${baseData.createTime}" placeholder="please enter createTime">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		修改时间：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="updateTime" id="updateTime" class="input-text" value="${baseData.updateTime}" placeholder="please enter updateTime">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		有效状态：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="status" id="status" class="input-text" value="${baseData.status}" placeholder="please enter status">
-                </div>
-            </div>
 			<div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
                 	<span class="c-red">*</span>
@@ -160,4 +125,4 @@
             </div>
         </form>
     </article>
-</@htmlBody>
+[/@htmlBody]

@@ -52,9 +52,9 @@ public class IconController extends BaseController{
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             iconService.insert(icon);
-            messageObject.ok("菜单信息保存成功", icon);
+            messageObject.ok("图标信息保存成功", icon);
         } catch (Exception e) {
-            messageObject.error("菜单信息保存失败");
+            messageObject.error("图标信息保存失败");
         } finally {
             try {
                 messageObject.returnData(messageObject);
@@ -86,10 +86,10 @@ public class IconController extends BaseController{
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             iconService.update(icon);
-            messageObject.ok("修改信息成功", icon);
+            messageObject.ok("修改图标信息成功", icon);
         } catch (Exception e) {
             e.printStackTrace();
-            messageObject.error("修改信息失败");
+            messageObject.error("修改图标信息失败");
         } finally {
             try {
                 messageObject.returnData(messageObject);
@@ -111,9 +111,9 @@ public class IconController extends BaseController{
             String[] ids = id.split(",");
             List<String> list = Arrays.asList(ids);
             iconService.deleteBatch(list);
-            messageObject.ok("删除信息成功", null);
+            messageObject.ok("删除图标信息成功", null);
         } catch (Exception e) {
-            messageObject.error("删除信息失败");
+            messageObject.error("删除图标信息失败");
         }
         return messageObject;
     }

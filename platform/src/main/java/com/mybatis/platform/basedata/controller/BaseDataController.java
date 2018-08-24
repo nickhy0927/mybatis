@@ -1,13 +1,13 @@
 package com.mybatis.platform.basedata.controller;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.google.common.collect.Lists;
+import com.mybatis.common.utils.*;
+import com.mybatis.core.orm.constant.SysConstant;
+import com.mybatis.core.orm.entity.PageRowBounds;
+import com.mybatis.platform.basedata.entity.BaseData;
+import com.mybatis.platform.basedata.entity.BaseDataTree;
+import com.mybatis.platform.basedata.service.BaseDataService;
+import com.mybatis.utils.NumberCreate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,13 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mybatis.common.utils.MessageObject;
-import com.mybatis.common.utils.PageSupport;
-import com.mybatis.common.utils.PagerInfo;
-import com.mybatis.common.utils.RequestData;
-import com.mybatis.core.orm.entity.PageRowBounds;
-import com.mybatis.platform.basedata.entity.BaseData;
-import com.mybatis.platform.basedata.service.BaseDataService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Title: baseDataController.java
@@ -42,7 +41,20 @@ public class BaseDataController {
 	 * 新增页面
 	 */
 	@RequestMapping(value = "/platform/basedata/base-data-create.do", method = RequestMethod.GET)
-	public String baseDataCreate() {
+	public String baseDataCreate(Model model,HttpServletRequest request) {
+	    model.addAttribute("code", NumberCreate.generateNumber2());
+        try {
+            Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
+            paramsMap.put("status", SysConstant.DataStatus.VALID);
+            List<BaseData> baseDataList = baseDataService.queryListByMap(paramsMap);
+            List<BaseDataTree> baseDataTrees = Lists.newArrayList();
+            for (BaseData baseData : baseDataList) {
+                baseDataTrees.add(new BaseDataTree(baseData));
+            }
+            model.addAttribute("baseDataList", JsonMapper.toJson(baseDataTrees));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 		return "module/platform/basedata/base-data-create";
 	}
 	
@@ -55,9 +67,9 @@ public class BaseDataController {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             baseDataService.insert(baseData);
-            messageObject.ok("保存信息成功", baseData);
+            messageObject.ok("保存基础数据信息成功", baseData);
         } catch (Exception e) {
-            messageObject.error("保存信息失败");
+            messageObject.error("保存基础数据信息失败");
         }
         return messageObject;
     }
@@ -81,9 +93,9 @@ public class BaseDataController {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             baseDataService.update(baseData);
-            messageObject.ok("修改信息成功", baseData);
+            messageObject.ok("修改基础数据信息成功", baseData);
         } catch (Exception e) {
-            messageObject.error("修改信息失败");
+            messageObject.error("修改基础数据信息失败");
         }
         return messageObject;
     }
@@ -99,9 +111,9 @@ public class BaseDataController {
 			String[] ids = id.split(",");
 			List<String> list = Arrays.asList(ids);
 			baseDataService.deleteBatch(list);
-			messageObject.ok("删除信息成功", null);
+			messageObject.ok("删除基础数据信息成功", null);
 		} catch (Exception e) {
-			messageObject.error("删除信息失败");
+			messageObject.error("删除基础数据信息失败");
 		}
 		return messageObject;
 	}
@@ -123,10 +135,10 @@ public class BaseDataController {
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
 			PagerInfo<BaseData> pagerInfo = baseDataService.queryPage(paramsMap, new PageRowBounds(support));
-			messageObject.ok("获取模版输出成功", pagerInfo);
+			messageObject.ok("获取基础数据成功", pagerInfo);
 		} catch (IOException e) {
 			e.printStackTrace();
-			messageObject.error("获取模版数据异常");
+			messageObject.error("获取基础数据异常");
 		} finally {
 			try {
 				messageObject.returnData(response, messageObject);

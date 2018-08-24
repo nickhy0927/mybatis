@@ -7,7 +7,7 @@
 	</appender>
 
 	<appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>D:/logs/oa.log</file>
+		<file>D:/logs/mapper.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<fileNamePattern>D:/logs/oa.%d{yyyy-MM-dd}.log</fileNamePattern>
 		</rollingPolicy>

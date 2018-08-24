@@ -2,14 +2,14 @@
 <@htmlHead>
     <script type="text/javascript">
         function create() {
-            $.openWindow('创建模板', '80%', '80%', "${basePath}/platform/basedata/base-data-create.do");
+            $.openWindow('新增基础数据', '80%', '70%', "${basePath}/platform/basedata/base-data-create.do");
         }
         
         function edit() {
-            $.openWindow('修改模板', '80%', '80%', "${basePath}/platform/basedata/base-data-edit/"+ id +".do");
+            $.openWindow('修改基础数据', '80%', '70%', "${basePath}/platform/basedata/base-data-edit/"+ id +".do");
         }
         
-        function delete(id, single) {
+        function del(id, single) {
             $.datadel({
             	url: "${basePath}/platform/basedata/base-data-edit/"+ id +".do",
                 type:"post",
@@ -19,18 +19,21 @@
                     	$.openTip(data.msg, true, function () {
                     		initData();
                     	});
+                    } else {
+                        $.openTip(data.msg, true);
+                        return;
                     }
                 },
                 error:function(e){
-                    alert("错误！！");
-                    window.clearInterval(timer);
+                    $.openTip('删除基础数据失败', true);
+                    return;
                 }
             }, single)
         }
 		function initData() {
 			$("#dataGridList").dataGrid({
                 url: ctx + '/platform/basedata/base-data-list.json',
-                title: 'BaseData管理列表',
+                title: '基础数据管理列表',
                 method: 'POST',
                 checkbox: true,
                 pageSize: 6,
@@ -41,22 +44,20 @@
                 tableId: '#dataGridList',
                 columns: [
                     {field: 'id', className: 'text-c'},
-					{field: 'id', className: 'text-l', description: '主键ID', sort: true, paramFormatter: function (row) {}},
-					{field: 'createTime', className: 'text-l', description: '新增时间', sort: true, paramFormatter: function (row) {}},
-					{field: 'updateTime', className: 'text-l', description: '修改时间', sort: true, paramFormatter: function (row) {}},
-					{field: 'status', className: 'text-l', description: '有效状态', sort: true, paramFormatter: function (row) {}},
-					{field: 'code', className: 'text-l', description: '字典编号 ', sort: true, paramFormatter: function (row) {}},
-					{field: 'name', className: 'text-l', description: '字典名称 ', sort: true, paramFormatter: function (row) {}},
-					{field: 'val', className: 'text-l', description: '字典值 ', sort: true, paramFormatter: function (row) {}},
-					{field: 'remark', className: 'text-l', description: '信息备注 ', sort: true, paramFormatter: function (row) {}},
-					{field: 'enable', className: 'text-l', description: '是否启用 1 启用  0 停用 ', sort: true, paramFormatter: function (row) {}},
-					{field: 'sysParamsId', className: 'text-l', description: '系统参数ID', sort: true, paramFormatter: function (row) {}},
+					{field: 'code', className: 'text-l', description: '字典编号', sort: true},
+					{field: 'name', className: 'text-l', description: '字典名称', sort: true},
+					{field: 'val', className: 'text-l', description: '字典值', sort: true},
+					{field: 'enable', className: 'text-l', description: '是否启用', sort: true, paramFormatter: function (row) {
+                        return row.enable == 1 ? '启用': '停用';
+                    }},
+                    {field: 'remark', className: 'text-l', description: '信息备注', sort: true},
+                    {field: 'sysParamsId', className: 'text-l', description: '上级字典'},
                     {field: 'operate', className: 'text-c', description: '操作', paramFormatter: function (row) {
                         return "<a href=\"#\" title=\"修改\" onclick=\"edit('" + row.id + "')\">"
                                 + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
                              + "</a>&nbsp;&nbsp;"
-                             + "<a href=\"#\" title=\"删除\" onclick=\"delete('" + row.id + "', true)\">"
-                                + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
+                             + "<a href=\"#\" title=\"删除\" onclick=\"del('" + row.id + "', true)\">"
+                                + "<i class=\"Hui-iconfont\">&#xe609;</i>"
                              + "</a>";
                     }}
                 ]
@@ -70,26 +71,18 @@
 <@htmlBody>
 	<nav class="breadcrumb">
         <i class="Hui-iconfont">&#xe67f;</i> 首页
-        <span class="c-gray en">&gt;</span> BaseData管理
-        <span class="c-gray en">&gt;</span> BaseData列表
-        <a class="btn btn-refresh radius r" style="line-height:1.6em;margin-top:3px"
-           href="javascript:location.replace(location.href);" title="刷新">
-            <i class="Hui-iconfont">&#xe68f;</i>
-        </a>
+        <span class="c-gray en">&gt;</span> 基础数据管理
+        <span class="c-gray en">&gt;</span> 基础数据列表
     </nav>
     <div class="page-container">
         <form name="listForm">
             <div class="text-l cl">
                 <ul class="sel-list">
-                    <li>数据库名称：
-                        <input type="text" name="connectUrl" id="connectUrl" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
+                    <li>字典名称：
+                        <input type="text" name="name" id="name" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
                     </li>
-                    <li>数据库名称：
-                        <input type="text" name="databaseName" id="databaseName" class="input-text" style="width:auto;"  placeholder="输入数据库名称">
-                    </li>
-                    <li>数据库用户名：
-                        <input type="text" name="username" id="username" class="input-text" style="width:auto;"
-                               placeholder="输入数据库用户名">
+                    <li>属性值：
+                        <input type="text" name="val" id="val" class="input-text" style="width:auto;"  placeholder="输入数据库名称">
                     </li>
                     <li>
                         <button type="button" class="btn btn-success radius" id="searchButton" name=""><i
