@@ -40,7 +40,7 @@ public class OptLog extends IdEntity{
     /**
      *
      */
-    @Column(name = "clazz", comment = "操作类名称", lenght = 1)
+    @Column(name = "opt_type", comment = "操作类型", lenght = 1)
     public Integer optType;
 
     public String getUsername() {
