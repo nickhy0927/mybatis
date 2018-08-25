@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -117,22 +116,18 @@ public class ${domainObjectName}Controller {
 	/**
 	 * 获取列表数据
 	 */
+    @ResponseBody
 	@RequestMapping(value = "/${accessPath}-list.json", method = RequestMethod.POST)
-	public void ${domainObjectName?uncap_first}List(HttpServletRequest request, HttpServletResponse response, PageSupport support) {
+	public MessageObject ${domainObjectName?uncap_first}List(HttpServletRequest request, PageSupport support) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
 			PagerInfo<${domainObjectName}> pagerInfo = ${domainObjectName?uncap_first}Service.queryPage(paramsMap, new PageRowBounds(support));
-			messageObject.ok("获取模版输出成功", pagerInfo);
+			messageObject.ok("获取列表成功", pagerInfo);
 		} catch (IOException e) {
 			e.printStackTrace();
-			messageObject.error("获取模版数据异常");
-		} finally {
-			try {
-				messageObject.returnData(response, messageObject);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			messageObject.error("获取列表异常");
 		}
+		return messageObject;
 	}
 }

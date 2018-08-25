@@ -1,5 +1,7 @@
-${r'<#include "../../../common/header.ftl">'}
-${r'<@htmlHead>'}
+[#ftl encoding="utf-8" strict_syntax=true]
+${r'[#ftl encoding="utf-8" strict_syntax=true]'}
+${r'[#include "/common/header.ftl"]'}
+${r'[@htmlHead]'}
     <script type="text/javascript">
         function create() {
             $.openWindow('创建模板', '80%', '80%', "${r'${basePath}'}/${accessPath}-create.do");
@@ -51,9 +53,10 @@ ${r'<@htmlHead>'}
                 tableId: '#dataGridList',
                 columns: [
                     {field: 'id', className: 'text-c'},
-                    <#list columnList as column>
+                    [#list columnList as column]
+
 					{field: '${column.javaProperty?uncap_first}', className: 'text-l', description: '${column.remarks}', sort: true, paramFormatter: function (row) {}},
-					</#list>
+                    [/#list]
                     {field: 'operate', className: 'text-c', description: '操作', paramFormatter: function (row) {
                         return "<a href=\"#\" title=\"修改\" onclick=\"edit('" + row.id + "')\">"
                                 + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
@@ -69,8 +72,8 @@ ${r'<@htmlHead>'}
             initData();
         })
     </script>
-${r'</@htmlHead>'}
-${r'<@htmlBody>'}
+${r'[/@htmlHead]'}
+${r'[@htmlBody]'}
 	<nav class="breadcrumb">
         <i class="Hui-iconfont">&#xe67f;</i> 首页
         <span class="c-gray en">&gt;</span> ${domainObjectName}管理
@@ -84,16 +87,11 @@ ${r'<@htmlBody>'}
         <form name="listForm">
             <div class="text-l cl">
                 <ul class="sel-list">
-                    <li>数据库名称：
-                        <input type="text" name="connectUrl" id="connectUrl" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
-                    </li>
-                    <li>数据库名称：
-                        <input type="text" name="databaseName" id="databaseName" class="input-text" style="width:auto;"  placeholder="输入数据库名称">
-                    </li>
-                    <li>数据库用户名：
-                        <input type="text" name="username" id="username" class="input-text" style="width:auto;"
-                               placeholder="输入数据库用户名">
-                    </li>
+                    [#list columnList as column]
+                     <li>${column.remarks}：
+                         <input type="text" name="${column.javaProperty?uncap_first}" id="${column.javaProperty?uncap_first}" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
+                     </li>
+                    [/#list]
                     <li>
                         <button type="button" class="btn btn-success radius" id="searchButton" name=""><i
                                 class="Hui-iconfont">&#xe665;</i> 搜索
@@ -112,4 +110,4 @@ ${r'<@htmlBody>'}
             <table id="dataGridList" class="table table-border table-bordered table-hover table-bg table-sort"></table>
         </div>
     </div>
-${r'</@htmlBody>'}
+${r'[/@htmlBody]'}
