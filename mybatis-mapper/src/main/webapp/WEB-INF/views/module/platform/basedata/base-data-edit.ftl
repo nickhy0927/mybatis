@@ -27,29 +27,31 @@
             	sysParamsId: { required:true, maxlength:200},
             }, function () {
                 $.openTip('你确定要保存吗？',false ,function() {
-                    $.openLoading("正在保存数据，请稍等...");
-                    $.submitAjax("${basePath}", {
+                    $.closeLoading();
+                    $.openLoading('正在保存基础数据信息，请稍等...');
+                    $.ajax({
+                        url: '${basePath}/platform/basedata/base-data-update.json',
                         method: 'POST',
                         dataType: 'JSON',
-                        url: '/platform/basedata/base-data-update.json'
-                    },$("#addForm").serialize(), function (result) {
-                        if (result.code == 200) {
-                            $.openTip(result.msg ,true ,function() {
-                                parent.window.location.href = ctx + '/platform/basedata/base-data-list.do';
+                        data: $("#addForm").serialize(),
+                        success: function (data) {
+                            $.closeLoading();
+                            if (data.status != 200 && data.code != 200) {
+                                $.openTip(data.msg, true);
+                                return;
+                            }
+                            $.openTip(data.msg, true, function () {
+                                window.parent.initData();
                                 var index = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(index);
                             });
-                        } else {
-                            $.openTip(result.msg ,true, function() {
-                                $.closeLoading();
-                            });
-                        }
-                    },function (err) {
-                        console.log(err);
-                        $.openTip("信息保存失败" ,true, function() {
+                        },
+                        error: function (err) {
                             $.closeLoading();
-                        });
-                    })
+                            $.openTip(err, true);
+                            return;
+                        }
+                    });
                 })
             });
         });
@@ -58,11 +60,52 @@
             var index = parent.layer.getFrameIndex(window.name);
             parent.layer.close(index);
         }
+
+        var zNodes = ${baseDataList};
+        function showTree() {
+            showMenu();
+        }
+        function zTreeOnClick(event, treeId, treeNode) {
+            $("#baseDataName").val(treeNode.name);
+            $("#baseDataId").val(treeNode.id);
+            $("#treeDemo").attr('style', "display:none;z-index:100;position：absolute").slideUp("fast");
+        }
+        var setting = {
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            callback: {
+                onClick: zTreeOnClick
+            }
+        };
+
+        function showMenu(){
+            var cityObj = $("#baseDataId");
+            var cityOffset = $("#baseDataId").offset();
+            $("#treeDemo").css({left:cityOffset.left+"px",top:cityOffset.top+cityObj.outerHeight()+"px"}).slideDown("fast");
+        }
+        $(document).ready(function () {
+            $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            $("body").bind("mousedown", function (event) {
+                var reg = RegExp(/switch/);
+                var target = event.target.id;
+                if (!target.match(reg)) {
+                    hideMenu();
+                }
+            });
+        });
+
+        function hideMenu() {
+            $("#treeDemo").fadeOut("fast");
+        }
     </script>
 [/@htmlHead]
 [@htmlBody]
     <article class="page-container">
         <form class="form form-horizontal" id="addForm">
+            <input type="hidden" id="id" name="id" value="${baseData.id}">
 			<div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
                 	<span class="c-red">*</span>
@@ -90,31 +133,52 @@
                     <input type="text" name="val" id="val" class="input-text" value="${baseData.val}" placeholder="please enter val">
                 </div>
             </div>
-			<div class="row cl">
+            <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		信息备注 ：
+                    <span class="c-red">*</span>上级菜单：
+                </label>
+                <div class="formControls col-xs-9 col-sm-9">
+                    <div class="input-append">
+                        <input type="text" name="baseDataName" id="baseDataName" class="input-text device_select"
+                               onfocus="showTree()" onclick="showTree()" readonly="readonly" value="${baseData.parentName!''}"
+                               placeholder="请选择上级字典">
+                        <input name="baseDataId" value="${baseData.baseDataId !''}" type="hidden" id="baseDataId">
+                        <ul style="display: none" id="treeDemo" class="ztree"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3 col-sm-2">
+                    <span class="c-red">*</span>是否启用：
+                </label>
+                <div class="formControls col-xs-3 col-sm-3 skin-minimal">
+                    <div class="radio-box">
+                        <input name="enable" value="1" [#if baseData.enable ==1]checked="checked"[/#if] type="radio" id="enable-1" checked>
+                        <label for="sex-1">启用</label>
+                    </div>
+                    <div class="radio-box">
+                        <input type="radio" value="0" [#if baseData.enable ==0]checked="checked"[/#if] id="enable-2" name="enable">
+                        <label for="sex-2">停用</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3 col-sm-2">
+                    <span class="c-red">*</span>
+                    字典排序 ：
+                </label>
+                <div class="formControls col-xs-9 col-sm-9">
+                    <input type="text" name="sort" id="sort" class="input-text"
+                           value="${baseData.sort!''}" placeholder="请输入排序值">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3 col-sm-2">
+                    <span class="c-red">*</span>
+                    信息备注 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <input type="text" name="remark" id="remark" class="input-text" value="${baseData.remark}" placeholder="please enter remark">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		是否启用 1 启用  0 停用 ：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="enable" id="enable" class="input-text" value="${baseData.enable}" placeholder="please enter enable">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		系统参数ID：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="sysParamsId" id="sysParamsId" class="input-text" value="${baseData.sysParamsId}" placeholder="please enter sysParamsId">
                 </div>
             </div>
             <div class="row cl">

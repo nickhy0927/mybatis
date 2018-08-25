@@ -1,5 +1,17 @@
-<#include "../../../common/header.ftl">
-<@htmlHead>
+[#ftl encoding="utf-8" strict_syntax=true]
+[#include "/common/header.ftl"]
+[@htmlHead]
+    <style type="text/css">
+        ul.ztree {
+            margin-top: 0px;
+            border: 1px solid #617775;
+            background: #f0f6e4;
+            width: auto;
+            height: auto;
+            overflow-y: scroll;
+            overflow-x: auto;
+        }
+    </style>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.skin-minimal input').iCheck({
@@ -7,139 +19,155 @@
                 radioClass: 'iradio-blue',
                 increaseArea: '20%'
             });
-            $.validator.addMethod("phone", function(value, element) {
-                var reg = /^(\d{1,12})$/;
-                return this.optional(element) || reg.test(value);
-            }, "请输入12位以内的纯数字号码");
-
             //表单验证
             $.validation('addForm', {
-            	id: { required:true, maxlength:200},
-            	createTime: { required:true, maxlength:200},
-            	updateTime: { required:true, maxlength:200},
-            	status: { required:true, maxlength:200},
-            	code: { required:true, maxlength:200},
-            	name: { required:true, maxlength:200},
-            	roleId: { required:true, maxlength:200},
-            	remark: { required:true, maxlength:200},
-            	frozen: { required:true, maxlength:200},
+                code: {required: true, maxlength: 200},
+                name: {required: true, maxlength: 200},
+                remark: {required: true, maxlength: 200},
+                frozen: {required: true, maxlength: 200}
             }, function () {
-                $.openTip('你确定要保存吗？',false ,function() {
-                    $.openLoading("正在保存数据，请稍等...");
-                    $.submitAjax("${basePath}", {
+                $.openTip('你确定要保存吗？', false, function () {
+                    $.closeLoading();
+                    $.openLoading('正在保存角色信息，请稍等...');
+                    $.ajax({
+                        url: '${basePath}/platform/role/role-save.json',
                         method: 'POST',
                         dataType: 'JSON',
-                        url: ctx + '/platform/role/role-save.json'
-                    },$("#addForm").serialize(), function (result) {
-                        if (result.code == 200) {
-                            $.openTip(result.msg ,true ,function() {
-                                parent.window.location.href = ctx + '/platform/role/role-list.do';
+                        data: $("#addForm").serialize(),
+                        success: function (data) {
+                            $.closeLoading();
+                            if (data.status != 200 && data.code != 200) {
+                                $.openTip(data.msg, true);
+                                return;
+                            }
+                            $.openTip(data.msg, true, function () {
+                                window.parent.initData();
                                 var index = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(index);
                             });
-                        } else {
-                            $.openTip(result.msg ,true, function() {
-                                $.closeLoading();
-                            });
-                        }
-                    },function (err) {
-                        console.log(err);
-                        $.openTip("保存数据失败，请稍后再试." ,true, function() {
+                        },
+                        error: function (err) {
                             $.closeLoading();
-                        });
-                    })
-                })
+                            $.openTip(err, true);
+                            return;
+                        }
+                    });
+                });
             });
         });
+
         //取消
-        function removeIframe(){
+        function removeIframe() {
             var index = parent.layer.getFrameIndex(window.name);
             parent.layer.close(index);
         }
+
+        function removeIframe() {
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+        }
+
+        var zNodes = ${roleList};
+        function showTree() {
+            showMenu();
+        }
+        function zTreeOnClick(event, treeId, treeNode) {
+            $("#roleName").val(treeNode.name);
+            $("#roleId").val(treeNode.id);
+            $("#treeDemo").attr('style', "display:none;z-index:100;position：absolute").slideUp("fast");
+        }
+        var setting = {
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            callback: {
+                onClick: zTreeOnClick
+            }
+        };
+
+        function showMenu(){
+            var cityObj = $("#roleId");
+            var cityOffset = $("#roleId").offset();
+            $("#treeDemo").css({left:cityOffset.left+"px",top:cityOffset.top+cityObj.outerHeight()+"px"}).slideDown("fast");
+        }
+        $(document).ready(function () {
+            $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            $("body").bind("mousedown", function (event) {
+                console.log(event.target.id);
+                var reg = RegExp(/switch/);
+                var target = event.target.id;
+                if (!target.match(reg)) {
+                    hideMenu();
+                }
+            });
+        });
+
+        function hideMenu() {
+            $("#treeDemo").fadeOut("fast");
+        }
     </script>
-</@htmlHead>
-<@htmlBody>
+[/@htmlHead]
+[@htmlBody]
     <article class="page-container">
         <form class="form form-horizontal" id="addForm">
-			<div class="row cl">
+            <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		主键ID：
+                    <span class="c-red">*</span>
+                    角色编号 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="id" id="id" class="input-text" value="" placeholder="please enter id">
+                    <input readonly="readonly" type="text" name="code" id="code" class="input-text" value="${code}"
+                           placeholder="please enter code">
                 </div>
             </div>
-			<div class="row cl">
+            <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		新增时间：
+                    <span class="c-red">*</span>
+                    角色名称 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="createTime" id="createTime" class="input-text" value="" placeholder="please enter createTime">
+                    <input type="text" name="name" id="name" class="input-text" value=""
+                           placeholder="请输入角色名称">
                 </div>
             </div>
-			<div class="row cl">
+            <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		修改时间：
+                    <span class="c-red">*</span>
+                    上级角色 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="updateTime" id="updateTime" class="input-text" value="" placeholder="please enter updateTime">
+                    <input type="text" onfocus="showTree()" onclick="showTree()"
+                           name="roleName" id="roleName" class="input-text" value="" placeholder="请选择上级角色">
+                    <input type="hidden" name="roleId" id="roleId" class="input-text" value=""
+                           placeholder="">
+                    <ul style="display: none" id="treeDemo" class="ztree"></ul>
                 </div>
             </div>
-			<div class="row cl">
+            <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		有效状态：
+                    <span class="c-red">*</span>是否冻结：
                 </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="status" id="status" class="input-text" value="" placeholder="please enter status">
+                <div class="formControls col-xs-3 col-sm-3 skin-minimal">
+                    <div class="radio-box">
+                        <input name="frozen" value="1" type="radio" id="frozen-1" checked>
+                        <label for="locked-1">未冻结</label>
+                    </div>
+                    <div class="radio-box">
+                        <input type="radio" value="0" id="locked-2" name="frozen">
+                        <label for="frozen-2">冻结</label>
+                    </div>
                 </div>
             </div>
-			<div class="row cl">
+            <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		角色编号 ：
+                    <span class="c-red">*</span>
+                    角色描述 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="code" id="code" class="input-text" value="" placeholder="please enter code">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		角色名称 ：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="name" id="name" class="input-text" value="" placeholder="please enter name">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		上级角色 ：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="roleId" id="roleId" class="input-text" value="" placeholder="please enter roleId">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		信息备注 ：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="remark" id="remark" class="input-text" value="" placeholder="please enter remark">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		是否冻结 1 冻结 0 未冻结：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="frozen" id="frozen" class="input-text" value="" placeholder="please enter frozen">
+                    <input type="text" name="remark" id="remark" class="input-text" value=""
+                           placeholder="请输入角色描述">
                 </div>
             </div>
             <div class="row cl">
@@ -150,4 +178,4 @@
             </div>
         </form>
     </article>
-</@htmlBody>
+[/@htmlBody]

@@ -1,13 +1,13 @@
 package com.mybatis.platform.baseparams.controller;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.mybatis.common.utils.MessageObject;
+import com.mybatis.common.utils.PageSupport;
+import com.mybatis.common.utils.PagerInfo;
+import com.mybatis.common.utils.RequestData;
+import com.mybatis.core.orm.entity.PageRowBounds;
+import com.mybatis.platform.baseparams.entity.BaseParams;
+import com.mybatis.platform.baseparams.service.BaseParamsService;
+import com.mybatis.utils.NumberCreate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,18 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mybatis.platform.baseparams.entity.BaseParams;
-import com.mybatis.platform.baseparams.service.BaseParamsService;
-import com.mybatis.common.utils.MessageObject;
-import com.mybatis.common.utils.PageSupport;
-import com.mybatis.common.utils.PagerInfo;
-import com.mybatis.common.utils.RequestData;
-import com.mybatis.core.orm.entity.PageRowBounds;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Title: baseParamsController.java
  * @Package com.mybatis.platform.baseParams.controller
- * @Description TODO(用一句话描述该文件做什么)
+ * @Description 系统参数列表
  * @author yuanhuangd
  * @version V1.0
  * @Date: 2018年6月9日 下午6:03:46
@@ -42,7 +40,8 @@ public class BaseParamsController {
 	 * 新增页面
 	 */
 	@RequestMapping(value = "/platform/baseparams/base-params-create.do", method = RequestMethod.GET)
-	public String baseParamsCreate() {
+	public String baseParamsCreate(Model model) {
+		model.addAttribute("code", NumberCreate.generateNumber2());
 		return "module/platform/baseparams/base-params-create";
 	}
 	
@@ -55,9 +54,9 @@ public class BaseParamsController {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             baseParamsService.insert(baseParams);
-            messageObject.ok("保存信息成功", baseParams);
+            messageObject.ok("保存系统参数信息成功", baseParams);
         } catch (Exception e) {
-            messageObject.error("保存信息失败");
+            messageObject.error("保存系统参数信息失败");
         }
         return messageObject;
     }
@@ -81,9 +80,9 @@ public class BaseParamsController {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             baseParamsService.update(baseParams);
-            messageObject.ok("修改信息成功", baseParams);
+            messageObject.ok("修改系统参数信息成功", baseParams);
         } catch (Exception e) {
-            messageObject.error("修改信息失败");
+            messageObject.error("修改系统参数信息失败");
         }
         return messageObject;
     }
@@ -99,9 +98,9 @@ public class BaseParamsController {
 			String[] ids = id.split(",");
 			List<String> list = Arrays.asList(ids);
 			baseParamsService.deleteBatch(list);
-			messageObject.ok("删除信息成功", null);
+			messageObject.ok("删除系统参数信息成功", null);
 		} catch (Exception e) {
-			messageObject.error("删除信息失败");
+			messageObject.error("删除系统参数信息失败");
 		}
 		return messageObject;
 	}
@@ -118,18 +117,18 @@ public class BaseParamsController {
 	 * 获取列表数据
 	 */
 	@RequestMapping(value = "/platform/baseparams/base-params-list.json", method = RequestMethod.POST)
-	public void baseParamsList(HttpServletRequest request, HttpServletResponse response, PageSupport support) {
+	public void baseParamsList(HttpServletRequest request, PageSupport support) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
 			PagerInfo<BaseParams> pagerInfo = baseParamsService.queryPage(paramsMap, new PageRowBounds(support));
-			messageObject.ok("获取模版输出成功", pagerInfo);
+			messageObject.ok("获取系统参数列表成功", pagerInfo);
 		} catch (IOException e) {
 			e.printStackTrace();
-			messageObject.error("获取模版数据异常");
+			messageObject.error("获取系统参数列表失败");
 		} finally {
 			try {
-				messageObject.returnData(response, messageObject);
+				messageObject.returnData(messageObject);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

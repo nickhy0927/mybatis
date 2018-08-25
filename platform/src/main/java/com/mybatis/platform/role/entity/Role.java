@@ -36,9 +36,30 @@ public class Role extends IdEntity {
 	/**
 	  * 是否冻结 1 冻结 0 未冻结
 	  */
-    @Column(name = "frozen",comment = "是否冻结 1 冻结 0 未冻结")
+    @Column(name = "frozen",comment = "是否冻结 0 冻结 1 未冻结")
 	private Integer frozen;
-	
+
+    /**
+     * 角色名称
+     */
+    private String roleName;
+
+    /**
+     * 获取：角色名称
+     * @return
+     */
+    public String getRoleName() {
+        return roleName;
+    }
+
+    /**
+     * 设置：角色名称
+     * @param roleName
+     */
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
     /**
      * 获取：角色编号 
      */
@@ -96,14 +117,14 @@ public class Role extends IdEntity {
     }
 
     /**
-     * 获取：是否冻结 1 冻结 0 未冻结
+     * 获取：是否冻结 0 冻结 1 未冻结
      */
     public Integer getFrozen() {
        return this.frozen;
     }
     
     /**
-     * 设置：是否冻结 1 冻结 0 未冻结
+     * 设置：是否冻结 0 冻结 1 未冻结
      */
     public void setFrozen(Integer frozen) {
        this.frozen = frozen;

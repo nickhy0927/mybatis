@@ -83,30 +83,32 @@
                 remark: {required: true, maxlength: 200}
             }, function () {
                 $.openTip('你确定要保存吗？', false, function () {
-                    $.openLoading("正在保存数据，请稍等...");
-                    $.submitAjax("${basePath}", {
+                    $.closeLoading();
+                    $.openLoading('正在保存菜单信息，请稍等...');
+                    $.ajax({
+                        url: '${basePath}/platform/menu/menu-update.json',
                         method: 'POST',
                         dataType: 'JSON',
-                        url: '/platform/menu/menu-update.json'
-                    }, $("#addForm").serialize(), function (result) {
-                        if (result.code == 200) {
-                            $.openTip(result.msg, true, function () {
+                        data: $("#addForm").serialize(),
+                        success: function (data) {
+                            $.closeLoading();
+                            if (data.status != 200 && data.code != 200) {
+                                $.openTip(data.msg, true);
+                                return;
+                            }
+                            $.openTip(data.msg, true, function () {
                                 window.parent.initData();
                                 var index = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(index);
                             });
-                        } else {
-                            $.openTip(result.msg, true, function () {
-                                $.closeLoading();
-                            });
-                        }
-                    }, function (err) {
-                        console.log(err);
-                        $.openTip("信息保存失败", true, function () {
+                        },
+                        error: function (err) {
                             $.closeLoading();
-                        });
-                    })
-                })
+                            $.openTip(err, true);
+                            return;
+                        }
+                    });
+                });
             });
         });
 

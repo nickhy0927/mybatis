@@ -25,9 +25,7 @@
                 error:function(e){
                     // alert("错误！！");
                     console.log(e);
-                    $.openTip('删除菜单信息失败，请稍后再试.', true, function () {
-                        initData();
-                    })
+                    $.openTip('删除菜单信息失败，请稍后再试.');
                 }
             }, single)
         }
@@ -49,7 +47,7 @@
 					{field: 'name', className: 'text-l', description: '菜单名称 ', sort: true},
 					{field: 'url', className: 'text-l', description: '菜单地址 ', sort: true},
 					{field: 'alias', className: 'text-l', description: '菜单别名 ', sort: true},
-					{field: 'menu.name', className: 'text-l', description: '上级菜单 ', sort: true},
+					{field: 'parentName', className: 'text-l', description: '上级菜单 ', sort: true},
 					{field: 'enable', className: 'text-l', description: '是否启用 ', sort: true, paramFormatter: function (row) {
 						return row.enable == 1 ? '启用' : '停用';
 					}},
@@ -78,10 +76,6 @@
         <i class="Hui-iconfont">&#xe67f;</i> 首页
         <span class="c-gray en">&gt;</span> 菜单管理
         <span class="c-gray en">&gt;</span> 菜单管理列表
-        <a class="btn btn-refresh radius r" style="line-height:1.6em;margin-top:3px"
-           href="javascript:location.replace(location.href);" title="刷新">
-            <i class="Hui-iconfont">&#xe68f;</i>
-        </a>
     </nav>
     <div class="page-container">
         <form name="listForm">

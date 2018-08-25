@@ -7,53 +7,55 @@
                 radioClass: 'iradio-blue',
                 increaseArea: '20%'
             });
-            $.validator.addMethod("phone", function(value, element) {
-                var reg = /^(\d{1,12})$/;
+            $.validator.addMethod("phone", function (value, element) {
+                var reg = /!(/^1[34578]\d{9}$/;
                 return this.optional(element) || reg.test(value);
             }, "请输入12位以内的纯数字号码");
 
             //表单验证
             $.validation('addForm', {
-            	realName: { required:true, maxlength:200},
-            	loginName: { required:true, maxlength:200},
-            	password: { required:true, maxlength:200},
-            	locked: { required:true, maxlength:200},
-            	enable: { required:true, maxlength:200},
-            	email: { required:true, maxlength:200},
-            	mobile: { required:true, maxlength:200},
-            	remark: { required:true, maxlength:200},
-            	position: { required:true, maxlength:200},
+                realName: {required: true, maxlength: 200},
+                loginName: {required: true, maxlength: 200},
+                password: {required: true, maxlength: 200},
+                locked: {required: true},
+                enable: {required: true},
+                email: {required: true, maxlength: 200},
+                mobile: {required: true, phone: true},
+                remark: {required: true, maxlength: 200},
+                position: {required: true, maxlength: 200},
             }, function () {
-                $.openTip('你确定要保存吗？',false ,function() {
+                $.openTip('你确定要保存吗？', false, function () {
                     $.closeLoading();
-                    $.openLoading("正在保存数据，请稍等...");
-                    $.submitAjax("${basePath}", {
+                    $.openLoading('正在保存用户信息，请稍等...');
+                    $.ajax({
+                        url: '${basePath}/platform/user/user-save.json',
                         method: 'POST',
                         dataType: 'JSON',
-                        url: '/platform/user/user-save.json'
-                    },$("#addForm").serialize(), function (result) {
-                        if (result.code == 200) {
-                            $.openTip(result.msg ,true ,function() {
-                                parent.window.location.href = ctx + '/platform/user/user-list.do';
+                        data: $("#addForm").serialize(),
+                        success: function (data) {
+                            $.closeLoading();
+                            if (data.status != 200 && data.code != 200) {
+                                $.openTip(data.msg, true);
+                                return;
+                            }
+                            $.openTip(data.msg, true, function () {
+                                window.parent.initData();
                                 var index = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(index);
                             });
-                        } else {
-                            $.openTip(result.msg ,true, function() {
-                                $.closeLoading();
-                            });
-                        }
-                    },function (err) {
-                        console.log(err);
-                        $.openTip("信息保存失败" ,true, function() {
+                        },
+                        error: function (err) {
                             $.closeLoading();
-                        });
-                    })
+                            $.openTip(err, true);
+                            return;
+                        }
+                    });
                 })
             });
         });
+
         //取消
-        function removeIframe(){
+        function removeIframe() {
             var index = parent.layer.getFrameIndex(window.name);
             parent.layer.close(index);
         }
@@ -62,28 +64,29 @@
 <@htmlBody>
     <article class="page-container">
         <form class="form form-horizontal" id="addForm">
-			<div class="row cl">
+            <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		真实姓名 ：
+                    <span class="c-red">*</span>
+                    真实姓名 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <input type="text" name="realName" id="realName" class="input-text" value="" placeholder="请输入真是姓名">
                 </div>
             </div>
-			<div class="row cl">
+            <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		登录账号 ：
+                    <span class="c-red">*</span>
+                    登录账号 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="loginName" id="loginName" class="input-text" value="" placeholder="请输入登录账户">
+                    <input type="text" name="loginName" id="loginName" class="input-text" value=""
+                           placeholder="请输入登录账户">
                 </div>
             </div>
-			<div class="row cl">
+            <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		登录密码 ：
+                    <span class="c-red">*</span>
+                    登录密码 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <input type="text" name="password" id="password" class="input-text" value="" placeholder="请输入账户密码">
@@ -118,19 +121,19 @@
                     </div>
                 </div>
             </div>
-			<div class="row cl">
+            <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		电子邮箱 ：
+                    <span class="c-red">*</span>
+                    电子邮箱 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <input type="text" name="email" id="email" class="input-text" value="" placeholder="请输入电子邮箱">
                 </div>
             </div>
-			<div class="row cl">
+            <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		电话号码 ：
+                    <span class="c-red">*</span>
+                    电话号码 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <input type="text" name="mobile" id="mobile" class="input-text" value="" placeholder="请输入电话号码">
@@ -145,10 +148,10 @@
                     <input type="text" name="position" id="position" class="input-text" value="" placeholder="请输入用户职位">
                 </div>
             </div>
-			<div class="row cl">
+            <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		信息备注 ：
+                    <span class="c-red">*</span>
+                    信息备注 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <input type="text" name="remark" id="remark" class="input-text" value="" placeholder="请输入用户备注信息">

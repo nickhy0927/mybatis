@@ -46,6 +46,19 @@ public class BaseData extends IdEntity {
     @Column(name = "sort", comment = "排序")
     private Integer sort;
 
+    /**
+     * 上级节点名称
+     */
+    private String parentName;
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
     public Integer getSort() {
         return sort;
     }

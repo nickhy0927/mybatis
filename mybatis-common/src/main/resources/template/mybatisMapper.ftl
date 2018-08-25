@@ -29,14 +29,14 @@
 
 	<delete id="deleteBatch" parameterType="java.util.List">
 		delete from ${tableName} where id in 
-		<foreach item="id" collection="array" open="(" separator="," close=")">
+		<foreach item="id" collection="list" open="(" separator="," close=")">
 			${r'#{id}'}
 		</foreach>
 	</delete>
 
 	<update id="update" parameterType="${packages}.${domainObjectName?lower_case}.entity.${domainObjectName}">
 		update ${tableName} 
-		<trim prefix="set" prefixOverrides=",">
+		<trim prefix="set" suffixOverrides=",">
 			<#list columnList as column>
 			<if test="${column.javaProperty?uncap_first} != null">${column.actualColumnName} = ${"#{" + column.javaProperty?uncap_first + "}"},</if>
 			</#list>
@@ -46,7 +46,7 @@
 	
 	<update id="updateBatch" parameterType="${packages}.${domainObjectName?lower_case}.entity.${domainObjectName}">
 		update ${tableName} 
-		<trim prefix="set" prefixOverrides=",">
+		<trim prefix="set" suffixOverrides=",">
 			<#list columnList as column>
 			<if test="${column.javaProperty?uncap_first} != null">${column.actualColumnName} = ${"#{" + column.javaProperty?uncap_first + "}"},</if>
 			</#list>
@@ -57,10 +57,8 @@
 	<select id="get" parameterType="String" resultType="${packages}.${domainObjectName?lower_case}.entity.${domainObjectName}">
 		select 
 		<#list columnList as column>
-			<#if column_has_next>
-				${column.actualColumnName},
-			<#else> 
-				${column.actualColumnName}
+			<#if column_has_next>${column.actualColumnName},
+			<#else>${column.actualColumnName}
 			</#if>
 		</#list>
 		from ${tableName} where id = ${r'#{id}'}
@@ -70,10 +68,8 @@
 			resultType="${packages}.${domainObjectName?lower_case}.entity.${domainObjectName}">
 		select 
 		<#list columnList as column>
-			<#if column_has_next>
-				${column.actualColumnName},
-			<#else> 
-				${column.actualColumnName}
+			<#if column_has_next>${column.actualColumnName},
+			<#else>${column.actualColumnName}
 			</#if>
 		</#list>
 		from ${tableName} where id = ${r'#{id}'}
@@ -82,10 +78,8 @@
 	<select id="queryListByMap" parameterType="java.util.Map" resultType="${packages}.${domainObjectName?lower_case}.entity.${domainObjectName}">
 		select 
 		<#list columnList as column>
-			<#if column_has_next>
-				${column.actualColumnName},
-			<#else> 
-				${column.actualColumnName}
+			<#if column_has_next>${column.actualColumnName},
+			<#else>${column.actualColumnName}
 			</#if>
 		</#list>
 		from ${tableName}
@@ -97,10 +91,8 @@
 			resultType="${packages}.${domainObjectName?lower_case}.entity.${domainObjectName}">
 		select 
 		<#list columnList as column>
-			<#if column_has_next>
-				${column.actualColumnName},
-			<#else> 
-				${column.actualColumnName}
+			<#if column_has_next>${column.actualColumnName},
+			<#else>${column.actualColumnName}
 			</#if>
 		</#list>
 		from ${tableName}
@@ -110,10 +102,8 @@
 	<select id="queryPageByMap" parameterType="java.util.Map" resultType="${packages}.${domainObjectName?lower_case}.entity.${domainObjectName}">
 		select 
 		<#list columnList as column>
-			<#if column_has_next>
-				${column.actualColumnName},
-			<#else> 
-				${column.actualColumnName}
+			<#if column_has_next>${column.actualColumnName},
+			<#else>${column.actualColumnName}
 			</#if>
 		</#list>
 		from ${tableName}
@@ -128,7 +118,7 @@
 	<sql id="conditions">
 		<trim prefix="where" prefixOverrides="and|or">
 			<#list columnList as column>
-			<if test="${column.javaProperty?uncap_first} != null">and ${column.actualColumnName?uncap_first} = ${"#{" + column.javaProperty?uncap_first + "}"}</if>
+			<if test="${column.javaProperty?uncap_first} != null and ${column.javaProperty?uncap_first} != ''">and ${column.actualColumnName?uncap_first} = ${"#{" + column.javaProperty?uncap_first + "}"}</if>
 			</#list>
 		</trim>
 	</sql>

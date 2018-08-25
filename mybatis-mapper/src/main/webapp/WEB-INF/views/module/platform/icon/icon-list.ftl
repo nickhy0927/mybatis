@@ -25,9 +25,7 @@
                 error:function(e){
                     // alert("错误！！");
                     console.log(e);
-                    $.openTip('删除菜单信息失败，请稍后再试.', true, function () {
-                        initData();
-                    })
+                    $.openTip('删除菜单信息失败，请稍后再试.');
                 }
             }, single)
         }
@@ -70,8 +68,8 @@
 [@htmlBody]
 	<nav class="breadcrumb">
         <i class="Hui-iconfont">&#xe67f;</i> 首页
-        <span class="c-gray en">&gt;</span> 菜单管理
-        <span class="c-gray en">&gt;</span> 菜单管理列表
+        <span class="c-gray en">&gt;</span> 图标管理
+        <span class="c-gray en">&gt;</span> 图标管理列表
     </nav>
     <div class="page-container">
         <form name="listForm">

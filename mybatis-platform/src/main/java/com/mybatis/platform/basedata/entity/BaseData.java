@@ -42,7 +42,7 @@ public class BaseData extends IdEntity {
 	  */
     @Column(name = "sys_params_id",comment = "系统参数ID")
 	private String sysParamsId;
-	
+
     /**
      * 获取：字典编号 
      */

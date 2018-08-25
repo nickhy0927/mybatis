@@ -11,15 +11,13 @@ public class GenericType {
 		String dataType = "";
 		if (typeName.equals("java.lang.String")) {
 			if (column.isLob() && column.lenght() < 4000) {
-				dataType = "text";
+				dataType = "text(" + column.lenght() + ")";
 			} else if (column.isLob() && column.lenght() > 4000) {
-				dataType = "mediumtext";
+				dataType = "mediumtext(" + column.lenght() + ")";
 			} else
 				dataType = "varchar(" + column.lenght() + ")";
 		} else if (typeName.equals("java.util.Date")) {
-			dataType = "date";
-		} else if (typeName.equals("java.util.Date")) {
-			dataType = "date";
+			dataType = "datetime";
 		} else if (typeName.equals("java.math.BigInteger")) {
 			dataType = "bigint";
 		} else if (typeName.equals("java.lang.Boolean")) {
@@ -57,7 +55,7 @@ public class GenericType {
 		} else if (typeName.equals("short")) {
 			dataType = "int";
 		} else if (typeName.equals("boolean")) {
-			dataType = "int";
+			dataType = "char";
 		} else if (typeName.equals("char")) {
 			dataType = "char";
 		} else if (typeName.equals("float")) {

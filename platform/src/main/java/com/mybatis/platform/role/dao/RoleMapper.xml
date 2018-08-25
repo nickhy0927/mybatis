@@ -32,14 +32,14 @@
 
 	<delete id="deleteBatch" parameterType="java.util.List">
 		delete from sys_role where id in 
-		<foreach item="id" collection="array" open="(" separator="," close=")">
+		<foreach item="id" collection="list" open="(" separator="," close=")">
 			#{id}
 		</foreach>
 	</delete>
 
 	<update id="update" parameterType="com.mybatis.platform.role.entity.Role">
 		update sys_role 
-		<trim prefix="set" prefixOverrides=",">
+		<trim prefix="set" prefixOverrides="," suffixOverrides=",">
 			<if test="id != null">id = #{id},</if>
 			<if test="createTime != null">create_time = #{createTime},</if>
 			<if test="updateTime != null">update_time = #{updateTime},</if>
@@ -55,7 +55,7 @@
 	
 	<update id="updateBatch" parameterType="com.mybatis.platform.role.entity.Role">
 		update sys_role 
-		<trim prefix="set" prefixOverrides=",">
+		<trim prefix="set" prefixOverrides="," suffixOverrides=",">
 			<if test="id != null">id = #{id},</if>
 			<if test="createTime != null">create_time = #{createTime},</if>
 			<if test="updateTime != null">update_time = #{updateTime},</if>
@@ -130,17 +130,20 @@
 	</select>
 
 	<select id="queryPageByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.role.entity.Role">
-		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				code,
-				name,
-				role_id,
-				remark,
-				frozen
-		from sys_role
+		SELECT
+			id, create_time, update_time,
+			STATUS, CODE, NAME, role_id,
+			remark, frozen,
+			(
+				SELECT
+					t.name
+				FROM
+					sys_role t
+				WHERE
+					t.id = r.role_id
+			) AS roleName
+		FROM
+		sys_role r
 		<include refid="conditions" />
 		order by
             <choose>

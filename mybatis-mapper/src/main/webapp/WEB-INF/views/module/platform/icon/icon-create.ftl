@@ -20,32 +20,31 @@
             }, function () {
                 $.openTip('你确定要保存吗？', false, function () {
                     $.closeLoading();
-                    $.openLoading("正在保存数据，请稍等...");
-                    $.submitAjax("${basePath}", {
+                    $.openLoading('正在保存图标信息，请稍等...');
+                    $.ajax({
+                        url: '${basePath}/platform/icon/icon-save.json',
                         method: 'POST',
                         dataType: 'JSON',
-                        url: '/platform/icon/icon-save.json'
-                    }, $("#addForm").serialize(), function (result) {
-                        console.log(result)
-                        if (result.code === 200) {
-                            $.openTip(result.msg, true, function () {
+                        data: $("#addForm").serialize(),
+                        success: function (data) {
+                            $.closeLoading();
+                            if (data.status != 200 && data.code != 200) {
+                                $.openTip(data.msg, true);
+                                return;
+                            }
+                            $.openTip(data.msg, true, function () {
                                 window.parent.initData();
                                 var index = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(index);
                             });
-                        } else {
-                            console.log(result.msg)
-                            $.openTip(result.msg, true, function () {
-                                $.closeLoading();
-                            });
-                        }
-                    }, function (err) {
-                        console.log(err);
-                        $.openTip("保存数据失败，请稍后再试.", true, function () {
+                        },
+                        error: function (err) {
                             $.closeLoading();
-                        });
-                    })
-                })
+                            $.openTip(err, true);
+                            return;
+                        }
+                    });
+                });
             });
         });
     </script>

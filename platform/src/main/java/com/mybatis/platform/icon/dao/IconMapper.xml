@@ -39,7 +39,7 @@
 	
 	<update id="updateBatch" parameterType="com.mybatis.platform.icon.entity.Icon">
 		update sys_icon 
-		<trim prefix="set" prefixOverrides=",">
+		<trim prefix="set" prefixOverrides="," suffixOverrides=",">
 			<if test="id != null">id = #{id},</if>
 			<if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
 			<if test="status != null and status != ''">status = #{status},</if>

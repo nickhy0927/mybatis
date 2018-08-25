@@ -3,26 +3,14 @@
 <mapper namespace="com.mybatis.platform.baseparams.dao.BaseParamsMapper">
 	<insert id="insert" parameterType="com.mybatis.platform.baseparams.entity.BaseParams">
 		insert into sys_base_params(
-				id,
-				create_time,
-				update_time,
-				status,
-				code,
-				name,
-				val,
-				enable,
-				remark
+			id, create_time, update_time,
+			status, code, name,
+			val, enable, remark
 		)
 		values (
-				#{id},
-				#{createTime},
-				#{updateTime},
-				#{status},
-				#{code},
-				#{name},
-				#{val},
-				#{enable},
-				#{remark}
+			#{id}, #{createTime}, #{updateTime},
+			#{status}, #{code}, #{name},
+			#{val}, #{enable}, #{remark}
 		)
 	</insert>
 
@@ -32,14 +20,14 @@
 
 	<delete id="deleteBatch" parameterType="java.util.List">
 		delete from sys_base_params where id in 
-		<foreach item="id" collection="array" open="(" separator="," close=")">
+		<foreach item="id" collection="list" open="(" separator="," close=")">
 			#{id}
 		</foreach>
 	</delete>
 
 	<update id="update" parameterType="com.mybatis.platform.baseparams.entity.BaseParams">
 		update sys_base_params 
-		<trim prefix="set" prefixOverrides=",">
+		<trim prefix="set" prefixOverrides="," suffixOverrides=",">
 			<if test="id != null">id = #{id},</if>
 			<if test="createTime != null">create_time = #{createTime},</if>
 			<if test="updateTime != null">update_time = #{updateTime},</if>
@@ -55,7 +43,7 @@
 	
 	<update id="updateBatch" parameterType="com.mybatis.platform.baseparams.entity.BaseParams">
 		update sys_base_params 
-		<trim prefix="set" prefixOverrides=",">
+		<trim prefix="set" prefixOverrides="," suffixOverrides=",">
 			<if test="id != null">id = #{id},</if>
 			<if test="createTime != null">create_time = #{createTime},</if>
 			<if test="updateTime != null">update_time = #{updateTime},</if>
@@ -71,44 +59,26 @@
 
 	<select id="get" parameterType="String" resultType="com.mybatis.platform.baseparams.entity.BaseParams">
 		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				code,
-				name,
-				val,
-				enable,
-				remark
+			id, create_time, update_time,
+			status, code, name,
+			val, enable, remark
 		from sys_base_params where id = #{id}
 	</select>
 	<select id="getObject" 
 			parameterType="com.mybatis.platform.baseparams.entity.BaseParams" 
 			resultType="com.mybatis.platform.baseparams.entity.BaseParams">
 		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				code,
-				name,
-				val,
-				enable,
-				remark
+			id, create_time, update_time,
+			status, code, name,
+			val, enable, remark
 		from sys_base_params where id = #{id}
 	</select>
 
 	<select id="queryListByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.baseparams.entity.BaseParams">
-		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				code,
-				name,
-				val,
-				enable,
-				remark
+		select
+			id, create_time, update_time,
+			status, code, name,
+			val, enable, remark
 		from sys_base_params
 		<include refid="conditions" />
 	</select>
@@ -116,31 +86,19 @@
 	<select id="queryListByObject" 
 			parameterType="com.mybatis.platform.baseparams.entity.BaseParams" 
 			resultType="com.mybatis.platform.baseparams.entity.BaseParams">
-		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				code,
-				name,
-				val,
-				enable,
-				remark
+		select
+			id, create_time, update_time,
+			status, code, name,
+			val, enable, remark
 		from sys_base_params
 		<include refid="conditions" />
 	</select>
 
 	<select id="queryPageByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.baseparams.entity.BaseParams">
-		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				code,
-				name,
-				val,
-				enable,
-				remark
+		select
+			id, create_time, update_time,
+			status, code, name,
+			val, enable, remark
 		from sys_base_params
 		<include refid="conditions" />
 		order by

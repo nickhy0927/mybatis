@@ -2,16 +2,16 @@
 <@htmlHead>
     <script type="text/javascript">
         function create() {
-            $.openWindow('新增基础数据', '80%', '70%', "${basePath}/platform/basedata/base-data-create.do");
+            $.openWindow('新增基础数据', '80%', '80%', "${basePath}/platform/basedata/base-data-create.do");
         }
         
-        function edit() {
-            $.openWindow('修改基础数据', '80%', '70%', "${basePath}/platform/basedata/base-data-edit/"+ id +".do");
+        function edit(id) {
+            $.openWindow('修改基础数据', '80%', '80%', "${basePath}/platform/basedata/base-data-edit/"+ id +".do");
         }
         
         function del(id, single) {
             $.datadel({
-            	url: "${basePath}/platform/basedata/base-data-edit/"+ id +".do",
+            	url: "${basePath}/platform/basedata/base-data-delete/"+ id +".json",
                 type:"post",
                 data:{id: id},
                 success:function(data){
@@ -50,8 +50,8 @@
 					{field: 'enable', className: 'text-l', description: '是否启用', sort: true, paramFormatter: function (row) {
                         return row.enable == 1 ? '启用': '停用';
                     }},
+                    {field: 'parentName', className: 'text-l', description: '上级字典'},
                     {field: 'remark', className: 'text-l', description: '信息备注', sort: true},
-                    {field: 'sysParamsId', className: 'text-l', description: '上级字典'},
                     {field: 'operate', className: 'text-c', description: '操作', paramFormatter: function (row) {
                         return "<a href=\"#\" title=\"修改\" onclick=\"edit('" + row.id + "')\">"
                                 + "<i class=\"Hui-iconfont\">&#xe60c;</i>"

@@ -2,16 +2,16 @@
 <@htmlHead>
     <script type="text/javascript">
         function create() {
-            $.openWindow('创建模板', '80%', '80%', "${basePath}/platform/rolemenu/role-menu-create.do");
+            $.openWindow('新增权限管理', '80%', '80%', "${basePath}/platform/rolemenu/role-menu-create.do");
         }
         
-        function edit() {
-            $.openWindow('修改模板', '80%', '80%', "${basePath}/platform/rolemenu/role-menu-edit/"+ id +".do");
+        function edit(id) {
+            $.openWindow('修改权限管理', '80%', '80%', "${basePath}/platform/rolemenu/role-menu-edit/"+ id +".do");
         }
         
-        function delete(id, single) {
+        function del(id, single) {
             $.datadel({
-            	url: "${basePath}/platform/rolemenu/role-menu-edit/"+ id +".do",
+            	url: "${basePath}/platform/rolemenu/role-menu-delete/"+ id +".json",
                 type:"post",
                 data:{id: id},
                 success:function(data){
@@ -41,18 +41,14 @@
                 tableId: '#dataGridList',
                 columns: [
                     {field: 'id', className: 'text-c'},
-					{field: 'id', className: 'text-l', description: '主键ID', sort: true, paramFormatter: function (row) {}},
-					{field: 'createTime', className: 'text-l', description: '新增时间', sort: true, paramFormatter: function (row) {}},
-					{field: 'updateTime', className: 'text-l', description: '修改时间', sort: true, paramFormatter: function (row) {}},
-					{field: 'status', className: 'text-l', description: '有效状态', sort: true, paramFormatter: function (row) {}},
 					{field: 'roleId', className: 'text-l', description: '角色ID ', sort: true, paramFormatter: function (row) {}},
 					{field: 'menuId', className: 'text-l', description: '菜单ID', sort: true, paramFormatter: function (row) {}},
                     {field: 'operate', className: 'text-c', description: '操作', paramFormatter: function (row) {
                         return "<a href=\"#\" title=\"修改\" onclick=\"edit('" + row.id + "')\">"
                                 + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
                              + "</a>&nbsp;&nbsp;"
-                             + "<a href=\"#\" title=\"删除\" onclick=\"delete('" + row.id + "', true)\">"
-                                + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
+                             + "<a href=\"#\" title=\"删除\" onclick=\"del('" + row.id + "', true)\">"
+                                + "<i class=\"Hui-iconfont\">&#xe609;</i>"
                              + "</a>";
                     }}
                 ]
@@ -66,12 +62,8 @@
 <@htmlBody>
 	<nav class="breadcrumb">
         <i class="Hui-iconfont">&#xe67f;</i> 首页
-        <span class="c-gray en">&gt;</span> RoleMenu管理
-        <span class="c-gray en">&gt;</span> RoleMenu列表
-        <a class="btn btn-refresh radius r" style="line-height:1.6em;margin-top:3px"
-           href="javascript:location.replace(location.href);" title="刷新">
-            <i class="Hui-iconfont">&#xe68f;</i>
-        </a>
+        <span class="c-gray en">&gt;</span> 权限管理
+        <span class="c-gray en">&gt;</span> 权限列表
     </nav>
     <div class="page-container">
         <form name="listForm">

@@ -1,6 +1,7 @@
 package com.mybatis.platform.basedata.controller;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.mybatis.common.utils.*;
 import com.mybatis.core.orm.constant.SysConstant;
 import com.mybatis.core.orm.entity.PageRowBounds;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -41,20 +41,16 @@ public class BaseDataController {
 	 * 新增页面
 	 */
 	@RequestMapping(value = "/platform/basedata/base-data-create.do", method = RequestMethod.GET)
-	public String baseDataCreate(Model model,HttpServletRequest request) {
+	public String baseDataCreate(Model model) {
 	    model.addAttribute("code", NumberCreate.generateNumber2());
-        try {
-            Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
-            paramsMap.put("status", SysConstant.DataStatus.VALID);
-            List<BaseData> baseDataList = baseDataService.queryListByMap(paramsMap);
-            List<BaseDataTree> baseDataTrees = Lists.newArrayList();
-            for (BaseData baseData : baseDataList) {
-                baseDataTrees.add(new BaseDataTree(baseData));
-            }
-            model.addAttribute("baseDataList", JsonMapper.toJson(baseDataTrees));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+		Map<String, Object> paramsMap = Maps.newConcurrentMap();
+		paramsMap.put("status", SysConstant.DataStatus.VALID);
+		List<BaseData> baseDataList = baseDataService.queryListByMap(paramsMap);
+		List<BaseDataTree> baseDataTrees = Lists.newArrayList();
+		for (BaseData baseData : baseDataList) {
+			baseDataTrees.add(new BaseDataTree(baseData));
+		}
+		model.addAttribute("baseDataList", JsonMapper.toJson(baseDataTrees));
 		return "module/platform/basedata/base-data-create";
 	}
 	
@@ -79,8 +75,16 @@ public class BaseDataController {
 	 */
 	@RequestMapping(value = "/platform/basedata/base-data-edit/{id}.do", method = RequestMethod.GET)
 	public String baseDataEdit(@PathVariable(value = "id") String id, Model model) {
+		Map<String, Object> paramsMap = Maps.newConcurrentMap();
+		paramsMap.put("status", SysConstant.DataStatus.VALID);
+		List<BaseData> baseDataList = baseDataService.queryListByMap(paramsMap);
+		List<BaseDataTree> baseDataTrees = Lists.newArrayList();
+		for (BaseData baseData : baseDataList) {
+			baseDataTrees.add(new BaseDataTree(baseData));
+		}
 		BaseData baseData = baseDataService.get(id);
 		model.addAttribute("baseData", baseData);
+		model.addAttribute("baseDataList", JsonMapper.toJson(baseDataTrees));
 		return "module/platform/basedata/base-data-edit";
 	}
 	
@@ -130,7 +134,7 @@ public class BaseDataController {
 	 * 获取列表数据
 	 */
 	@RequestMapping(value = "/platform/basedata/base-data-list.json", method = RequestMethod.POST)
-	public void baseDataList(HttpServletRequest request, HttpServletResponse response, PageSupport support) {
+	public void baseDataList(HttpServletRequest request, PageSupport support) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
@@ -141,7 +145,7 @@ public class BaseDataController {
 			messageObject.error("获取基础数据异常");
 		} finally {
 			try {
-				messageObject.returnData(response, messageObject);
+				messageObject.returnData(messageObject);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

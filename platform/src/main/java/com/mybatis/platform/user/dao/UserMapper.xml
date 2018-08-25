@@ -20,7 +20,7 @@
 
 	<delete id="deleteBatch" parameterType="java.util.List">
 		delete from sys_user where id in 
-		<foreach item="id" collection="array" open="(" separator="," close=")">
+		<foreach item="id" collection="list" open="(" separator="," close=")">
 			#{id}
 		</foreach>
 	</delete>

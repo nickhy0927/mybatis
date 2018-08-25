@@ -14,10 +14,6 @@
 
             //表单验证
             $.validation('addForm', {
-            	id: { required:true, maxlength:200},
-            	createTime: { required:true, maxlength:200},
-            	updateTime: { required:true, maxlength:200},
-            	status: { required:true, maxlength:200},
             	code: { required:true, maxlength:200},
             	name: { required:true, maxlength:200},
             	val: { required:true, maxlength:200},
@@ -25,29 +21,31 @@
             	remark: { required:true, maxlength:200},
             }, function () {
                 $.openTip('你确定要保存吗？',false ,function() {
-                    $.openLoading("正在保存数据，请稍等...");
-                    $.submitAjax("${basePath}", {
+                    $.closeLoading();
+                    $.openLoading('正在保存系统参数信息，请稍等...');
+                    $.ajax({
+                        url: '${basePath}/platform/baseparams/base-params-update.json',
                         method: 'POST',
                         dataType: 'JSON',
-                        url: ctx + '/platform/baseparams/base-params-update.json'
-                    },$("#addForm").serialize(), function (result) {
-                        if (result.code == 200) {
-                            $.openTip(result.msg ,true ,function() {
-                                parent.window.location.href = ctx + '/platform/baseparams/base-params-list.do';
+                        data: $("#addForm").serialize(),
+                        success: function (data) {
+                            $.closeLoading();
+                            if (data.status != 200 && data.code != 200) {
+                                $.openTip(data.msg, true);
+                                return;
+                            }
+                            $.openTip(data.msg, true, function () {
+                                window.parent.initData();
                                 var index = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(index);
                             });
-                        } else {
-                            $.openTip(result.msg ,true, function() {
-                                $.closeLoading();
-                            });
-                        }
-                    },function (err) {
-                        console.log(err);
-                        $.openTip("信息保存失败" ,true, function() {
+                        },
+                        error: function (err) {
                             $.closeLoading();
-                        });
-                    })
+                            $.openTip(err, true);
+                            return;
+                        }
+                    });
                 })
             });
         });
@@ -61,42 +59,7 @@
 <@htmlBody>
     <article class="page-container">
         <form class="form form-horizontal" id="addForm">
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		主键ID：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="id" id="id" class="input-text" value="${baseParams.id}" placeholder="please enter id">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		新增时间：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="createTime" id="createTime" class="input-text" value="${baseParams.createTime}" placeholder="please enter createTime">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		修改时间：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="updateTime" id="updateTime" class="input-text" value="${baseParams.updateTime}" placeholder="please enter updateTime">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		有效状态：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="status" id="status" class="input-text" value="${baseParams.status}" placeholder="please enter status">
-                </div>
-            </div>
+            <input type="hidden" name="id" id="id" class="input-text" value="${baseParams.id}" placeholder="please enter id">
 			<div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
                 	<span class="c-red">*</span>
@@ -127,7 +90,7 @@
 			<div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
                 	<span class="c-red">*</span>
-                		是否启用 1 启用  0 停用 ：
+                		是否启用 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <input type="text" name="enable" id="enable" class="input-text" value="${baseParams.enable}" placeholder="please enter enable">

@@ -4,13 +4,13 @@
 	<insert id="insert" parameterType="com.mybatis.platform.basedata.entity.BaseData">
 		insert into sys_base_data(
             id, create_time, update_time,
-            status, code, name, val,
+            status, code, name, val, sort,
             remark, enable, base_data_id
 		)
 		values (
             #{id}, #{createTime}, #{updateTime},
             #{status}, #{code}, #{name},
-            #{val}, #{remark}, #{enable}, #{baseDataId}
+            #{val},#{sort}, #{remark}, #{enable}, #{baseDataId}
 		)
 	</insert>
 
@@ -20,18 +20,19 @@
 
 	<delete id="deleteBatch" parameterType="java.util.List">
 		delete from sys_base_data where id in 
-		<foreach item="id" collection="array" open="(" separator="," close=")">
+		<foreach item="id" collection="list" open="(" separator="," close=")">
 			#{id}
 		</foreach>
 	</delete>
 
 	<update id="update" parameterType="com.mybatis.platform.basedata.entity.BaseData">
 		update sys_base_data 
-		<trim prefix="set" prefixOverrides=",">
+		<trim prefix="set" prefixOverrides="," suffixOverrides=",">
 			<if test="updateTime != null">update_time = #{updateTime},</if>
 			<if test="status != null">status = #{status},</if>
 			<if test="code != null">code = #{code},</if>
 			<if test="name != null">name = #{name},</if>
+			<if test="sort != null">sort = #{sort},</if>
 			<if test="val != null">val = #{val},</if>
 			<if test="remark != null">remark = #{remark},</if>
 			<if test="enable != null">enable = #{enable},</if>
@@ -49,6 +50,7 @@
 			<if test="status != null">status = #{status},</if>
 			<if test="code != null">code = #{code},</if>
 			<if test="name != null">name = #{name},</if>
+			<if test="sort != null">sort = #{sort},</if>
 			<if test="val != null">val = #{val},</if>
 			<if test="remark != null">remark = #{remark},</if>
 			<if test="enable != null">enable = #{enable},</if>
@@ -60,26 +62,50 @@
 	<select id="get" parameterType="String" resultType="com.mybatis.platform.basedata.entity.BaseData">
 		select 
 			id, create_time, update_time,
-            status, code, name, val,
-            remark, enable, base_data_id
-		from sys_base_data where id = #{id}
+            status, code, name, val,d.sort,
+            remark, enable, base_data_id,
+            (
+				SELECT
+					t.name
+				FROM
+					sys_base_data t
+				WHERE
+					t.id = d.base_data_id
+			) AS parentName
+		from sys_base_data d where id = #{id}
 	</select>
 	<select id="getObject" 
 			parameterType="com.mybatis.platform.basedata.entity.BaseData" 
 			resultType="com.mybatis.platform.basedata.entity.BaseData">
 		select 
 			id, create_time, update_time,
-            status, code, name, val,
-            remark, enable, base_data_id
-		from sys_base_data where id = #{id}
+            status, code, name, val,d.sort,
+            remark, enable, base_data_id,
+            (
+				SELECT
+					t.name
+				FROM
+					sys_base_data t
+				WHERE
+					t.id = d.base_data_id
+			) AS parentName
+		from sys_base_data d where id = #{id}
 	</select>
 
 	<select id="queryListByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.basedata.entity.BaseData">
 		select
             id, create_time, update_time,
-            status, code, name, val,
-            remark, enable, base_data_id
-		from sys_base_data
+            status, code, name, val,d.sort,
+            remark, enable, base_data_id,
+			(
+				SELECT
+					t.name
+				FROM
+					sys_base_data t
+				WHERE
+					t.id = d.base_data_id
+			) AS parentName
+		from sys_base_data d
 		<include refid="conditions" />
 	</select>
 	
@@ -88,18 +114,34 @@
 			resultType="com.mybatis.platform.basedata.entity.BaseData">
 		select
             id, create_time, update_time,
-            status, code, name, val,
-            remark, enable, base_data_id
-        from sys_base_data
+            status, code, name, val,d.sort,
+            remark, enable, base_data_id,
+			(
+				SELECT
+					t.name
+				FROM
+					sys_base_data t
+				WHERE
+					t.id = d.base_data_id
+			) AS parentName
+        from sys_base_data d
 		<include refid="conditions" />
 	</select>
 
 	<select id="queryPageByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.basedata.entity.BaseData">
 		select
             id, create_time, update_time,
-            status, code, name, val,
-            remark, enable, base_data_id
-		from sys_base_data
+            status, code, name, val,d.sort,
+            remark, enable, base_data_id,
+			(
+				SELECT
+					t.name
+				FROM
+					sys_base_data t
+				WHERE
+					t.id = d.base_data_id
+			) AS parentName
+		from sys_base_data d
 		<include refid="conditions" />
 		order by
             <choose>

@@ -66,14 +66,17 @@ public class Menu extends IdEntity {
     @Column(comment = "是否主页显示 1 是 0 否")
     private Integer showIndex;
 
-    private Menu menu;
+    /**
+     * 父节点菜单名称
+     */
+    private String parentName;
 
-    public Menu getMenu() {
-        return menu;
+    public String getParentName() {
+        return parentName;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
     }
 
     /**

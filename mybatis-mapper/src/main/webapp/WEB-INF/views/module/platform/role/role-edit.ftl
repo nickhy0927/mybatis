@@ -1,5 +1,17 @@
-<#include "../../../common/header.ftl">
-<@htmlHead>
+[#ftl encoding="utf-8" strict_syntax=true]
+[#include "/common/header.ftl"]
+[@htmlHead]
+    <style type="text/css">
+        ul.ztree {
+            margin-top: 0px;
+            border: 1px solid #617775;
+            background: #f0f6e4;
+            width: auto;
+            height: auto;
+            overflow-y: scroll;
+            overflow-x: auto;
+        }
+    </style>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.skin-minimal input').iCheck({
@@ -14,10 +26,6 @@
 
             //表单验证
             $.validation('addForm', {
-            	id: { required:true, maxlength:200},
-            	createTime: { required:true, maxlength:200},
-            	updateTime: { required:true, maxlength:200},
-            	status: { required:true, maxlength:200},
             	code: { required:true, maxlength:200},
             	name: { required:true, maxlength:200},
             	roleId: { required:true, maxlength:200},
@@ -25,29 +33,31 @@
             	frozen: { required:true, maxlength:200},
             }, function () {
                 $.openTip('你确定要保存吗？',false ,function() {
-                    $.openLoading("正在保存数据，请稍等...");
-                    $.submitAjax("${basePath}", {
+                    $.closeLoading();
+                    $.openLoading('正在保存角色信息，请稍等...');
+                    $.ajax({
+                        url: '${basePath}/platform/role/role-update.json',
                         method: 'POST',
                         dataType: 'JSON',
-                        url: ctx + '/platform/role/role-update.json'
-                    },$("#addForm").serialize(), function (result) {
-                        if (result.code == 200) {
-                            $.openTip(result.msg ,true ,function() {
-                                parent.window.location.href = ctx + '/platform/role/role-list.do';
+                        data: $("#addForm").serialize(),
+                        success: function (data) {
+                            $.closeLoading();
+                            if (data.status != 200 && data.code != 200) {
+                                $.openTip(data.msg, true);
+                                return;
+                            }
+                            $.openTip(data.msg, true, function () {
+                                window.parent.initData();
                                 var index = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(index);
                             });
-                        } else {
-                            $.openTip(result.msg ,true, function() {
-                                $.closeLoading();
-                            });
-                        }
-                    },function (err) {
-                        console.log(err);
-                        $.openTip("信息保存失败" ,true, function() {
+                        },
+                        error: function (err) {
                             $.closeLoading();
-                        });
-                    })
+                            $.openTip(err, true);
+                            return;
+                        }
+                    });
                 })
             });
         });
@@ -56,47 +66,53 @@
             var index = parent.layer.getFrameIndex(window.name);
             parent.layer.close(index);
         }
+
+        var zNodes = ${roleList};
+        function showTree() {
+            showMenu();
+        }
+        function zTreeOnClick(event, treeId, treeNode) {
+            $("#roleName").val(treeNode.name);
+            $("#roleId").val(treeNode.id);
+            $("#treeDemo").attr('style', "display:none;z-index:100;position：absolute").slideUp("fast");
+        }
+        var setting = {
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            callback: {
+                onClick: zTreeOnClick
+            }
+        };
+
+        function showMenu(){
+            var cityObj = $("#roleId");
+            var cityOffset = $("#roleId").offset();
+            $("#treeDemo").css({left:cityOffset.left+"px",top:cityOffset.top+cityObj.outerHeight()+"px"}).slideDown("fast");
+        }
+        $(document).ready(function () {
+            $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            $("body").bind("mousedown", function (event) {
+                console.log(event.target.id);
+                var reg = RegExp(/switch/);
+                var target = event.target.id;
+                if (!target.match(reg)) {
+                    hideMenu();
+                }
+            });
+        });
+
+        function hideMenu() {
+            $("#treeDemo").fadeOut("fast");
+        }
     </script>
-</@htmlHead>
-<@htmlBody>
+[/@htmlHead]
+[@htmlBody]
     <article class="page-container">
         <form class="form form-horizontal" id="addForm">
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		主键ID：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="id" id="id" class="input-text" value="${role.id}" placeholder="please enter id">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		新增时间：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="createTime" id="createTime" class="input-text" value="${role.createTime}" placeholder="please enter createTime">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		修改时间：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="updateTime" id="updateTime" class="input-text" value="${role.updateTime}" placeholder="please enter updateTime">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		有效状态：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="status" id="status" class="input-text" value="${role.status}" placeholder="please enter status">
-                </div>
-            </div>
+            <input type="hidden" name="id" id="id" class="input-text" value="${role.id}" placeholder="please enter id">
 			<div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
                 	<span class="c-red">*</span>
@@ -121,25 +137,34 @@
                 		上级角色 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="roleId" id="roleId" class="input-text" value="${role.roleId}" placeholder="please enter roleId">
+                    <input type="text" onfocus="showTree()" onclick="showTree()"
+                           name="roleName" id="roleName" class="input-text" value="${role.roleName!''}" placeholder="请选择上级角色">
+                    <input type="hidden" name="roleId" id="roleId" class="input-text" value="${role.roleId!''}">
+                    <ul style="display: none" id="treeDemo" class="ztree"></ul>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3 col-sm-2">
+                    <span class="c-red">*</span>是否冻结：
+                </label>
+                <div class="formControls col-xs-3 col-sm-3 skin-minimal">
+                    <div class="radio-box">
+                        <input name="locked" [#if role.frozen == 1]checked="checked"[/#if] value="1" type="radio" id="locked-1" checked>
+                        <label for="locked-1">未冻结</label>
+                    </div>
+                    <div class="radio-box">
+                        <input type="radio" value="0" [#if role.frozen == 0]checked="checked"[/#if] id="locked-2" name="locked">
+                        <label for="locked-2">冻结</label>
+                    </div>
                 </div>
             </div>
 			<div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
                 	<span class="c-red">*</span>
-                		信息备注 ：
+                		角色描述 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <input type="text" name="remark" id="remark" class="input-text" value="${role.remark}" placeholder="please enter remark">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		是否冻结 1 冻结 0 未冻结：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="frozen" id="frozen" class="input-text" value="${role.frozen}" placeholder="please enter frozen">
                 </div>
             </div>
             <div class="row cl">
@@ -150,4 +175,4 @@
             </div>
         </form>
     </article>
-</@htmlBody>
+[/@htmlBody]

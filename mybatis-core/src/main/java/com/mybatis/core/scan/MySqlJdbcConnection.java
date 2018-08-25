@@ -175,7 +175,7 @@ public class MySqlJdbcConnection {
 
 	/**
 	 * 修改数据库表
-	 * @param clazz 
+	 * @param field
 	 * @param table 
 	 * @throws SQLException 
 	 */

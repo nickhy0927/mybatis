@@ -5,12 +5,10 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,13 +25,11 @@ public class RequestData {
         // 参数Map
         Map<String, String[]> properties = request.getParameterMap();
         Iterator<Entry<String, String[]>> entries = properties.entrySet().iterator();
-        String name;
         String value = "";
         // 遍历参数
         while (entries.hasNext()) {
             Entry<String, String[]> entry = entries.next();
             // 获取参数key值
-            name = entry.getKey();
             // 获取参数所对应的值
             Object valueObj = entry.getValue();
             if (null == valueObj) value = "";
@@ -44,21 +40,6 @@ public class RequestData {
                     value = v + ",";
                 }
                 value = value.substring(0, value.length() - 1);
-            }
-            if (name.equals("data") && null != request.getAttribute("data")) {
-                value = URLDecoder.decode(request.getAttribute("data").toString(), "UTF-8");
-                if (StringUtils.startsWith(URLDecoder.decode(value, "UTF-8"), "\"")) {
-                    value = value.substring(1, value.length() - 1);
-                }
-                Map<String, Object> parseMap = toHashMap(value);
-                Set<String> keySet = parseMap.keySet();
-                for (String key : keySet) {
-                    Object item = (null == parseMap.get(key) || "null".equals(parseMap.get(key))) ? ""
-                            : parseMap.get(key);
-                    paramsMap.put(key, item);
-                }
-            } else {
-                paramsMap.put(name, value);
             }
         }
         return paramsMap;

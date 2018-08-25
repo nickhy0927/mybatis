@@ -26,14 +26,14 @@
 
 	<delete id="deleteBatch" parameterType="java.util.List">
 		delete from sys_role_menu where id in 
-		<foreach item="id" collection="array" open="(" separator="," close=")">
+		<foreach item="id" collection="list" open="(" separator="," close=")">
 			#{id}
 		</foreach>
 	</delete>
 
 	<update id="update" parameterType="com.mybatis.platform.rolemenu.entity.RoleMenu">
 		update sys_role_menu 
-		<trim prefix="set" prefixOverrides=",">
+		<trim prefix="set" prefixOverrides="," suffixOverrides=",">
 			<if test="id != null">id = #{id},</if>
 			<if test="createTime != null">create_time = #{createTime},</if>
 			<if test="updateTime != null">update_time = #{updateTime},</if>
@@ -46,7 +46,7 @@
 	
 	<update id="updateBatch" parameterType="com.mybatis.platform.rolemenu.entity.RoleMenu">
 		update sys_role_menu 
-		<trim prefix="set" prefixOverrides=",">
+		<trim prefix="set" prefixOverrides="," suffixOverrides=",">
 			<if test="id != null">id = #{id},</if>
 			<if test="createTime != null">create_time = #{createTime},</if>
 			<if test="updateTime != null">update_time = #{updateTime},</if>

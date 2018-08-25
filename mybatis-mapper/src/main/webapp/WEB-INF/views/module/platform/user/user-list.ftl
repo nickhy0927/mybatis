@@ -6,13 +6,13 @@
             $.openWindow('新增用户信息', '90%', '95%', "${basePath}/platform/user/user-create.do");
         }
         
-        function edit() {
+        function edit(id) {
             $.openWindow('修改用户信息', '80%', '80%', "${basePath}/platform/user/user-edit/"+ id +".do");
         }
         
         function del(id, single) {
             $.datadel({
-            	url: "${basePath}/platform/user/user-edit/"+ id +".do",
+            	url: "${basePath}/platform/user/user-delete/"+ id +".json",
                 type:"post",
                 data:{id: id},
                 success:function(data){
@@ -23,8 +23,7 @@
                     }
                 },
                 error:function(e){
-                    alert("错误！！");
-                    window.clearInterval(timer);
+                    $.openTip('删除用户信息失败，请稍后再试.');
                 }
             }, single)
         }
@@ -57,7 +56,7 @@
                                 + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
                              + "</a>&nbsp;&nbsp;"
                              + "<a href=\"#\" title=\"删除\" onclick=\"del('" + row.id + "', true)\">"
-                                + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
+                                + "<i class=\"Hui-iconfont\">&#xe609;</i>"
                              + "</a>";
                     }}
                 ]
@@ -73,10 +72,6 @@
         <i class="Hui-iconfont">&#xe67f;</i> 首页
         <span class="c-gray en">&gt;</span> User管理
         <span class="c-gray en">&gt;</span> User列表
-        <a class="btn btn-refresh radius r" style="line-height:1.6em;margin-top:3px"
-           href="javascript:location.replace(location.href);" title="刷新">
-            <i class="Hui-iconfont">&#xe68f;</i>
-        </a>
     </nav>
     <div class="page-container">
         <form name="listForm">

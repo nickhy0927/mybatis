@@ -157,13 +157,6 @@ public class MenuController {
         try {
             Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
             PagerInfo<Menu> pagerInfo = menuService.queryPage(paramsMap, new PageRowBounds(support));
-            List<Menu> menuList = pagerInfo.getContent();
-            for (Menu menu : menuList) {
-                if (menu.getId().equals("505c56a20ac14891bf85b5a97636f693"))
-                    System.out.println("--------------------");
-                menu.setMenu(menuService.get(menu.getMenuId()));
-            }
-            pagerInfo.setContent(menuList);
             messageObject.ok("获取模版输出成功", pagerInfo);
         } catch (IOException e) {
             e.printStackTrace();

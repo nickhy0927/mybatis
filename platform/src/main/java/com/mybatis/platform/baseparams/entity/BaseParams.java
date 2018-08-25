@@ -4,7 +4,7 @@ import com.mybatis.core.orm.annotation.Column;
 import com.mybatis.core.orm.annotation.Table;
 import com.mybatis.core.orm.entity.IdEntity;
 
-@Table(name = "sys_base_params", remark = "")
+@Table(name = "sys_base_params", remark = "系统参数")
 public class BaseParams extends IdEntity {
 	
 	/**

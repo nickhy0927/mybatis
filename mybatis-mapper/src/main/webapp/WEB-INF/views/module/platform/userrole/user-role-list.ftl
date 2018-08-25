@@ -5,11 +5,11 @@
             $.openWindow('创建模板', '80%', '80%', "${basePath}/platform/userrole/user-role-create.do");
         }
         
-        function edit() {
+        function edit(id) {
             $.openWindow('修改模板', '80%', '80%', "${basePath}/platform/userrole/user-role-edit/"+ id +".do");
         }
         
-        function delete(id, single) {
+        function del(id, single) {
             $.datadel({
             	url: "${basePath}/platform/userrole/user-role-edit/"+ id +".do",
                 type:"post",
@@ -41,18 +41,14 @@
                 tableId: '#dataGridList',
                 columns: [
                     {field: 'id', className: 'text-c'},
-					{field: 'status', className: 'text-l', description: '有效状态1 有效 0 无效 ', sort: true, paramFormatter: function (row) {}},
 					{field: 'userId', className: 'text-l', description: '用户ID ', sort: true, paramFormatter: function (row) {}},
 					{field: 'roleId', className: 'text-l', description: '角色ID', sort: true, paramFormatter: function (row) {}},
-					{field: 'id', className: 'text-l', description: '', sort: true, paramFormatter: function (row) {}},
-					{field: 'createTime', className: 'text-l', description: '', sort: true, paramFormatter: function (row) {}},
-					{field: 'updateTime', className: 'text-l', description: '', sort: true, paramFormatter: function (row) {}},
                     {field: 'operate', className: 'text-c', description: '操作', paramFormatter: function (row) {
                         return "<a href=\"#\" title=\"修改\" onclick=\"edit('" + row.id + "')\">"
                                 + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
                              + "</a>&nbsp;&nbsp;"
-                             + "<a href=\"#\" title=\"删除\" onclick=\"delete('" + row.id + "', true)\">"
-                                + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
+                             + "<a href=\"#\" title=\"删除\" onclick=\"del('" + row.id + "', true)\">"
+                                + "<i class=\"Hui-iconfont\">&#xe609;</i>"
                              + "</a>";
                     }}
                 ]

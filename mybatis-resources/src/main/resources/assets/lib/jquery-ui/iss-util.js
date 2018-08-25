@@ -61,51 +61,35 @@ function _datadel(ajaxOption, single) {
     }
 }
 
-function _getCheckboxIds() {
-    var ids = "";
-    if (dataIds.length > 0) {
-        for (var i = 0; i < dataIds.length; i++) {
-            var id = dataIds[i];
-            ids += id + ",";
-        }
-    }
-    if (ids && ids.length > 1) {
-        ids = ids.substring(0, ids.length - 1);
-    }
-    return ids;
-}
-
-
 function _closeLoading() {
     layer.closeAll();
 }
 
-function openLoading(msg) {
+function _openLoading(msg) {
     var msg = msg ? msg : "";
     layer.msg(msg, {icon: 16, time: 1000 * 10000, shade: [0.3, '#000']});
 }
 
 function _openTip(content, isAlert, callback, title) {
-    if (isAlert) {
-        layer.confirm(content, {
-            title: title ? title : '提示信息',
-            closeBtn: 0,
-            btn: ['确定'] //按钮
+    if (isAlert) { // skin: 'layui-layer-molv' //样式类名  自定义样式
+        layer.alert(content, {
+            skin: 'layui-layer-molv', //样式类名  自定义样式
+            anim: 1, //动画类型
+            icon: 6,    // icon
+            closeBtn: 0
         }, function () {
-            if (callback) {
+            $.closeLoading();
+            if (callback != undefined)
                 callback();
-            } else {
-                _closeLoading();
-            }
-        }, function () {
-            _closeLoading();
         });
     } else {
         layer.confirm(content, {
+            skin: 'layui-layer-molv', //样式类名  自定义样式
             title: title ? title : '提示信息',
             closeBtn: 0,
             btn: ['确定', '取消'] //按钮
         }, function () {
+            _closeLoading();
             callback();
         }, function () {
             _closeLoading();
@@ -142,7 +126,7 @@ Date.prototype.format = function (fmt) {
  * @param url 访问地址
  * @private
  */
-function _openWindow(title, width, height, url) {
+function _openWindow(title, width, height, url, callback) {
     layer.open({
         type: 2,
         title: title,
@@ -152,36 +136,49 @@ function _openWindow(title, width, height, url) {
         shadeClose: false,
         shade: 0.6,
         maxmin: false,
-        content: url
+        content: url,
+        end: callback ? callback(index) : null
     });
 }
 
-function _submitAjax(ctx, opt, data, success, error) {
+function _submitAjax(opt, success, error) {
+    $.openLoading(opt.msg);
+    var ctx = opt.ctx;
     $.ajax({
         url: ctx + opt.url,
         method: opt.method || 'POST',
         dataType: opt.dataType || 'JSON',
-        data: data,
-        async: false,
+        data: opt.data,
         success: function (data) {
-            try {
-                data = eval('(' + data +')');
-            } catch (err) {}
-            console.log(data);
-            if (data.status != 200 && data.code != 200) {
-                $.openTip(data.msg, true, function () {
-                    $.closeLoading();
-                }, '提示信息');
-                return;
-            }
-            $.closeLoading();
-            success(data);
+            _success(data, success);
         },
         error: function (err) {
+            if (error) {
+                error();
+                return ;
+            }
             $.closeLoading();
-            error(err);
+            $.openTip(err, true, function () {
+                $.closeLoading();
+            }, '提示信息');
+            return;
         }
     })
+}
+
+function _success(data, success) {
+    try {
+        data = eval('(' + data + ')');
+    } catch (err) {
+    }
+    if (data.status != 200 && data.code != 200) {
+        $.openTip(data.msg, true, function () {
+            $.closeLoading();
+        }, '提示信息');
+        return;
+    }
+    $.closeLoading();
+    success(data);
 }
 
 function _validation(id, rules, fn) {
@@ -202,9 +199,8 @@ $.extend({
      * 打开确认框、弹出框
      */
     openTip: _openTip,
-    openLoading: openLoading,
+    openLoading: _openLoading,
     closeLoading: _closeLoading,
-    getCheckboxIds: _getCheckboxIds,
     datadel: _datadel,
     dateSimpleFormat: _date_format,
     openWindow: _openWindow,

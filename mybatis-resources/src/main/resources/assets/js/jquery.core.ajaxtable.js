@@ -21,17 +21,17 @@ var _sort = function (arr) {
     return arr;
 }
 
-Array.prototype.distinct = function() {
-	var arr = this, result = [], i, j, len = arr.length;
-	for (i = 0; i < len; i++) {
-		for (j = i + 1; j < len; j++) {
-			if (arr[i] === arr[j]) {
-				j = ++i;
-			}
-		}
-		result.push(arr[i]);
-	}
-	return result;
+Array.prototype.distinct = function () {
+    var arr = this, result = [], i, j, len = arr.length;
+    for (i = 0; i < len; i++) {
+        for (j = i + 1; j < len; j++) {
+            if (arr[i] === arr[j]) {
+                j = ++i;
+            }
+        }
+        result.push(arr[i]);
+    }
+    return result;
 }
 
 function sortarr(data) {
@@ -56,19 +56,19 @@ function sortarr(data) {
     return datas;
 }
 
-Element.prototype.data = function(key, value){
+Element.prototype.data = function (key, value) {
     var _this = this,
         _dataName = 'tableData',  // 存储至DOM上的对象标记, 这里只是测试用名
         _data = {};
     // 未指定参数,返回全部
-    if(typeof key === 'undefined' && typeof value === 'undefined'){
+    if (typeof key === 'undefined' && typeof value === 'undefined') {
         return _this[_dataName];
     }
     // setter
-    if(typeof(value) !== 'undefined'){
+    if (typeof(value) !== 'undefined') {
         // 存储值类型为字符或数字时, 使用attr执行
         var _type = typeof(value);
-        if(_type === 'string' || _type === 'number'){
+        if (_type === 'string' || _type === 'number') {
             _this.setAttribute(key, value);
         }
         _data = _this[_dataName] || {};
@@ -77,7 +77,7 @@ Element.prototype.data = function(key, value){
         return this;
     }
     // getter
-    else{
+    else {
         _data = _this[_dataName] || {};
         return _data[key] || _this.getAttribute(key);
     }
@@ -88,16 +88,16 @@ var tableData = undefined;
  * 获取所选数据的对象
  */
 $.extend({
-	getCheckedObjArray: function() {
-		var array = [];
-		$.each(_dataIds, function(index, id) {
-			array.push(tableData.data(id));
-		});
-		return array;
-	},
-	getCheckedValue: function() {
-		return _dataIds;
-	}
+    getCheckedObjArray: function () {
+        var array = [];
+        $.each(_dataIds, function (index, id) {
+            array.push(tableData.data(id));
+        });
+        return array;
+    },
+    getCheckedValue: function () {
+        return _dataIds;
+    }
 });
 
 (function ($) {
@@ -122,22 +122,22 @@ $.extend({
         }
         $(this).html(html);
     };
-    
+
     /**
      * 获取checkbox选中的值
      */
     $.fn.getCheckedValue = function () {
-    	return _dataIds
+        return _dataIds
     };
     /**
      * 获取所选数据的对象
      */
     $.fn.getCheckedObjArray = function () {
-    	var array = [];
-    	$.each(_dataIds, function(index, id) {
-    		array.push(tableData.data(id));
-    	});
-    	return array;
+        var array = [];
+        $.each(_dataIds, function (index, id) {
+            array.push(tableData.data(id));
+        });
+        return array;
     };
     /**
      * 列表组件
@@ -209,20 +209,13 @@ $.extend({
             _query_data_ajxa(settings);
             _select_checkbox_all();
         }, 500);
-        var queryParamsIds = settings.queryParamsId;
-        //console.log(queryParamsIds.length);
-        for (var index in queryParamsIds) {
-            $(queryParamsIds[index]).keyup(function () {
+        $(document).keyup(function (event) {
+            if (event.keyCode == 13) {
                 $("#" + tableId + "_currentPage").val(1);
                 _query_data_ajxa(settings);
                 _select_checkbox_all();
-            });
-            $(queryParamsIds[index]).change(function () {
-                $("#" + tableId + "_currentPage").val(1);
-                _query_data_ajxa(settings);
-                _select_checkbox_all();
-            });
-        }
+            }
+        });
     }
 })(jQuery);
 
@@ -326,7 +319,7 @@ var _get_query_condition = function (settings) {
     }
     jsonStr = (jsonStr.length > 1 ? jsonStr.substring(0, jsonStr.length - 1) : jsonStr) + "}";
     var object = eval("(" + jsonStr + ")");
-    var orderField = settings.orderField.replace(/([A-Z])/g,"_$1").toLowerCase();
+    var orderField = settings.orderField.replace(/([A-Z])/g, "_$1").toLowerCase();
     object.order = orderField;
     object.sort = settings.sort;
     return object;
@@ -387,8 +380,8 @@ var _create_grid_table = function (data, settings) {
     var array = settings.columns;
     var len;
     for (var j = 0; len = objs.length, j < len; j++) {
-    	var id = objs[j]['id'];
-    	tableData.data(id, objs[j]);
+        var id = objs[j]['id'];
+        tableData.data(id, objs[j]);
         var jsonStr = eval(objs[j]);
         var bool = _is_exsit(_dataIds, jsonStr['id']);
         if (bool)
@@ -463,8 +456,8 @@ var _create_grid_table = function (data, settings) {
                     $("#" + tableId + "_currentPage").val(obj.curr);
                     $.openLoading('正在加载数据，请稍等...');
                     setTimeout(function () {
-                    	settings.pageSize = obj.limit;
-                    	_query_data_ajxa(settings);
+                        settings.pageSize = obj.limit;
+                        _query_data_ajxa(settings);
                         _select_checkbox_all();
                         var num = 0;
                         $('input[name="checkOne"]').each(function () {
@@ -483,8 +476,8 @@ var _create_grid_table = function (data, settings) {
     });
     var _tb_id = tableId + "-data-body";
     $("#" + _tb_id).html(trStr);
-    if($("#paged").attr('data-type') != 1) {
-    	$('table').after('<div id="paged" data-type="1" style="text-align:right" class="page"></div>');
+    if ($("#paged").attr('data-type') != 1) {
+        $('table').after('<div id="paged" data-type="1" style="text-align:right" class="page"></div>');
     }
     jQuery("input[name='checkOne']").each(function () {
         $(this).click(function () {

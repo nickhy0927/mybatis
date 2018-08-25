@@ -41,7 +41,6 @@
         $(document).ready(function () {
             $.fn.zTree.init($("#treeDemo"), setting, zNodes);
             $("body").bind("mousedown", function (event) {
-                console.log(event.target.id);
                 var reg = RegExp(/switch/);
                 var target = event.target.id;
                 if (!target.match(reg)) {
@@ -75,30 +74,31 @@
             }, function () {
                 $.openTip('你确定要基础数据保存吗？',false ,function() {
                     $.closeLoading();
-                    $.openLoading("正在保存数据，请稍等...");
-                    $.submitAjax("${basePath}", {
+                    $.openLoading('正在保存基础数据信息，请稍等...');
+                    $.ajax({
+                        url: '${basePath}/platform/basedata/base-data-save.json',
                         method: 'POST',
                         dataType: 'JSON',
-                        url: '/platform/basedata/base-data-save.json'
-                    },$("#addForm").serialize(), function (result) {
-                        if (result.code == 200) {
-                            $.openTip(result.msg ,true ,function() {
-                                parent.window.location.href = ctx + '/platform/basedata/base-data-list.do';
+                        data: $("#addForm").serialize(),
+                        success: function (data) {
+                            $.closeLoading();
+                            if (data.status != 200 && data.code != 200) {
+                                $.openTip(data.msg, true);
+                                return;
+                            }
+                            $.openTip(data.msg, true, function () {
+                                window.parent.initData();
                                 var index = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(index);
                             });
-                        } else {
-                            $.openTip(result.msg ,true, function() {
-                                $.closeLoading();
-                            });
-                        }
-                    },function (err) {
-                        console.log(err);
-                        $.openTip("保存基础数据信息失败" ,true, function() {
+                        },
+                        error: function (err) {
                             $.closeLoading();
-                        });
-                    })
-                })
+                            $.openTip(err, true);
+                            return;
+                        }
+                    });
+                });
             });
         });
         //取消
@@ -172,7 +172,7 @@
             <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
                     <span class="c-red">*</span>
-                    字典值 ：
+                    字典排序 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <input type="text" name="sort" id="sort" class="input-text"
