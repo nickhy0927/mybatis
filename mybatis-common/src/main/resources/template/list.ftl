@@ -42,20 +42,23 @@ ${r'[@htmlHead]'}
                 title: '${domainObjectName}管理列表',
                 method: 'POST',
                 checkbox: true,
+                method: 'POST',
+                checkbox: true,
                 pageSize: 6,
-                order: 'createTime',
+                orderField: 'createTime',
                 sort: 'desc',
                 searchButtonId: '#searchButton',
-                queryParams: {
-                    connectUrl: $('#connectUrl').val(),
-                    databaseName: $("#databaseName").val()
-                },
+                queryParamsId: ['#connectUrl', "#databaseName", "#username"],
+                tableId: '#dataGridList',
                 tableId: '#dataGridList',
                 columns: [
                     {field: 'id', className: 'text-c'},
                     [#list columnList as column]
-
-					{field: '${column.javaProperty?uncap_first}', className: 'text-l', description: '${column.remarks}', sort: true, paramFormatter: function (row) {}},
+                    [#if column.javaProperty?uncap_first != 'id' && column.javaProperty?uncap_first != 'updateTime' && column.javaProperty?uncap_first != 'createTime' && column.javaProperty?uncap_first != 'status']
+                    {field: '${column.javaProperty?uncap_first}', className: 'text-l', description: '${column.remarks}', sort: true, paramFormatter: function (row) {
+                        return ${r'row.'}${column.javaProperty?uncap_first}
+                    }},
+                    [/#if]
                     [/#list]
                     {field: 'operate', className: 'text-c', description: '操作', paramFormatter: function (row) {
                         return "<a href=\"#\" title=\"修改\" onclick=\"edit('" + row.id + "')\">"
