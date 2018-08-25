@@ -21,7 +21,7 @@
 			<controller.write>true</controller.write>
 		</domain>
 		<domain list="true" create="true" edit="true" 
-			baseDir="src/main/resources/freemarker/" target="module/config/optlog">
+			baseDir="src/main/resources/freemarker/" target="module/config/exceptionlog">
 			<java.file.package>com.mybatis.config</java.file.package>
 			<sql.mapper.path>com.mybatis.config</sql.mapper.path>
 			<entity.name>OptLog</entity.name>

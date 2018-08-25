@@ -64,7 +64,7 @@
 		from ${tableName} where id = ${r'#{id}'}
 	</select>
 	<select id="getObject" 
-			parameterType=${packages}.${domainObjectName?lower_case}.entity.${domainObjectName} 
+			parameterType="${packages}.${domainObjectName?lower_case}.entity.${domainObjectName}" 
 			resultType="${packages}.${domainObjectName?lower_case}.entity.${domainObjectName}">
 		select 
 		<#list columnList as column>

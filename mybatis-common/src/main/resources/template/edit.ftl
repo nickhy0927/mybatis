@@ -18,7 +18,7 @@ ${r'[@htmlHead]'}
                     $.closeLoading();
                     $.openLoading("正在保存数据，请稍等...");
                     $.ajax({
-                        url: '${basePath}/${accessPath}-update.json',
+                        url: '${r'${basePath}'}/${accessPath}-update.json',
                         method: 'POST',
                         dataType: 'JSON',
                         data: $("#addForm").serialize(),
@@ -54,6 +54,7 @@ ${r'[@htmlBody]'}
     <article class="page-container">
         <form class="form form-horizontal" id="addForm">
         	[#list columnList as column]
+        	[#if column.javaProperty?uncap_first != 'id' && column.javaProperty?uncap_first != 'updateTime' && column.javaProperty?uncap_first != 'createTime' && column.javaProperty?uncap_first != 'status']
 			<div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
                 	<span class="c-red">*</span>
@@ -67,6 +68,7 @@ ${r'[@htmlBody]'}
                     <input type="text" name="${column.javaProperty?uncap_first}" id="${column.javaProperty?uncap_first}" class="input-text" value="${r'${'}${domainObjectName?uncap_first + "." + column.javaProperty?uncap_first}${r'}'}" placeholder="please enter ${column.javaProperty?uncap_first}">
                 </div>
             </div>
+			[/#if]
             [/#list]
             <div class="row cl">
                 <div class="col-xs-7 col-sm-8 col-xs-offset-2 col-sm-offset-2">

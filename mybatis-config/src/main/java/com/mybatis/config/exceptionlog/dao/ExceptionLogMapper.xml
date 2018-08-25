@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.config.exceptionlog.dao.ExceptionLogMapper">
+	<insert id="insert" parameterType="com.mybatis.config.exceptionlog.entity.ExceptionLog">
+		insert into sys_exception_log(
+				id,
+				create_time,
+				update_time,
+				status,
+				exception,
+				exception_type,
+				method_name
+		)
+		values (
+				#{id},
+				#{createTime},
+				#{updateTime},
+				#{status},
+				#{exception},
+				#{exceptionType},
+				#{methodName}
+		)
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from sys_exception_log where id = #{id}
+	</delete>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from sys_exception_log where id in 
+		<foreach item="id" collection="list" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<update id="update" parameterType="com.mybatis.config.exceptionlog.entity.ExceptionLog">
+		update sys_exception_log 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="id != null">id = #{id},</if>
+			<if test="createTime != null">create_time = #{createTime},</if>
+			<if test="updateTime != null">update_time = #{updateTime},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="exception != null">exception = #{exception},</if>
+			<if test="exceptionType != null">exception_type = #{exceptionType},</if>
+			<if test="methodName != null">method_name = #{methodName},</if>
+		</trim>	
+		where id = #{id}
+	</update>
+	
+	<update id="updateBatch" parameterType="com.mybatis.config.exceptionlog.entity.ExceptionLog">
+		update sys_exception_log 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="id != null">id = #{id},</if>
+			<if test="createTime != null">create_time = #{createTime},</if>
+			<if test="updateTime != null">update_time = #{updateTime},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="exception != null">exception = #{exception},</if>
+			<if test="exceptionType != null">exception_type = #{exceptionType},</if>
+			<if test="methodName != null">method_name = #{methodName},</if>
+		</trim>	
+		where id = #{id}
+	</update>
+
+	<select id="get" parameterType="String" resultType="com.mybatis.config.exceptionlog.entity.ExceptionLog">
+		select 
+			id,
+						create_time,
+						update_time,
+						status,
+						exception,
+						exception_type,
+						method_name
+		from sys_exception_log where id = #{id}
+	</select>
+	<select id="getObject" 
+			parameterType="com.mybatis.config.exceptionlog.entity.ExceptionLog" 
+			resultType="com.mybatis.config.exceptionlog.entity.ExceptionLog">
+		select 
+			id,
+						create_time,
+						update_time,
+						status,
+						exception,
+						exception_type,
+						method_name
+		from sys_exception_log where id = #{id}
+	</select>
+
+	<select id="queryListByMap" parameterType="java.util.Map" resultType="com.mybatis.config.exceptionlog.entity.ExceptionLog">
+		select 
+			id,
+			create_time,
+			update_time,
+			status,
+			exception,
+			exception_type,
+			method_name
+		from sys_exception_log
+		<include refid="conditions" />
+	</select>
+	
+	<select id="queryListByObject" 
+			parameterType="com.mybatis.config.exceptionlog.entity.ExceptionLog" 
+			resultType="com.mybatis.config.exceptionlog.entity.ExceptionLog">
+		select 
+			id,
+						create_time,
+						update_time,
+						status,
+						exception,
+						exception_type,
+						method_name
+		from sys_exception_log
+		<include refid="conditions" />
+	</select>
+
+	<select id="queryPageByMap" parameterType="java.util.Map" resultType="com.mybatis.config.exceptionlog.entity.ExceptionLog">
+		select 
+			id,
+						create_time,
+						update_time,
+						status,
+						exception,
+						exception_type,
+						method_name
+		from sys_exception_log
+		<include refid="conditions" />
+		order by
+            <choose>
+                <when test="order != null">${order} ${sort}</when>
+                <when test="order != null">create_time desc</when>
+            </choose>
+	</select>
+
+	<sql id="conditions">
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="id != null and id != ''">and id = #{id}</if>
+			<if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+			<if test="updateTime != null and updateTime != ''">and update_time = #{updateTime}</if>
+			<if test="status != null and status != ''">and status = #{status}</if>
+			<if test="exception != null and exception != ''">and exception = #{exception}</if>
+			<if test="exceptionType != null and exceptionType != ''">and exception_type = #{exceptionType}</if>
+			<if test="methodName != null and methodName != ''">and method_name = #{methodName}</if>
+		</trim>
+	</sql>
+</mapper>

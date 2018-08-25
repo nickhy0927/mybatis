@@ -1,7 +1,6 @@
 [#ftl encoding="utf-8" strict_syntax=true]
-${r'[#ftl encoding="utf-8" strict_syntax=true]'}
-${r'[#include "/common/header.ftl"]'}
-${r'[@htmlHead]'}
+[#include "/common/header.ftl"]
+[@htmlHead]
     <script type="text/javascript">
         $(document).ready(function () {
             $('.skin-minimal input').iCheck({
@@ -11,15 +10,19 @@ ${r'[@htmlHead]'}
             });
             //表单验证
             $.validation('addForm', {
-            	[#list columnList as column]
-            	${column.javaProperty?uncap_first}: {required:true},
-            	[/#list]
+            	id: {required:true},
+            	createTime: {required:true},
+            	updateTime: {required:true},
+            	status: {required:true},
+            	exception: {required:true},
+            	exceptionType: {required:true},
+            	methodName: {required:true},
             }, function () {
                 $.openTip('你确定要保存吗？',false ,function() {
                     $.closeLoading();
                     $.openLoading("正在保存数据，请稍等...");
                     $.ajax({
-                        url: '${r'${basePath}'}/${accessPath}-save.json',
+                        url: '${basePath}/config/exceptionlog/exception-log-save.json',
                         method: 'POST',
                         dataType: 'JSON',
                         data: $("#addForm").serialize(),
@@ -50,27 +53,37 @@ ${r'[@htmlHead]'}
             parent.layer.close(index);
         }
     </script>
-${r'[/@htmlHead]'}
-${r'[@htmlBody]'}
+[/@htmlHead]
+[@htmlBody]
     <article class="page-container">
         <form class="form form-horizontal" id="addForm">
-        	[#list columnList as column]
-        	[#if column.javaProperty?uncap_first != 'id' && column.javaProperty?uncap_first != 'updateTime' && column.javaProperty?uncap_first != 'createTime' && column.javaProperty?uncap_first != 'status']
 			<div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
                 	<span class="c-red">*</span>
-                	[#if column.remarks??]
-                		${column.remarks}：
-                	[#else]
-                		${column.javaProperty?uncap_first}：
-                    [/#if]
+                		异常信息 ：
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="${column.javaProperty?uncap_first}" id="${column.javaProperty?uncap_first}" class="input-text" value="" placeholder="please enter ${column.javaProperty?uncap_first}">
+                    <input type="text" name="exception" id="exception" class="input-text" value="" placeholder="please enter exception">
                 </div>
             </div>
-        	[/#if]
-            [/#list]
+			<div class="row cl">
+                <label class="form-label col-xs-3 col-sm-2">
+                	<span class="c-red">*</span>
+                		异常信息类型 ：
+                </label>
+                <div class="formControls col-xs-9 col-sm-9">
+                    <input type="text" name="exceptionType" id="exceptionType" class="input-text" value="" placeholder="please enter exceptionType">
+                </div>
+            </div>
+			<div class="row cl">
+                <label class="form-label col-xs-3 col-sm-2">
+                	<span class="c-red">*</span>
+                		方法名称：
+                </label>
+                <div class="formControls col-xs-9 col-sm-9">
+                    <input type="text" name="methodName" id="methodName" class="input-text" value="" placeholder="please enter methodName">
+                </div>
+            </div>
             <div class="row cl">
                 <div class="col-xs-7 col-sm-8 col-xs-offset-2 col-sm-offset-2">
                     <button class="btn btn-primary radius" type="submit">&nbsp;&nbsp;保存&nbsp;&nbsp;</button>
@@ -79,4 +92,4 @@ ${r'[@htmlBody]'}
             </div>
         </form>
     </article>
-${r'[/@htmlBody]'}
+[/@htmlBody]
