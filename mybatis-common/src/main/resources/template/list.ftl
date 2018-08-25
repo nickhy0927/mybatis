@@ -50,7 +50,6 @@ ${r'[@htmlHead]'}
                 searchButtonId: '#searchButton',
                 queryParamsId: ['#connectUrl', "#databaseName", "#username"],
                 tableId: '#dataGridList',
-                tableId: '#dataGridList',
                 columns: [
                     {field: 'id', className: 'text-c'},
                     [#list columnList as column]
