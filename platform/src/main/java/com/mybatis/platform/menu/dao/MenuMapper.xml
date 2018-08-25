@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.platform.menu.dao.MenuMapper">
-	<insert id="insert" parameterType="com.mybatis.platform.menu.entity.Menu">
+    <insert id="insert" parameterType="com.mybatis.platform.menu.entity.Menu">
 		insert into sys_menu(
             id,create_time, update_time, status,
             code, name, url, alias, menu_id,
@@ -15,19 +15,19 @@
 		)
 	</insert>
 
-	<delete id="delete" parameterType="java.lang.String">
+    <delete id="delete" parameterType="java.lang.String">
 		delete from sys_menu where id = #{id}
 	</delete>
 
-	<delete id="deleteBatch" parameterType="java.util.List">
-		delete from sys_menu where id in 
-		<foreach item="id" collection="list" open="(" separator="," close=")">
-			#{id}
-		</foreach>
-	</delete>
+    <delete id="deleteBatch" parameterType="java.util.List">
+        delete from sys_menu where id in
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 
-	<update id="update" parameterType="com.mybatis.platform.menu.entity.Menu">
-		update sys_menu 
+    <update id="update" parameterType="com.mybatis.platform.menu.entity.Menu">
+        update sys_menu
         <trim prefix="set" prefixOverrides="," suffixOverrides=",">
             <if test="id != null">id = #{id},</if>
             <if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
@@ -43,37 +43,37 @@
             <if test="shows != null and shows != ''">shows = #{shows},</if>
             remark = #{remark}
         </trim>
-		where id = #{id}
-	</update>
-	
-	<update id="updateBatch" parameterType="com.mybatis.platform.menu.entity.Menu">
-		update sys_menu 
-		<trim prefix="set" prefixOverrides=",">
-			<if test="id != null">id = #{id},</if>
-			<if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
-			<if test="status != null and status != ''">status = #{status},</if>
-			<if test="code != null and code != ''">code = #{code},</if>
-			<if test="name != null and name != ''">name = #{name},</if>
-			<if test="url != null and url != ''">url = #{url},</if>
-			<if test="alias != null and alias != ''">alias = #{alias},</if>
-			<if test="menuId != null and menuId != ''">menu_id = #{menuId},</if>
-			<if test="enable != null and enable != ''">enable = #{enable},</if>
-			<if test="shows != null and shows != ''">shows = #{shows},</if>
+        where id = #{id}
+    </update>
+
+    <update id="updateBatch" parameterType="com.mybatis.platform.menu.entity.Menu">
+        update sys_menu
+        <trim prefix="set" prefixOverrides=",">
+            <if test="id != null">id = #{id},</if>
+            <if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="code != null and code != ''">code = #{code},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="url != null and url != ''">url = #{url},</if>
+            <if test="alias != null and alias != ''">alias = #{alias},</if>
+            <if test="menuId != null and menuId != ''">menu_id = #{menuId},</if>
+            <if test="enable != null and enable != ''">enable = #{enable},</if>
+            <if test="shows != null and shows != ''">shows = #{shows},</if>
             remark = #{remark}
-		</trim>
-		where id = #{id}
-	</update>
+        </trim>
+        where id = #{id}
+    </update>
 
-	<select id="get" parameterType="String" resultType="com.mybatis.platform.menu.entity.Menu">
+    <select id="get" parameterType="String" resultType="com.mybatis.platform.menu.entity.Menu">
 		select 
             id, create_time, update_time,
             status, code, name, url, alias,
             menu_id, enable, shows, remark, sort
 		from sys_menu where id = #{id}
 	</select>
-	<select id="getObject" 
-			parameterType="com.mybatis.platform.menu.entity.Menu" 
-			resultType="com.mybatis.platform.menu.entity.Menu">
+    <select id="getObject"
+            parameterType="com.mybatis.platform.menu.entity.Menu"
+            resultType="com.mybatis.platform.menu.entity.Menu">
 		select 
             id, create_time, update_time,
             status, code, name, url, alias,
@@ -81,39 +81,47 @@
 		from sys_menu where id = #{id}
 	</select>
 
-	<select id="queryListByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.menu.entity.Menu">
-		select
-            id, create_time, update_time,
-            status, code, name, url, alias,
+    <select id="queryListByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.menu.entity.Menu">
+        select
+        id, create_time, update_time,
+        status, code, name, url, alias,
         menu_id, enable, shows, remark, t.sort sort
-		from sys_menu t
-		<include refid="conditions" />
-	</select>
-	
-	<select id="queryListByObject" 
-			parameterType="com.mybatis.platform.menu.entity.Menu" 
-			resultType="com.mybatis.platform.menu.entity.Menu">
-		select
-            id, create_time, update_time,
-            status, code, name, url, alias,
-            menu_id, enable, shows, remark, t.sort sort
-		from sys_menu t
-		<include refid="conditions" />
-	</select>
+        from sys_menu t
+        <include refid="conditions" />
+    </select>
 
-	<select id="queryPageByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.menu.entity.Menu">
-		select
-            id, create_time, update_time,
-            status, code, name, url, alias,
-            menu_id, enable, shows, remark, t.sort sort
-		from sys_menu t
-		<include refid="conditions" />
-		order by
-            <choose>
-                <when test="order != null">${order} ${sort}</when>
-                <when test="order != null">create_time desc</when>
-            </choose>
-	</select>
+    <select id="queryListByObject"
+            parameterType="com.mybatis.platform.menu.entity.Menu"
+            resultType="com.mybatis.platform.menu.entity.Menu">
+        select
+        id, create_time, update_time,
+        status, code, name, url, alias,
+        menu_id, enable, shows, remark, t.sort sort
+        from sys_menu t
+        <include refid="conditions" />
+    </select>
+
+    <select id="queryPageByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.menu.entity.Menu">
+        select
+        id, create_time, update_time,
+        status, code, name, url, alias,
+        menu_id, enable, shows, remark, m.sort sort,
+        (
+        SELECT
+        t.name
+        FROM
+        sys_menu t
+        WHERE
+        t.id = m.menu_id
+        ) AS parentName
+        from sys_menu m
+        <include refid="conditions" />
+        order by
+        <choose>
+            <when test="order != null">${order} ${sort}</when>
+            <when test="order != null">create_time desc</when>
+        </choose>
+    </select>
 
     <select id="queryMenuByParentIsNull" resultType="com.mybatis.platform.menu.entity.Menu">
         select
@@ -147,18 +155,18 @@
             m.sort asc
     </select>
 
-	<sql id="conditions">
-		<trim prefix="where" prefixOverrides="and|or">
-			<if test="id != null and alias != ''">and id = #{id}</if>
-			<if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
-			<if test="status != null and status != ''">and status = #{status}</if>
-			<if test="code != null and code != ''">and code = #{code}</if>
-			<if test="name != null and name != ''">and name like concat('%',#{name},'%')</if>
-			<if test="url != null and url != ''">and url like concat('%',#{url},'%')</if>
-			<if test="alias != null and alias != ''">and alias like concat('%',#{alias},'%')</if>
-			<if test="menuId != null and menuId != ''">and menu_id = #{menuId}</if>
-			<if test="enable != null and enable != ''">and enable = #{enable}</if>
-			<if test="shows != null and shows != ''">and shows = #{shows}</if>
-		</trim>
-	</sql>
+    <sql id="conditions">
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="id != null and alias != ''">and id = #{id}</if>
+            <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+            <if test="status != null and status != ''">and status = #{status}</if>
+            <if test="code != null and code != ''">and code = #{code}</if>
+            <if test="name != null and name != ''">and name like concat('%',#{name},'%')</if>
+            <if test="url != null and url != ''">and url like concat('%',#{url},'%')</if>
+            <if test="alias != null and alias != ''">and alias like concat('%',#{alias},'%')</if>
+            <if test="menuId != null and menuId != ''">and menu_id = #{menuId}</if>
+            <if test="enable != null and enable != ''">and enable = #{enable}</if>
+            <if test="shows != null and shows != ''">and shows = #{shows}</if>
+        </trim>
+    </sql>
 </mapper>
