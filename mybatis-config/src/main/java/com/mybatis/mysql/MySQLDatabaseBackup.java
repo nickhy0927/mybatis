@@ -41,9 +41,9 @@ public class MySQLDatabaseBackup {
         }  
         PrintWriter printWriter = null;  
         BufferedReader bufferedReader = null;  
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
         try {  
-            printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(savePath + format.format(new Date()) + ".sql"), "utf8"));  
+            printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(savePath + database.getDatabaseName() + "-" +format.format(new Date()) + ".sql"), "utf8"));  
             System.out.println(saveFile.getAbsolutePath());
             String hostIP = database.getIp();
 			String userName = database.getUsername();

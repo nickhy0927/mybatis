@@ -26,7 +26,7 @@ import java.util.Map;
 /**
  * @Title: baseDataController.java
  * @Package com.mybatis.platform.baseData.controller
- * @Description TODO(用一句话描述该文件做什么)
+ * @Description 基础数据管理
  * @author yuanhuangd
  * @version V1.0
  * @Date: 2018年6月9日 下午6:03:46
@@ -133,8 +133,9 @@ public class BaseDataController {
 	/**
 	 * 获取列表数据
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/platform/basedata/base-data-list.json", method = RequestMethod.POST)
-	public void baseDataList(HttpServletRequest request, PageSupport support) {
+	public MessageObject baseDataList(HttpServletRequest request, PageSupport support) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
@@ -143,12 +144,7 @@ public class BaseDataController {
 		} catch (IOException e) {
 			e.printStackTrace();
 			messageObject.error("获取基础数据异常");
-		} finally {
-			try {
-				messageObject.returnData(messageObject);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
+		return messageObject;
 	}
 }

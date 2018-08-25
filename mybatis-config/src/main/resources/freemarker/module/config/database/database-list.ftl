@@ -10,21 +10,28 @@
         }
     	
     	function backUpDatabase(id) {
-    		$.openLoading("正在导出数据，请稍等...");
-    		$.ajax({
-				url: ctx + '/config/database/database-backup.json',
-				type: 'POST',
-				data: {id: id},
-			  	dataType: 'json',
-			  	timeout: 10000,
-			  	success: function (data, status) {
-			  		$.closeLoading();
-			    	console.log(data)
-			  	},
-			  	error: function (err, status) {
-			    	console.log(err)
-			  	}
-			})
+    		layer.prompt({
+    			title: '请输入导出的位置',
+    			area: ['400px', '60px'] 
+    		}, function(val, index){
+  			  	layer.close(index);
+  			  	$.openLoading("正在导出数据，请稍等...");
+	      		$.ajax({
+	  				url: ctx + '/config/database/database-backup.json',
+	  				type: 'POST',
+	  				data: {id: id, path: val},
+	  			  	dataType: 'json',
+	  			  	timeout: 10000,
+	  			  	success: function (data, status) {
+	  			  		$.closeLoading();
+	                      $.openTip(data.msg, true);
+	  			  	},
+	  			  	error: function (err, status) {
+	  			    	console.log(err)
+	  			  	}
+	  			})
+  			});
+    		
 	    }    
 	        
         function datadel(id, single) {

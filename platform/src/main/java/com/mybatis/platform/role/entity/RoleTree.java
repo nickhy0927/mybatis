@@ -1,7 +1,5 @@
 package com.mybatis.platform.role.entity;
 
-import com.mybatis.platform.menu.entity.Menu;
-
 /**
  * 菜单树
  * @author Hyuan

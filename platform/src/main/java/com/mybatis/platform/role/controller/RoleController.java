@@ -141,8 +141,9 @@ public class RoleController {
 	/**
 	 * 获取列表数据
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/platform/role/role-list.json", method = RequestMethod.POST)
-	public void roleList(HttpServletRequest request, HttpServletResponse response, PageSupport support) {
+	public MessageObject roleList(HttpServletRequest request, HttpServletResponse response, PageSupport support) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
@@ -151,12 +152,7 @@ public class RoleController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			messageObject.error("获取角色信息异常");
-		} finally {
-			try {
-				messageObject.returnData(response, messageObject);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
+		return messageObject;
 	}
 }

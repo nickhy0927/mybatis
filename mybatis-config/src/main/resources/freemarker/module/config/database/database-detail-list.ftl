@@ -2,7 +2,7 @@
 <@htmlHead>
     <script type="text/javascript">
         function createTemplate(tableName) {
-            $.openWindow('创建模板', '80%', '80%', '${basePath}/template/database/${id}/create-template.do?tableName=' + tableName);
+            $.openWindow('创建模板', '80%', '80%', '${basePath}/config/database/${id}/create-template.do?tableName=' + tableName);
         }
 
         $(document).ready(function () {

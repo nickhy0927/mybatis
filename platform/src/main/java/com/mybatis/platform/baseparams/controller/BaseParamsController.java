@@ -116,8 +116,9 @@ public class BaseParamsController {
 	/**
 	 * 获取列表数据
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/platform/baseparams/base-params-list.json", method = RequestMethod.POST)
-	public void baseParamsList(HttpServletRequest request, PageSupport support) {
+	public MessageObject baseParamsList(HttpServletRequest request, PageSupport support) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
@@ -126,12 +127,7 @@ public class BaseParamsController {
 		} catch (IOException e) {
 			e.printStackTrace();
 			messageObject.error("获取系统参数列表失败");
-		} finally {
-			try {
-				messageObject.returnData(messageObject);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
+		return messageObject;
 	}
 }

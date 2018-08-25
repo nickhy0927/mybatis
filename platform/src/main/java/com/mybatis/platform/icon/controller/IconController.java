@@ -129,8 +129,9 @@ public class IconController extends BaseController{
     /**
      * 获取列表数据
      */
+    @ResponseBody
     @RequestMapping(value = "/platform/icon/icon-list.json", method = RequestMethod.POST)
-    public void iconList(HttpServletRequest request, PageSupport support) {
+    public MessageObject iconList(HttpServletRequest request, PageSupport support) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
@@ -139,13 +140,8 @@ public class IconController extends BaseController{
         } catch (IOException e) {
             e.printStackTrace();
             messageObject.error("获取图标列表异常");
-        } finally {
-            try {
-                messageObject.returnData(messageObject);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        } 
+        return messageObject;
     }
 
 }

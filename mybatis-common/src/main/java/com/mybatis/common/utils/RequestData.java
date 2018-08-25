@@ -1,9 +1,5 @@
 package com.mybatis.common.utils;
 
-import net.sf.json.JSONObject;
-import org.apache.commons.lang3.StringUtils;
-
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,6 +7,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class RequestData {
 
@@ -43,28 +43,6 @@ public class RequestData {
             }
         }
         return paramsMap;
-    }
-
-
-    /**
-     * 将json格式的字符串解析成Map对象
-     * <li>json格式：{"name":"admin","retries":"3fff","testname"
-     * :"ddd","testretries":"fffffffff"}
-     */
-
-    @SuppressWarnings("unchecked")
-    private static Map<String, Object> toHashMap(Object object) {
-        Map<String, Object> data = new HashMap<>();
-        // 将json字符串转换成jsonObject
-        JSONObject jsonObject = JSONObject.fromObject(object);
-        Iterator<JSONObject> it = jsonObject.keys();
-        // 遍历jsonObject数据，添加到Map对象
-        while (it.hasNext()) {
-            String key = String.valueOf(it.next());
-            String value = String.valueOf(jsonObject.get(key));
-            data.put(key, value);
-        }
-        return data;
     }
 
     /**

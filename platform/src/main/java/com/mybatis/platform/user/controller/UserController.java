@@ -1,12 +1,10 @@
 package com.mybatis.platform.user.controller;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,18 +14,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mybatis.platform.user.entity.User;
-import com.mybatis.platform.user.service.UserService;
 import com.mybatis.common.utils.MessageObject;
 import com.mybatis.common.utils.PageSupport;
 import com.mybatis.common.utils.PagerInfo;
 import com.mybatis.common.utils.RequestData;
 import com.mybatis.core.orm.entity.PageRowBounds;
+import com.mybatis.platform.user.entity.User;
+import com.mybatis.platform.user.service.UserService;
 
 /**
  * @Title: userController.java
  * @Package com.mybatis.platform.user.controller
- * @Description TODO(用一句话描述该文件做什么)
+ * @Description 用户管理
  * @author yuanhuangd
  * @version V1.0
  * @Date: 2018年6月9日 下午6:03:46
@@ -118,8 +116,9 @@ public class UserController {
 	/**
 	 * 获取列表数据
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/platform/user/user-list.json", method = RequestMethod.POST)
-	public void userList(HttpServletRequest request, PageSupport support) {
+	public MessageObject userList(HttpServletRequest request, PageSupport support) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
@@ -128,12 +127,7 @@ public class UserController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			messageObject.error("获取用户信息异常");
-		} finally {
-			try {
-				messageObject.returnData(messageObject);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
+		return messageObject;
 	}
 }

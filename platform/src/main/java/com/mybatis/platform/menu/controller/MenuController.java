@@ -27,7 +27,7 @@ import java.util.Map;
  * @version V1.0
  * @Title: menuController.java
  * @Package com.mybatis.platform.menu.controller
- * @Description TODO(用一句话描述该文件做什么)
+ * @Description 菜单管理
  * @Date: 2018年6月9日 下午6:03:46
  */
 @Controller
@@ -151,8 +151,9 @@ public class MenuController {
     /**
      * 获取列表数据
      */
+    @ResponseBody
     @RequestMapping(value = "/platform/menu/menu-list.json", method = RequestMethod.POST)
-    public void menuList(HttpServletRequest request, PageSupport support) {
+    public MessageObject menuList(HttpServletRequest request, PageSupport support) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
@@ -161,12 +162,7 @@ public class MenuController {
         } catch (IOException e) {
             e.printStackTrace();
             messageObject.error("获取模版数据异常");
-        } finally {
-            try {
-                messageObject.returnData(messageObject);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        } 
+        return messageObject;
     }
 }

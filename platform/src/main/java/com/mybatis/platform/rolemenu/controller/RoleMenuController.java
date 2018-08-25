@@ -27,7 +27,7 @@ import com.mybatis.core.orm.entity.PageRowBounds;
 /**
  * @Title: roleMenuController.java
  * @Package com.mybatis.platform.roleMenu.controller
- * @Description TODO(用一句话描述该文件做什么)
+ * @Description 角色菜单管理
  * @author yuanhuangd
  * @version V1.0
  * @Date: 2018年6月9日 下午6:03:46
@@ -117,8 +117,9 @@ public class RoleMenuController {
 	/**
 	 * 获取列表数据
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/platform/rolemenu/role-menu-list.json", method = RequestMethod.POST)
-	public void roleMenuList(HttpServletRequest request, HttpServletResponse response, PageSupport support) {
+	public MessageObject roleMenuList(HttpServletRequest request, HttpServletResponse response, PageSupport support) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
@@ -127,12 +128,7 @@ public class RoleMenuController {
 		} catch (IOException e) {
 			e.printStackTrace();
 			messageObject.error("获取模版数据异常");
-		} finally {
-			try {
-				messageObject.returnData(response, messageObject);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
+		return messageObject;
 	}
 }

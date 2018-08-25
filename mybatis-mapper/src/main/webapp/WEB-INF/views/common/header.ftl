@@ -46,14 +46,10 @@
                 padding-left: 5px;
             }
         </style>
-        <link rel="stylesheet" href="${basePath}/layerui/layui/css/layui.css" media="all">
-    	<link rel="stylesheet" href="${basePath}/layerui/font-awesome/css/font-awesome.min.css" media="all">
-    	<link rel="stylesheet" href="${basePath}/layerui/build/css/app.css" media="all">
-    	<link rel="stylesheet" href="${basePath}/layerui/build/css/themes/green.css" media="all">
-    	<script src="${basePath}/layerui/layui/layui.js"></script>
+        <link rel="stylesheet" href="${basePath}/assets/lib/layui/css/layui.css" media="all">
+    	<script src="${basePath}/assets/lib/layui/layui.js"></script>
         <script type="text/javascript">
             var ctx = '${basePath}';
-            console.log(ctx);
         </script>
         <!--[if lt IE 9]>
         <script type="text/javascript" src="${basePath}/assets/lib/html5shiv.js"></script>
@@ -68,7 +64,6 @@
         <script type="text/javascript" src="${basePath}/assets/lib/jquery/1.9.1/jquery.mockjax.js"></script>
         <script type="text/javascript" src="${basePath}/assets/lib/jquery/1.9.1/countries.js"></script>
         <script type="text/javascript" src="${basePath}/assets/lib/layer/2.4/layer.js"></script>
-        <script type="text/javascript" src="${basePath}/assets/lib/laydate/laydate.js"></script> <!-- 日期插件 -->
         <script type="text/javascript" src="${basePath}/assets/js/H-ui.min.js"></script>
         <script type="text/javascript" src="${basePath}/assets/js/H-ui.admin.js"></script>
         <script type="text/javascript" src="${basePath}/assets/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>

@@ -1,17 +1,16 @@
 package com.mybatis.platform.menu.service.impl;
 
-import com.google.common.collect.Lists;
-import com.mybatis.platform.menu.entity.MenuTemplate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.common.collect.Lists;
 import com.mybatis.core.orm.common.service.impl.BaseServiceImpl;
 import com.mybatis.platform.menu.dao.MenuMapper;
 import com.mybatis.platform.menu.entity.Menu;
+import com.mybatis.platform.menu.entity.MenuTemplate;
 import com.mybatis.platform.menu.service.MenuService;
-
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class MenuServiceImpl extends BaseServiceImpl<Menu, String, MenuMapper> implements MenuService {

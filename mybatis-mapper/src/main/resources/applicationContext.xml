@@ -84,6 +84,7 @@
         <property name="jars">
             <list>
                 <value>platform-1.0-SNAPSHOT.jar</value>
+                <value>mybatis-config-1.0-SNAPSHOT.jar</value>
             </list>
         </property>
     </bean>

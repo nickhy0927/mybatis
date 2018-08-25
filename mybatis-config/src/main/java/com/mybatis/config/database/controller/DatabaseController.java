@@ -1,6 +1,5 @@
 package com.mybatis.config.database.controller;
 
-import java.io.File;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mybatis.code.parser.GeneratorConfiguration;
 import com.mybatis.common.utils.MessageObject;
 import com.mybatis.common.utils.PageSupport;
 import com.mybatis.common.utils.PagerInfo;
@@ -20,7 +20,6 @@ import com.mybatis.common.utils.RequestData;
 import com.mybatis.config.database.entity.Database;
 import com.mybatis.config.database.entity.TableComment;
 import com.mybatis.config.database.service.DatabaseService;
-import com.mybatis.config.template.parser.GeneratorConfiguration;
 import com.mybatis.core.orm.entity.PageRowBounds;
 import com.mybatis.mysql.MySQLDatabaseBackup;
 
@@ -127,13 +126,11 @@ public class DatabaseController {
 
 	@ResponseBody
 	@RequestMapping(value = "/database/database-backup.json", method = RequestMethod.POST)
-	public MessageObject backUpDatabase(String id) {
+	public MessageObject backUpDatabase(String id, String path) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
-		System.out.println(System.getProperty("user.dir"));
-		System.out.println(new File("/").getAbsolutePath());
 		try {
 			Database database = databaseService.get(id);
-			String savePath = "src/main/resources/sql";
+			String savePath = path + "/sql";
 			boolean tool = MySQLDatabaseBackup.exportDatabaseTool(database, savePath);
 			if (tool) {
 				messageObject.ok("导出数据库成功", database);
