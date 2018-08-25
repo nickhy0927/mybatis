@@ -1,13 +1,13 @@
 package com.mybatis.config.database.dao;
 
-import com.mybatis.config.database.entity.Database;
-import com.mybatis.config.database.entity.TableComment;
-import com.mybatis.core.orm.core.dao.CommonDao;
-
 import java.util.List;
 import java.util.Map;
 
-public interface DatabaseDao extends CommonDao<Database, String> {
+import com.mybatis.config.database.entity.Database;
+import com.mybatis.config.database.entity.TableComment;
+import com.mybatis.core.orm.common.mapper.BaseMapper;
+
+public interface DatabaseMapper extends BaseMapper<Database, String> {
 
     List<TableComment> queryTableNameAndCommentByMap(Map<String,Object> params);
 

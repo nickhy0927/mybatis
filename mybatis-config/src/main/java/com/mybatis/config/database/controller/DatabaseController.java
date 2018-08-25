@@ -21,6 +21,7 @@ import com.mybatis.config.database.entity.Database;
 import com.mybatis.config.database.entity.TableComment;
 import com.mybatis.config.database.service.DatabaseService;
 import com.mybatis.config.template.parser.GeneratorConfiguration;
+import com.mybatis.core.orm.entity.PageRowBounds;
 import com.mybatis.mysql.MySQLDatabaseBackup;
 
 @Controller
@@ -42,7 +43,7 @@ public class DatabaseController {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> dataToMap = RequestData.getRequestDataToMap(request);
-			PagerInfo<Database> pagerInfo = databaseService.queryPageByMap(dataToMap, support);
+			PagerInfo<Database> pagerInfo = databaseService.queryPage(dataToMap, new PageRowBounds(support));
 			messageObject.ok("获取列表信息成功", pagerInfo);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -62,7 +63,7 @@ public class DatabaseController {
 	public MessageObject databaseSave(Database database) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
-			database = databaseService.insert(database);
+			databaseService.insert(database);
 			messageObject.ok("保存数据库信息成功", database);
 		} catch (Exception e) {
 			messageObject.error("保存数据库信息失败");
