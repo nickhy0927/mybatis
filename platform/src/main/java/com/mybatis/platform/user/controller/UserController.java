@@ -125,7 +125,7 @@ public class UserController {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
 			PagerInfo<User> pagerInfo = userService.queryPage(paramsMap, new PageRowBounds(support));
 			messageObject.ok("获取用户信息成功", pagerInfo);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			messageObject.error("获取用户信息异常");
 		} finally {

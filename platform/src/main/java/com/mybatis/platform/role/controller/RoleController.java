@@ -147,10 +147,10 @@ public class RoleController {
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
 			PagerInfo<Role> pagerInfo = roleService.queryPage(paramsMap, new PageRowBounds(support));
-			messageObject.ok("获取模版输出成功", pagerInfo);
-		} catch (IOException e) {
+			messageObject.ok("获取角色信息成功", pagerInfo);
+		} catch (Exception e) {
 			e.printStackTrace();
-			messageObject.error("获取模版数据异常");
+			messageObject.error("获取角色信息异常");
 		} finally {
 			try {
 				messageObject.returnData(response, messageObject);
