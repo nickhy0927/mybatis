@@ -8,9 +8,8 @@ public class PageSupport {
     private int totalRecord;// 总记录数
     private int totalPage;// 总页数
     private int currentPage;// 当前页
-    private boolean layui;// 是否是layui
     private String order = "createTime";
-    private String sort = Sortable.DESC.toString().toLowerCase();
+    private String sort;
 
     private int limit;
 
@@ -38,14 +37,6 @@ public class PageSupport {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
-    }
-
-    public boolean isLayui() {
-        return layui;
-    }
-
-    public void setLayui(boolean layui) {
-        this.layui = layui;
     }
 
     public int getLimit() {
@@ -108,10 +99,8 @@ public class PageSupport {
     }
 
     public int getStartRow() {
-        if (layui) {
-            this.currentPage = page;
-            this.pageSize = limit;
-        }
+        this.currentPage = page;
+        this.pageSize = limit;
         return (this.currentPage - 1 > 0 ? (this.currentPage - 1) : 0) * this.pageSize;
     }
 
@@ -148,7 +137,7 @@ public class PageSupport {
     }
 
     public String getOrder() {
-    	String lowerCase = Underline2Camel.camelToUnderline(order).toLowerCase();
+        String lowerCase = Underline2Camel.camelToUnderline(order).toLowerCase();
         return lowerCase;
     }
 
@@ -164,7 +153,4 @@ public class PageSupport {
         this.sort = sort;
     }
 
-    public enum Sortable {
-        DESC, ASC
-    }
 }

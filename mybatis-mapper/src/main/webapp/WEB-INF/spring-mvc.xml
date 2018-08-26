@@ -43,6 +43,10 @@
             <mvc:mapping path="/**"/>
             <bean class="org.mybatis.auth.AuthHandlerInterceptor"/>
         </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.mybatis.interceptor.OperateLogInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 
     <bean id="freeMarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">

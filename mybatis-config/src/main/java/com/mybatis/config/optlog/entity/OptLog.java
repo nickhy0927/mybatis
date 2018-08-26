@@ -128,10 +128,4 @@ public class OptLog extends IdEntity {
        this.optType = optType;
     }
     
-    public static class OptType {
-        public static final int insert = 1;
-        public static final int update = 2;
-        public static final int delete = 3;
-        public static final int query = 4;
-    }
 }

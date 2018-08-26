@@ -4,6 +4,9 @@ import com.google.common.collect.Lists;
 import com.mybatis.common.utils.*;
 import com.mybatis.core.orm.constant.SysConstant;
 import com.mybatis.core.orm.entity.PageRowBounds;
+import com.mybatis.interceptor.Authority;
+import com.mybatis.interceptor.OperateLog;
+import com.mybatis.interceptor.OperateType;
 import com.mybatis.platform.menu.entity.Menu;
 import com.mybatis.platform.menu.entity.MenuTree;
 import com.mybatis.platform.menu.service.MenuService;
@@ -40,6 +43,7 @@ public class MenuController {
      * 新增页面
      */
     @RequestMapping(value = "/platform/menu/menu-create.do", method = RequestMethod.GET)
+    @Authority(alias = "")
     public String menuCreate(Model model, HttpServletRequest request) {
         try {
             model.addAttribute("code", NumberCreate.generateNumber2());
@@ -60,6 +64,7 @@ public class MenuController {
     /**
      * 新增数据到数据库
      */
+    @OperateLog(message = "新增菜单信息", optType = OperateType.OptType.INSERT)
     @RequestMapping(value = "/platform/menu/menu-save.json", method = RequestMethod.POST, produces = "application/json")
     public void menuSave(Menu menu) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
@@ -104,6 +109,7 @@ public class MenuController {
      * 更新数据到数据库
      */
     @RequestMapping(value = "/platform/menu/menu-update.json", method = RequestMethod.POST, produces = "application/json")
+    @OperateLog(message = "修改菜单信息", optType = OperateType.OptType.UPDATE)
     public void menuupdate(Menu menu) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
@@ -127,6 +133,7 @@ public class MenuController {
      */
     @ResponseBody
     @RequestMapping(value = "/platform/menu/menu-delete/{id}.json", method = RequestMethod.POST)
+    @OperateLog(message = "删除菜单信息", optType = OperateType.OptType.DELETE)
     public MessageObject menuDelete(@PathVariable(value = "id") String id) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
@@ -143,6 +150,7 @@ public class MenuController {
     /**
      * 列表页面
      */
+    @OperateLog(message = "获取菜单列表信息", optType = OperateType.OptType.INSERT)
     @RequestMapping(value = "/platform/menu/menu-list.do", method = RequestMethod.GET)
     public String menuList() {
         return "module/platform/menu/menu-list";
@@ -158,10 +166,10 @@ public class MenuController {
         try {
             Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
             PagerInfo<Menu> pagerInfo = menuService.queryPage(paramsMap, new PageRowBounds(support));
-            messageObject.ok("获取模版输出成功", pagerInfo);
+            messageObject.ok("查询菜单列表信息成功", pagerInfo);
         } catch (IOException e) {
             e.printStackTrace();
-            messageObject.error("获取模版数据异常");
+            messageObject.error("查询菜单信息失败");
         } 
         return messageObject;
     }
