@@ -23,6 +23,9 @@ import com.mybatis.common.utils.PageSupport;
 import com.mybatis.common.utils.PagerInfo;
 import com.mybatis.common.utils.RequestData;
 import com.mybatis.core.orm.entity.PageRowBounds;
+import com.mybatis.interceptor.Authority;
+import com.mybatis.interceptor.OperateLog;
+import com.mybatis.interceptor.OperateType;
 
 /**
  * @Title: roleMenuController.java
@@ -41,6 +44,7 @@ public class RoleMenuController {
 	/**
 	 * 新增页面
 	 */
+	@Authority(alias = "role-menu-create")
 	@RequestMapping(value = "/platform/rolemenu/role-menu-create.do", method = RequestMethod.GET)
 	public String roleMenuCreate() {
 		return "module/platform/rolemenu/role-menu-create";
@@ -51,7 +55,8 @@ public class RoleMenuController {
 	 */
 	@ResponseBody
     @RequestMapping(value = "/platform/rolemenu/role-menu-save.json", method = RequestMethod.POST)
-    public MessageObject roleMenuSave(RoleMenu roleMenu) {
+    @OperateLog(message = "新增角色菜单信息", optType = OperateType.OptType.INSERT, service = RoleMenuService.class)
+	public MessageObject roleMenuSave(RoleMenu roleMenu) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             roleMenuService.insert(roleMenu);
@@ -65,6 +70,7 @@ public class RoleMenuController {
     /**
 	 * 修改页面
 	 */
+	@Authority(alias = "role-menu-edit")
 	@RequestMapping(value = "/platform/rolemenu/role-menu-edit/{id}.do", method = RequestMethod.GET)
 	public String roleMenuEdit(@PathVariable(value = "id") String id, Model model) {
 		RoleMenu roleMenu = roleMenuService.get(id);
@@ -77,6 +83,7 @@ public class RoleMenuController {
 	 */
 	@ResponseBody
     @RequestMapping(value = "/platform/rolemenu/role-menu-update.json", method = RequestMethod.POST)
+	@OperateLog(message = "修改色菜单信息", optType = OperateType.OptType.UPDATE, service = RoleMenuService.class)
     public MessageObject roleMenuupdate(RoleMenu roleMenu) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
@@ -92,7 +99,9 @@ public class RoleMenuController {
 	 * 从数据库删除数据
 	 */
 	@ResponseBody
+	@Authority(alias = "role-menu-delete")
 	@RequestMapping(value = "/platform/rolemenu/role-menu-delete/{id}.json", method = RequestMethod.POST)
+	@OperateLog(message = "删除角色菜单信息", optType = OperateType.OptType.DELETE, service = RoleMenuService.class)
 	public MessageObject roleMenuDelete(@PathVariable(value = "id") String id) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
@@ -109,6 +118,7 @@ public class RoleMenuController {
 	/**
 	 * 列表页面
 	 */
+	@Authority(alias = "role-menu-mgt")
 	@RequestMapping(value = "/platform/rolemenu/role-menu-list.do", method = RequestMethod.GET)
 	public String roleMenuList() {
 		return "module/platform/rolemenu/role-menu-list";

@@ -18,6 +18,8 @@ public @interface OperateLog {
 
 	int optType();
 	
+	Class<?> service();
+	
 }
 
 

@@ -5,6 +5,9 @@ import com.google.common.collect.Maps;
 import com.mybatis.common.utils.*;
 import com.mybatis.core.orm.constant.SysConstant;
 import com.mybatis.core.orm.entity.PageRowBounds;
+import com.mybatis.interceptor.Authority;
+import com.mybatis.interceptor.OperateLog;
+import com.mybatis.interceptor.OperateType;
 import com.mybatis.platform.basedata.entity.BaseData;
 import com.mybatis.platform.basedata.entity.BaseDataTree;
 import com.mybatis.platform.basedata.service.BaseDataService;
@@ -40,6 +43,7 @@ public class BaseDataController {
 	/**
 	 * 新增页面
 	 */
+	@Authority(alias = "basedata-create")
 	@RequestMapping(value = "/platform/basedata/base-data-create.do", method = RequestMethod.GET)
 	public String baseDataCreate(Model model) {
 	    model.addAttribute("code", NumberCreate.generateNumber2());
@@ -59,6 +63,7 @@ public class BaseDataController {
 	 */
 	@ResponseBody
     @RequestMapping(value = "/platform/basedata/base-data-save.json", method = RequestMethod.POST)
+	@OperateLog(message = "新增基础数据信息", optType = OperateType.OptType.INSERT, service = BaseDataService.class)
     public MessageObject baseDataSave(BaseData baseData) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
@@ -73,6 +78,7 @@ public class BaseDataController {
     /**
 	 * 修改页面
 	 */
+	@Authority(alias = "basedata-edit")
 	@RequestMapping(value = "/platform/basedata/base-data-edit/{id}.do", method = RequestMethod.GET)
 	public String baseDataEdit(@PathVariable(value = "id") String id, Model model) {
 		Map<String, Object> paramsMap = Maps.newConcurrentMap();
@@ -93,6 +99,7 @@ public class BaseDataController {
 	 */
 	@ResponseBody
     @RequestMapping(value = "/platform/basedata/base-data-update.json", method = RequestMethod.POST)
+	@OperateLog(message = "修改基础数据信息", optType = OperateType.OptType.UPDATE, service = BaseDataService.class)
     public MessageObject baseDataupdate(BaseData baseData) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
@@ -108,7 +115,9 @@ public class BaseDataController {
 	 * 从数据库删除数据
 	 */
 	@ResponseBody
+	@Authority(alias = "basedata-delete")
 	@RequestMapping(value = "/platform/basedata/base-data-delete/{id}.json", method = RequestMethod.POST)
+	@OperateLog(message = "删除基础数据信息", optType = OperateType.OptType.DELETE, service = BaseDataService.class)
 	public MessageObject baseDataDelete(@PathVariable(value = "id") String id) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
@@ -126,6 +135,7 @@ public class BaseDataController {
 	 * 列表页面
 	 */
 	@RequestMapping(value = "/platform/basedata/base-data-list.do", method = RequestMethod.GET)
+	@Authority(alias = "basedata-mgt")
 	public String baseDataList() {
 		return "module/platform/basedata/base-data-list";
 	}

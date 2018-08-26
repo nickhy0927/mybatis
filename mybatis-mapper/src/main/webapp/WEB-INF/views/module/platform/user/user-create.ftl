@@ -1,4 +1,4 @@
-<#include "../../../common/header.ftl">
+<#include "/common/header.ftl">
 <@htmlHead>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -8,8 +8,9 @@
                 increaseArea: '20%'
             });
             $.validator.addMethod("phone", function (value, element) {
-                var reg = /!(/^1[34578]\d{9}$/;
-                return this.optional(element) || reg.test(value);
+            	var isPhone = /^([0-9]{3,4}-)?[0-9]{7,8}$/;//手机号码
+                var isMob= /^0?1[3|4|5|8][0-9]\d{8}$/;// 座机格式
+                return this.optional(element) || isMob.test(value)||isPhone.test(value);
             }, "请输入12位以内的纯数字号码");
 
             //表单验证

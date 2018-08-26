@@ -23,6 +23,9 @@ import com.mybatis.common.utils.PageSupport;
 import com.mybatis.common.utils.PagerInfo;
 import com.mybatis.common.utils.RequestData;
 import com.mybatis.core.orm.entity.PageRowBounds;
+import com.mybatis.interceptor.Authority;
+import com.mybatis.interceptor.OperateLog;
+import com.mybatis.interceptor.OperateType;
 
 /**
  * @Title: userRoleController.java
@@ -41,58 +44,64 @@ public class UserRoleController {
 	/**
 	 * 新增页面
 	 */
+	@Authority(alias = "user-role-create")
 	@RequestMapping(value = "/platform/userrole/user-role-create.do", method = RequestMethod.GET)
 	public String userRoleCreate() {
 		return "module/platform/userrole/user-role-create";
 	}
-	
+
 	/**
 	 * 新增数据到数据库
 	 */
 	@ResponseBody
-    @RequestMapping(value = "/platform/userrole/user-role-save.json", method = RequestMethod.POST)
-    public MessageObject userRoleSave(UserRole userRole) {
-        MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
-        try {
-            userRoleService.insert(userRole);
-            messageObject.ok("保存信息成功", userRole);
-        } catch (Exception e) {
-            messageObject.error("保存信息失败");
-        }
-        return messageObject;
-    }
-    
-    /**
+	@RequestMapping(value = "/platform/userrole/user-role-save.json", method = RequestMethod.POST)
+	@OperateLog(message = "新增用户角色信息", optType = OperateType.OptType.INSERT, service = UserRoleService.class)
+	public MessageObject userRoleSave(UserRole userRole) {
+		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
+		try {
+			userRoleService.insert(userRole);
+			messageObject.ok("保存信息成功", userRole);
+		} catch (Exception e) {
+			messageObject.error("保存信息失败");
+		}
+		return messageObject;
+	}
+
+	/**
 	 * 修改页面
 	 */
+	@Authority(alias = "user-role-edit")
 	@RequestMapping(value = "/platform/userrole/user-role-edit/{id}.do", method = RequestMethod.GET)
 	public String userRoleEdit(@PathVariable(value = "id") String id, Model model) {
 		UserRole userRole = userRoleService.get(id);
 		model.addAttribute("userRole", userRole);
 		return "module/platform/userrole/user-role-edit";
 	}
-	
+
 	/**
 	 * 更新数据到数据库
 	 */
 	@ResponseBody
-    @RequestMapping(value = "/platform/userrole/user-role-update.json", method = RequestMethod.POST)
-    public MessageObject userRoleupdate(UserRole userRole) {
-        MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
-        try {
-            userRoleService.update(userRole);
-            messageObject.ok("修改信息成功", userRole);
-        } catch (Exception e) {
-            messageObject.error("修改信息失败");
-        }
-        return messageObject;
-    }
-	
+	@RequestMapping(value = "/platform/userrole/user-role-update.json", method = RequestMethod.POST)
+	@OperateLog(message = "修改用户角色信息", optType = OperateType.OptType.UPDATE, service = UserRoleService.class)
+	public MessageObject userRoleupdate(UserRole userRole) {
+		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
+		try {
+			userRoleService.update(userRole);
+			messageObject.ok("修改信息成功", userRole);
+		} catch (Exception e) {
+			messageObject.error("修改信息失败");
+		}
+		return messageObject;
+	}
+
 	/**
 	 * 从数据库删除数据
 	 */
 	@ResponseBody
+	@Authority(alias = "user-role-delete")
 	@RequestMapping(value = "/platform/userrole/user-role-delete/{id}.json", method = RequestMethod.POST)
+	@OperateLog(message = "删除用户角色信息", optType = OperateType.OptType.DELETE, service = UserRoleService.class)
 	public MessageObject userRoleDelete(@PathVariable(value = "id") String id) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
@@ -109,6 +118,7 @@ public class UserRoleController {
 	/**
 	 * 列表页面
 	 */
+	@Authority(alias = "user-role-mgt")
 	@RequestMapping(value = "/platform/userrole/user-role-list.do", method = RequestMethod.GET)
 	public String userRoleList() {
 		return "module/platform/userrole/user-role-list";
@@ -128,7 +138,7 @@ public class UserRoleController {
 		} catch (IOException e) {
 			e.printStackTrace();
 			messageObject.error("获取模版数据异常");
-		} 
+		}
 		return messageObject;
 	}
 }

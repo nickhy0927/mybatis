@@ -38,7 +38,7 @@
 		update ${tableName} 
 		<trim prefix="set" suffixOverrides=",">
 			<#list columnList as column>
-			<if test="${column.javaProperty?uncap_first} != null">${column.actualColumnName} = ${"#{" + column.javaProperty?uncap_first + "}"},</if>
+			<if test="${column.javaProperty?uncap_first} != null and ${column.javaProperty?uncap_first} != ''">${column.actualColumnName} = ${"#{" + column.javaProperty?uncap_first + "}"},</if>
 			</#list>
 		</trim>	
 		where id = ${r'#{id}'}
@@ -48,7 +48,7 @@
 		update ${tableName} 
 		<trim prefix="set" suffixOverrides=",">
 			<#list columnList as column>
-			<if test="${column.javaProperty?uncap_first} != null">${column.actualColumnName} = ${"#{" + column.javaProperty?uncap_first + "}"},</if>
+			<if test="${column.javaProperty?uncap_first} != null and ${column.javaProperty?uncap_first} != ''">${column.actualColumnName} = ${"#{" + column.javaProperty?uncap_first + "}"},</if>
 			</#list>
 		</trim>	
 		where id = ${r'#{id}'}
@@ -57,8 +57,10 @@
 	<select id="get" parameterType="String" resultType="${packages}.${domainObjectName?lower_case}.entity.${domainObjectName}">
 		select 
 		<#list columnList as column>
-			<#if column_has_next>${column.actualColumnName},
-			<#else>${column.actualColumnName}
+			<#if column_has_next>
+			${column.actualColumnName},
+			<#else>
+			${column.actualColumnName}
 			</#if>
 		</#list>
 		from ${tableName} where id = ${r'#{id}'}
@@ -68,8 +70,10 @@
 			resultType="${packages}.${domainObjectName?lower_case}.entity.${domainObjectName}">
 		select 
 		<#list columnList as column>
-			<#if column_has_next>${column.actualColumnName},
-			<#else>${column.actualColumnName}
+			<#if column_has_next>
+			${column.actualColumnName},
+			<#else>
+			${column.actualColumnName}
 			</#if>
 		</#list>
 		from ${tableName} where id = ${r'#{id}'}
@@ -78,8 +82,10 @@
 	<select id="queryListByMap" parameterType="java.util.Map" resultType="${packages}.${domainObjectName?lower_case}.entity.${domainObjectName}">
 		select 
 		<#list columnList as column>
-			<#if column_has_next>${column.actualColumnName},
-			<#else>${column.actualColumnName}
+			<#if column_has_next>
+			${column.actualColumnName},
+			<#else>
+			${column.actualColumnName}
 			</#if>
 		</#list>
 		from ${tableName}
@@ -91,8 +97,10 @@
 			resultType="${packages}.${domainObjectName?lower_case}.entity.${domainObjectName}">
 		select 
 		<#list columnList as column>
-			<#if column_has_next>${column.actualColumnName},
-			<#else>${column.actualColumnName}
+			<#if column_has_next>
+			${column.actualColumnName},
+			<#else>
+			${column.actualColumnName}
 			</#if>
 		</#list>
 		from ${tableName}
@@ -102,8 +110,10 @@
 	<select id="queryPageByMap" parameterType="java.util.Map" resultType="${packages}.${domainObjectName?lower_case}.entity.${domainObjectName}">
 		select 
 		<#list columnList as column>
-			<#if column_has_next>${column.actualColumnName},
-			<#else>${column.actualColumnName}
+			<#if column_has_next>
+			${column.actualColumnName},
+			<#else>
+			${column.actualColumnName}
 			</#if>
 		</#list>
 		from ${tableName}

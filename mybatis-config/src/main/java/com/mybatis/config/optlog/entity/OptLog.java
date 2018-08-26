@@ -42,7 +42,25 @@ public class OptLog extends IdEntity {
 	  */
     @Column(name = "opt_type",comment = "操作类名称")
 	private Integer optType;
+    
+    @Column(name = "data",comment = "数据", lenght = 4000)
+    private String data;
 	
+    /**
+     * 获取数据
+     * @return
+     */
+    public String getData() {
+		return data;
+	}
+    
+    /**
+     * 设置：数据
+     * @param data
+     */
+    public void setData(String data) {
+		this.data = data;
+	}
 
     /**
      * 获取：操作人名字 

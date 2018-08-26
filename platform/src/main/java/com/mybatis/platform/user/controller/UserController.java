@@ -19,6 +19,9 @@ import com.mybatis.common.utils.PageSupport;
 import com.mybatis.common.utils.PagerInfo;
 import com.mybatis.common.utils.RequestData;
 import com.mybatis.core.orm.entity.PageRowBounds;
+import com.mybatis.interceptor.Authority;
+import com.mybatis.interceptor.OperateLog;
+import com.mybatis.interceptor.OperateType;
 import com.mybatis.platform.user.entity.User;
 import com.mybatis.platform.user.service.UserService;
 
@@ -39,6 +42,7 @@ public class UserController {
 	/**
 	 * 新增页面
 	 */
+	@Authority(alias = "user-create")
 	@RequestMapping(value = "/platform/user/user-create.do", method = RequestMethod.GET)
 	public String userCreate() {
 		return "module/platform/user/user-create";
@@ -49,7 +53,8 @@ public class UserController {
 	 */
 	@ResponseBody
     @RequestMapping(value = "/platform/user/user-save.json", method = RequestMethod.POST)
-    public MessageObject userSave(User user) {
+	@OperateLog(message = "新增用户信息", optType = OperateType.OptType.INSERT, service = UserService.class)
+	public MessageObject userSave(User user) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             userService.insert(user);
@@ -63,6 +68,7 @@ public class UserController {
     /**
 	 * 修改页面
 	 */
+	@Authority(alias = "user-edit")
 	@RequestMapping(value = "/platform/user/user-edit/{id}.do", method = RequestMethod.GET)
 	public String userEdit(@PathVariable(value = "id") String id, Model model) {
 		User user = userService.get(id);
@@ -75,6 +81,7 @@ public class UserController {
 	 */
 	@ResponseBody
     @RequestMapping(value = "/platform/user/user-update.json", method = RequestMethod.POST)
+	@OperateLog(message = "修改用户信息", optType = OperateType.OptType.UPDATE, service = UserService.class)
     public MessageObject userupdate(User user) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
@@ -91,7 +98,9 @@ public class UserController {
 	 * 从数据库删除数据
 	 */
 	@ResponseBody
+	@Authority(alias = "user-delete")
 	@RequestMapping(value = "/platform/user/user-delete/{id}.json", method = RequestMethod.POST)
+	@OperateLog(message = "删除用户信息", optType = OperateType.OptType.DELETE, service = UserService.class)
 	public MessageObject userDelete(@PathVariable(value = "id") String id) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
@@ -108,6 +117,7 @@ public class UserController {
 	/**
 	 * 列表页面
 	 */
+	@Authority(alias = "user-mgt")
 	@RequestMapping(value = "/platform/user/user-list.do", method = RequestMethod.GET)
 	public String userList() {
 		return "module/platform/user/user-list";

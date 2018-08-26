@@ -3,28 +3,14 @@
 <mapper namespace="com.mybatis.config.optlog.dao.OptLogMapper">
 	<insert id="insert" parameterType="com.mybatis.config.optlog.entity.OptLog">
 		insert into sys_opt_log(
-				id,
-				create_time,
-				update_time,
-				status,
-				username,
-				user_id,
-				message,
-				method,
-				clazz,
-				opt_type
+			id, create_time, update_time, status,
+			username, user_id, message, method,
+			clazz, opt_type, data
 		)
 		values (
-				#{id},
-				#{createTime},
-				#{updateTime},
-				#{status},
-				#{username},
-				#{userId},
-				#{message},
-				#{method},
-				#{clazz},
-				#{optType}
+			#{id}, #{createTime}, #{updateTime}, #{status},
+			#{username}, #{userId}, #{message},
+			#{method}, #{clazz}, #{optType},#{data}
 		)
 	</insert>
 
@@ -47,6 +33,7 @@
 			<if test="updateTime != null">update_time = #{updateTime},</if>
 			<if test="status != null">status = #{status},</if>
 			<if test="username != null">username = #{username},</if>
+			<if test="data != null">data = #{data},</if>
 			<if test="userId != null">user_id = #{userId},</if>
 			<if test="message != null">message = #{message},</if>
 			<if test="method != null">method = #{method},</if>
@@ -64,6 +51,7 @@
 			<if test="updateTime != null">update_time = #{updateTime},</if>
 			<if test="status != null">status = #{status},</if>
 			<if test="username != null">username = #{username},</if>
+			<if test="data != null">data = #{data},</if>
 			<if test="userId != null">user_id = #{userId},</if>
 			<if test="message != null">message = #{message},</if>
 			<if test="method != null">method = #{method},</if>
@@ -75,47 +63,26 @@
 
 	<select id="get" parameterType="String" resultType="com.mybatis.config.optlog.entity.OptLog">
 		select 
-			id,
-						create_time,
-						update_time,
-						status,
-						username,
-						user_id,
-						message,
-						method,
-						clazz,
-						opt_type
+			id, create_time, update_time,
+			status, username, user_id,
+			message, method, clazz, opt_type, data
 		from sys_opt_log where id = #{id}
 	</select>
 	<select id="getObject" 
 			parameterType="com.mybatis.config.optlog.entity.OptLog" 
 			resultType="com.mybatis.config.optlog.entity.OptLog">
 		select 
-			id,
-						create_time,
-						update_time,
-						status,
-						username,
-						user_id,
-						message,
-						method,
-						clazz,
-						opt_type
+			id, create_time, update_time,
+			status, username, user_id,
+			message, method, clazz, opt_type, data
 		from sys_opt_log where id = #{id}
 	</select>
 
 	<select id="queryListByMap" parameterType="java.util.Map" resultType="com.mybatis.config.optlog.entity.OptLog">
 		select 
-			id,
-						create_time,
-						update_time,
-						status,
-						username,
-						user_id,
-						message,
-						method,
-						clazz,
-						opt_type
+			id, create_time, update_time,
+			status, username, user_id,
+			message, method, clazz, opt_type, data
 		from sys_opt_log
 		<include refid="conditions" />
 	</select>
@@ -124,32 +91,18 @@
 			parameterType="com.mybatis.config.optlog.entity.OptLog" 
 			resultType="com.mybatis.config.optlog.entity.OptLog">
 		select 
-			id,
-						create_time,
-						update_time,
-						status,
-						username,
-						user_id,
-						message,
-						method,
-						clazz,
-						opt_type
+			id, create_time, update_time,
+			status, username, user_id,
+			message, method, clazz, opt_type, data
 		from sys_opt_log
 		<include refid="conditions" />
 	</select>
 
 	<select id="queryPageByMap" parameterType="java.util.Map" resultType="com.mybatis.config.optlog.entity.OptLog">
 		select 
-			id,
-						create_time,
-						update_time,
-						status,
-						username,
-						user_id,
-						message,
-						method,
-						clazz,
-						opt_type
+			id, create_time, update_time,
+			status, username, user_id,
+			message, method, clazz, opt_type, data
 		from sys_opt_log
 		<include refid="conditions" />
 		order by
@@ -166,6 +119,7 @@
 			<if test="updateTime != null and updateTime != ''">and update_time = #{updateTime}</if>
 			<if test="status != null and status != ''">and status = #{status}</if>
 			<if test="username != null and username != ''">and username = #{username}</if>
+			<if test="data != null and data != ''">and data = #{data}</if>
 			<if test="userId != null and userId != ''">and user_id = #{userId}</if>
 			<if test="message != null and message != ''">and message = #{message}</if>
 			<if test="method != null and method != ''">and method = #{method}</if>

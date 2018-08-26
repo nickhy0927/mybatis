@@ -5,6 +5,9 @@ import com.google.common.collect.Maps;
 import com.mybatis.common.utils.*;
 import com.mybatis.core.orm.constant.SysConstant;
 import com.mybatis.core.orm.entity.PageRowBounds;
+import com.mybatis.interceptor.Authority;
+import com.mybatis.interceptor.OperateLog;
+import com.mybatis.interceptor.OperateType;
 import com.mybatis.platform.role.entity.Role;
 import com.mybatis.platform.role.entity.RoleTree;
 import com.mybatis.platform.role.service.RoleService;
@@ -27,7 +30,7 @@ import java.util.Map;
 /**
  * @Title: roleController.java
  * @Package com.mybatis.platform.role.controller
- * @Description TODO(用一句话描述该文件做什么)
+ * @Description 角色管理
  * @author yuanhuangd
  * @version V1.0
  * @Date: 2018年6月9日 下午6:03:46
@@ -41,6 +44,7 @@ public class RoleController {
 	/**
 	 * 新增页面
 	 */
+	@Authority(alias = "role-mgt")
 	@RequestMapping(value = "/platform/role/role-create.do", method = RequestMethod.GET)
 	public String roleCreate(Model model,HttpServletRequest request) {
 		try {
@@ -64,13 +68,14 @@ public class RoleController {
 	 */
 	@ResponseBody
     @RequestMapping(value = "/platform/role/role-save.json", method = RequestMethod.POST)
-    public MessageObject roleSave(Role role) {
+	@OperateLog(message = "新增角色信息", optType = OperateType.OptType.INSERT, service = RoleService.class)
+	public MessageObject roleSave(Role role) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             roleService.insert(role);
-            messageObject.ok("保存信息成功", role);
+            messageObject.ok("保存角色信息成功", role);
         } catch (Exception e) {
-            messageObject.error("保存信息失败");
+            messageObject.error("保存角色信息失败");
         }
         return messageObject;
     }
@@ -78,6 +83,7 @@ public class RoleController {
     /**
 	 * 修改页面
 	 */
+	@Authority(alias = "role-create")
 	@RequestMapping(value = "/platform/role/role-edit/{id}.do", method = RequestMethod.GET)
 	public String roleEdit(@PathVariable(value = "id") String id, Model model) {
         model.addAttribute("code", NumberCreate.generateNumber2());
@@ -101,7 +107,8 @@ public class RoleController {
 	 */
 	@ResponseBody
     @RequestMapping(value = "/platform/role/role-update.json", method = RequestMethod.POST)
-    public MessageObject roleupdate(Role role) {
+	@OperateLog(message = "修改角色信息", optType = OperateType.OptType.UPDATE, service = RoleService.class)
+	public MessageObject roleupdate(Role role) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             roleService.update(role);
@@ -116,7 +123,9 @@ public class RoleController {
 	 * 从数据库删除数据
 	 */
 	@ResponseBody
+	@Authority(alias = "role-delete")
 	@RequestMapping(value = "/platform/role/role-delete/{id}.json", method = RequestMethod.POST)
+	@OperateLog(message = "删除角色信息", optType = OperateType.OptType.DELETE, service = RoleService.class)
 	public MessageObject roleDelete(@PathVariable(value = "id") String id) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {

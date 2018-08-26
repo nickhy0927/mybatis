@@ -21,6 +21,8 @@ import com.mybatis.config.database.entity.Database;
 import com.mybatis.config.database.entity.TableComment;
 import com.mybatis.config.database.service.DatabaseService;
 import com.mybatis.core.orm.entity.PageRowBounds;
+import com.mybatis.interceptor.OperateLog;
+import com.mybatis.interceptor.OperateType;
 import com.mybatis.mysql.MySQLDatabaseBackup;
 
 @Controller
@@ -59,6 +61,7 @@ public class DatabaseController {
 
 	@ResponseBody
 	@RequestMapping(value = "/database/database-save.json", method = RequestMethod.POST)
+	@OperateLog(message = "新增数据库信息", optType = OperateType.OptType.INSERT, service = DatabaseService.class)
 	public MessageObject databaseSave(Database database) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {

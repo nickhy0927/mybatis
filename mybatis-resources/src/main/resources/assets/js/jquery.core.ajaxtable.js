@@ -211,6 +211,7 @@ $.extend({
         }, 500);
         $(document).keyup(function (event) {
             if (event.keyCode == 13) {
+            	console.log('点击回车搜索')
                 $("#" + tableId + "_currentPage").val(1);
                 _query_data_ajxa(settings);
                 _select_checkbox_all();

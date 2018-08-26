@@ -1,16 +1,12 @@
 package com.mybatis.platform.menu.controller;
 
-import com.google.common.collect.Lists;
-import com.mybatis.common.utils.*;
-import com.mybatis.core.orm.constant.SysConstant;
-import com.mybatis.core.orm.entity.PageRowBounds;
-import com.mybatis.interceptor.Authority;
-import com.mybatis.interceptor.OperateLog;
-import com.mybatis.interceptor.OperateType;
-import com.mybatis.platform.menu.entity.Menu;
-import com.mybatis.platform.menu.entity.MenuTree;
-import com.mybatis.platform.menu.service.MenuService;
-import com.mybatis.utils.NumberCreate;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +15,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import com.google.common.collect.Lists;
+import com.mybatis.common.utils.JsonMapper;
+import com.mybatis.common.utils.MessageObject;
+import com.mybatis.common.utils.PageSupport;
+import com.mybatis.common.utils.PagerInfo;
+import com.mybatis.common.utils.RequestData;
+import com.mybatis.core.orm.constant.SysConstant;
+import com.mybatis.core.orm.core.exception.ServiceException;
+import com.mybatis.core.orm.entity.PageRowBounds;
+import com.mybatis.interceptor.Authority;
+import com.mybatis.interceptor.OperateLog;
+import com.mybatis.interceptor.OperateType;
+import com.mybatis.platform.menu.entity.Menu;
+import com.mybatis.platform.menu.entity.MenuTree;
+import com.mybatis.platform.menu.service.MenuService;
+import com.mybatis.utils.NumberCreate;
 
 /**
  * @author yuanhuangd
@@ -43,7 +50,7 @@ public class MenuController {
      * 新增页面
      */
     @RequestMapping(value = "/platform/menu/menu-create.do", method = RequestMethod.GET)
-    @Authority(alias = "")
+    @Authority(alias = "menu-create")
     public String menuCreate(Model model, HttpServletRequest request) {
         try {
             model.addAttribute("code", NumberCreate.generateNumber2());
@@ -64,27 +71,24 @@ public class MenuController {
     /**
      * 新增数据到数据库
      */
-    @OperateLog(message = "新增菜单信息", optType = OperateType.OptType.INSERT)
+    @ResponseBody
     @RequestMapping(value = "/platform/menu/menu-save.json", method = RequestMethod.POST, produces = "application/json")
-    public void menuSave(Menu menu) {
+    @OperateLog(message = "新增菜单信息", optType = OperateType.OptType.INSERT, service = MenuService.class)
+    public MessageObject menuSave(Menu menu) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             menuService.insert(menu);
             messageObject.ok("菜单信息保存成功", menu);
         } catch (Exception e) {
             messageObject.error("菜单信息保存失败");
-        } finally {
-            try {
-                messageObject.returnData(messageObject);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        } 
+        return messageObject;
     }
 
     /**
      * 修改页面
      */
+    @Authority(alias = "menu-edit")
     @RequestMapping(value = "/platform/menu/menu-edit/{id}.do", method = RequestMethod.GET)
     public String menuEdit(@PathVariable(value = "id") String id, Model model, HttpServletRequest request) {
         try {
@@ -108,9 +112,10 @@ public class MenuController {
     /**
      * 更新数据到数据库
      */
+    @ResponseBody
     @RequestMapping(value = "/platform/menu/menu-update.json", method = RequestMethod.POST, produces = "application/json")
-    @OperateLog(message = "修改菜单信息", optType = OperateType.OptType.UPDATE)
-    public void menuupdate(Menu menu) {
+    @OperateLog(message = "修改菜单信息", optType = OperateType.OptType.UPDATE, service = MenuService.class)
+    public MessageObject menuupdate(Menu menu) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             menuService.update(menu);
@@ -118,13 +123,8 @@ public class MenuController {
         } catch (Exception e) {
             e.printStackTrace();
             messageObject.error("修改信息失败");
-        } finally {
-            try {
-                messageObject.returnData(messageObject);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        } 
+        return messageObject;
 
     }
 
@@ -132,8 +132,9 @@ public class MenuController {
      * 从数据库删除数据
      */
     @ResponseBody
+    @Authority(alias = "menu-delete")
     @RequestMapping(value = "/platform/menu/menu-delete/{id}.json", method = RequestMethod.POST)
-    @OperateLog(message = "删除菜单信息", optType = OperateType.OptType.DELETE)
+    @OperateLog(message = "删除菜单信息", optType = OperateType.OptType.DELETE, service = MenuService.class)
     public MessageObject menuDelete(@PathVariable(value = "id") String id) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
@@ -150,7 +151,7 @@ public class MenuController {
     /**
      * 列表页面
      */
-    @OperateLog(message = "获取菜单列表信息", optType = OperateType.OptType.INSERT)
+    @Authority(alias = "menu-mgt")
     @RequestMapping(value = "/platform/menu/menu-list.do", method = RequestMethod.GET)
     public String menuList() {
         return "module/platform/menu/menu-list";
@@ -164,10 +165,10 @@ public class MenuController {
     public MessageObject menuList(HttpServletRequest request, PageSupport support) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
-            Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
+            Map<String, Object> paramsMap = RequestData.getParameterMap(request);
             PagerInfo<Menu> pagerInfo = menuService.queryPage(paramsMap, new PageRowBounds(support));
             messageObject.ok("查询菜单列表信息成功", pagerInfo);
-        } catch (IOException e) {
+        } catch (ServiceException e) {
             e.printStackTrace();
             messageObject.error("查询菜单信息失败");
         } 

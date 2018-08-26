@@ -5,6 +5,9 @@ import com.mybatis.common.utils.PageSupport;
 import com.mybatis.common.utils.PagerInfo;
 import com.mybatis.common.utils.RequestData;
 import com.mybatis.core.orm.entity.PageRowBounds;
+import com.mybatis.interceptor.Authority;
+import com.mybatis.interceptor.OperateLog;
+import com.mybatis.interceptor.OperateType;
 import com.mybatis.platform.baseparams.entity.BaseParams;
 import com.mybatis.platform.baseparams.service.BaseParamsService;
 import com.mybatis.utils.NumberCreate;
@@ -39,6 +42,7 @@ public class BaseParamsController {
 	/**
 	 * 新增页面
 	 */
+	@Authority(alias = "base-params-create")
 	@RequestMapping(value = "/platform/baseparams/base-params-create.do", method = RequestMethod.GET)
 	public String baseParamsCreate(Model model) {
 		model.addAttribute("code", NumberCreate.generateNumber2());
@@ -50,6 +54,7 @@ public class BaseParamsController {
 	 */
 	@ResponseBody
     @RequestMapping(value = "/platform/baseparams/base-params-save.json", method = RequestMethod.POST)
+	@OperateLog(message = "新增系统参数信息", optType = OperateType.OptType.INSERT, service = BaseParamsService.class)
     public MessageObject baseParamsSave(BaseParams baseParams) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
@@ -64,6 +69,7 @@ public class BaseParamsController {
     /**
 	 * 修改页面
 	 */
+	@Authority(alias = "base-params-edit")
 	@RequestMapping(value = "/platform/baseparams/base-params-edit/{id}.do", method = RequestMethod.GET)
 	public String baseParamsEdit(@PathVariable(value = "id") String id, Model model) {
 		BaseParams baseParams = baseParamsService.get(id);
@@ -76,7 +82,8 @@ public class BaseParamsController {
 	 */
 	@ResponseBody
     @RequestMapping(value = "/platform/baseparams/base-params-update.json", method = RequestMethod.POST)
-    public MessageObject baseParamsupdate(BaseParams baseParams) {
+	@OperateLog(message = "修改系统参数信息", optType = OperateType.OptType.UPDATE, service = BaseParamsService.class)
+	public MessageObject baseParamsupdate(BaseParams baseParams) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             baseParamsService.update(baseParams);
@@ -91,7 +98,9 @@ public class BaseParamsController {
 	 * 从数据库删除数据
 	 */
 	@ResponseBody
+	@Authority(alias = "base-params-delete")
 	@RequestMapping(value = "/platform/baseparams/base-params-delete/{id}.json", method = RequestMethod.POST)
+	@OperateLog(message = "删除系统参数信息", optType = OperateType.OptType.DELETE, service = BaseParamsService.class)
 	public MessageObject baseParamsDelete(@PathVariable(value = "id") String id) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
@@ -108,6 +117,7 @@ public class BaseParamsController {
 	/**
 	 * 列表页面
 	 */
+	@Authority(alias = "base-params-mgt")
 	@RequestMapping(value = "/platform/baseparams/base-params-list.do", method = RequestMethod.GET)
 	public String baseParamsList() {
 		return "module/platform/baseparams/base-params-list";

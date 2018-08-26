@@ -9,11 +9,7 @@ public class PageSupport {
     private int totalPage;// 总页数
     private int currentPage;// 当前页
     private String order = "createTime";
-    private String sort;
-
-    private int limit;
-
-    private int page;
+    private String sort = Sortable.DESC.toString().toLowerCase();
 
     public PageSupport() {
 
@@ -39,21 +35,6 @@ public class PageSupport {
         this.pageSize = pageSize;
     }
 
-    public int getLimit() {
-        return limit;
-    }
-
-    public void setLimit(int limit) {
-        this.limit = limit;
-    }
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
 
     public PageSupport(String currentPage, int pageSize) {
         int curr = 1;
@@ -99,8 +80,6 @@ public class PageSupport {
     }
 
     public int getStartRow() {
-        this.currentPage = page;
-        this.pageSize = limit;
         return (this.currentPage - 1 > 0 ? (this.currentPage - 1) : 0) * this.pageSize;
     }
 
@@ -137,7 +116,7 @@ public class PageSupport {
     }
 
     public String getOrder() {
-        String lowerCase = Underline2Camel.camelToUnderline(order).toLowerCase();
+    	String lowerCase = Underline2Camel.camelToUnderline(order).toLowerCase();
         return lowerCase;
     }
 
@@ -153,4 +132,7 @@ public class PageSupport {
         this.sort = sort;
     }
 
+    public enum Sortable {
+        DESC, ASC
+    }
 }

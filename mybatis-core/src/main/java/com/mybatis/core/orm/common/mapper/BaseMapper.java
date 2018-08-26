@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.mybatis.common.utils.PagerInfo;
+import com.mybatis.core.orm.core.exception.DAOException;
 import com.mybatis.core.orm.entity.PageRowBounds;
 
 /**
@@ -13,25 +14,84 @@ import com.mybatis.core.orm.entity.PageRowBounds;
  */
 public interface BaseMapper<E, ID extends Serializable> {
 
-	int insert(E t);
+	/**
+	 * 新增
+	 * @param t
+	 * @return
+	 * @throws DAOException
+	 */
+	int insert(E t) throws DAOException;
 
-	int update(E t);
+	/**
+	 * 修改
+	 * @param t
+	 * @return
+	 * @throws DAOException
+	 */
+	int update(E t) throws DAOException;
 
-	void updateBatch(E t);
+	/**
+	 * 批量修改
+	 * @param t
+	 * @throws DAOException
+	 */
+	void updateBatch(E t) throws DAOException;
 
-	int delete(ID id);
+	/**
+	 * 删除
+	 * @param id
+	 * @return
+	 * @throws DAOException
+	 */
+	int delete(ID id) throws DAOException;
 
-	void deleteBatch(List<ID> ids);
+	/**
+	 * 批量删除
+	 * @param ids
+	 * @throws DAOException
+	 */
+	void deleteBatch(List<ID> ids) throws DAOException;
 
-	E get(ID id);
+	/**
+	 * 根据ID查询
+	 * @param id
+	 * @return
+	 * @throws DAOException
+	 */
+	E get(ID id) throws DAOException;
 
-	E getObject(E e);
+	/**
+	 * 根据对象查询
+	 * @param e
+	 * @return
+	 * @throws DAOException
+	 */
+	E getObject(E e) throws DAOException;
 	
-	List<E> queryListByObject(E e);
+	/**
+	 * 根据对象查询集合
+	 * @param e
+	 * @return
+	 * @throws DAOException
+	 */
+	List<E> queryListByObject(E e) throws DAOException;
 
-	List<E> queryListByMap(Map<String, Object> paramMap);
+	/**
+	 * 根据map查询集合
+	 * @param paramMap
+	 * @return
+	 * @throws DAOException
+	 */
+	List<E> queryListByMap(Map<String, Object> paramMap) throws DAOException;
 
-	List<E> queryPageByMap(Map<String, Object> paramMap, PageRowBounds rowBounds);
+	/**
+	 * 根据map查询分页
+	 * @param paramMap
+	 * @param rowBounds
+	 * @return
+	 * @throws DAOException
+	 */
+	List<E> queryPageByMap(Map<String, Object> paramMap, PageRowBounds rowBounds) throws DAOException;
 	
 	PagerInfo<E> queryPage(Map<String, Object> paramMap, PageRowBounds rowBounds);
 }
