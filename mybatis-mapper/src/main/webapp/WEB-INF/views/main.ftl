@@ -2,10 +2,10 @@
 <@htmlHead title="主页" >
     <script type="text/javascript">
         $(document).ready(function () {
-            $.openLoading('正在加载,请稍后...');
-            setInterval(function () {
-                $.closeLoading();
-            },5000)
+            // $.openLoading('正在加载,请稍后...');
+            // setInterval(function () {
+            //     $.closeLoading();
+            // },5000)
         })
     </script>
 </@htmlHead>
@@ -45,7 +45,8 @@
                 <a href="javascript:;" onclick="affair_add()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 新增事务</a>
             </span>
         </div>
-        <a href="?lang=zh_CN">中文</a> &nbsp;&nbsp;&nbsp;
+        <a href="${basePath}/main.do?lang=zh_CN">中文</a> &nbsp;&nbsp;&nbsp;
         <a href="?lang=en_US">英文</a>
+        <input value=" ${test}">
     </div>
 </@htmlBody>

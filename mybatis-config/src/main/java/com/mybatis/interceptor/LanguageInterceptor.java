@@ -8,12 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 
-/**
- * @program: mybatis-base
- * @description: 国际化拦截器
- * @author: Mr.Huang
- * @create: 2018-08-27 16:34
- **/
 public class LanguageInterceptor extends HandlerInterceptorAdapter {
 
     /**
@@ -33,11 +27,9 @@ public class LanguageInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Locale newLocale = getLocale(request.getParameter(getParamName()));
         LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
-
         if (localeResolver == null) {
             throw new IllegalStateException("No LocaleResolver found: not in a DispatcherServlet request?");
         }
-
         localeResolver.setLocale(request, response, newLocale);
 
         return true;
@@ -50,7 +42,6 @@ public class LanguageInterceptor extends HandlerInterceptorAdapter {
         if(language!=null && language.equals("en")){
             locale = new Locale("en", "US");
         }
-
         return locale;
     }
 }
