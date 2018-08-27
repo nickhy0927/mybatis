@@ -57,10 +57,9 @@
         <property name="timeBetweenEvictionRunsMillis" value="3600000"/>
         <property name="minEvictableIdleTimeMillis" value="3600000"/>
     </bean>
-
     <!-- 配置SqlMapClient对象 -->
     <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="configLocation" value="classpath*:mybatis-config.xml"/>
         <property name="mapperLocations">
             <list>
                 <value>classpath*:com/mybatis/**/*Mapper.xml</value>
@@ -74,8 +73,9 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
     <tx:annotation-driven/>
+
     <bean class="com.mybatis.core.orm.config.SpringContextHolder"/>
-    
+
     <bean id="initConfig" class="com.mybatis.copy.InitConfig">
         <property name="suffix" value=".ftl"/>
         <property name="targetDir" value="views"/>

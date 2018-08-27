@@ -45,8 +45,7 @@
                 <a href="javascript:;" onclick="affair_add()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 新增事务</a>
             </span>
         </div>
-        <div class="mt-20">
-            <table id="dataGridList" class="table table-border table-bordered table-hover table-bg table-sort"></table>
-        </div>
+        <a href="?lang=zh_CN">中文</a> &nbsp;&nbsp;&nbsp;
+        <a href="?lang=en_US">英文</a>
     </div>
 </@htmlBody>
