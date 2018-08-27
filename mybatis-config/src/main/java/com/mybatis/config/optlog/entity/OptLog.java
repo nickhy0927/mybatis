@@ -28,7 +28,7 @@ public class OptLog extends IdEntity {
 	/**
 	  * 操作信息 
 	  */
-    @Column(name = "method",comment = "操作信息 ")
+    @Column(name = "method",comment = "操作方法 ")
 	private String method;
 	
 	/**

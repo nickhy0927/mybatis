@@ -2,7 +2,7 @@
 <@htmlHead>
     <script type="text/javascript">
         function create() {
-            $.openWindow('新增数据库', '80%', '80%', '${basePath}/config//database/database-create.do');
+            $.openWindow('新增数据库', '80%', '80%', '${basePath}/config/database/database-create.do');
         }
 
         function databaseViewDetail(id) {
