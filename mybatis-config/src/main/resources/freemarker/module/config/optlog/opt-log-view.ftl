@@ -10,7 +10,7 @@
     <article class="page-container">
         <form class="form form-horizontal" id="addForm">
             <div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2"><span class="c-red"></span>操作人名字：</label>
+                <label class="form-label col-xs-3 col-sm-2"><span class="c-red"></span>操作人：</label>
                 <div class="formControls col-xs-9 col-sm-9">
                     ${optLog.username!'系统用户'}
                 </div>

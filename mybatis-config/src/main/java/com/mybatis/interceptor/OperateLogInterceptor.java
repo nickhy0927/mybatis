@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,16 +33,17 @@ public class OperateLogInterceptor implements HandlerInterceptor {
             	String methodName = handlerMethod.getMethod().getName();
             	log.setMethod(methodName);
             	Class<?> service = operateLog.service();
-            	Class<?> classType= Class.forName(service.getName());
-                Object invokeObject = classType.getConstructor(new Class[] {}).newInstance(new Object[] {});
-                Method method = classType.getMethod(methodName, new Class[] { String.class });
-            	if (handlerMethod.getMethod().getName().toLowerCase().contains("delete")) {
-					String[] ids = request.getParameter("id").split(",");
+                Object bean = SpringContextHolder.getBean(service);
+                Class<?> superclass = bean.getClass().getSuperclass();
+                if (handlerMethod.getMethod().getName().toLowerCase().contains("delete")) {
+                    Method method = superclass.getMethod("get", new Class[] { Serializable.class });
+                    String[] ids = request.getParameter("id").split(",");
 					List<Object> objects = new ArrayList<>();
 					for (String id : ids) {
-                        Object result = method.invoke(invokeObject, new Object[] { id });
+                        Object result = method.invoke(bean, new Object[] { id });
 						objects.add(result);
 					}
+					log.setData(JsonMapper.toJson(objects));
 				} else {
                     log.setData(JsonMapper.toJson(parameterMap));
                 }
@@ -53,12 +55,11 @@ public class OperateLogInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
 
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
     }
-
 }
