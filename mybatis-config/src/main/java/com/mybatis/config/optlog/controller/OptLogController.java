@@ -10,10 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.mybatis.config.optlog.entity.OptLog;
 import com.mybatis.config.optlog.service.OptLogService;
@@ -44,7 +41,18 @@ public class OptLogController {
 	public String optLogCreate() {
 		return "module/config/optlog/opt-log-create";
 	}
-	
+
+    /**
+     * 查看日志详情
+     * @return
+     */
+	@RequestMapping(value = "/config/optlog/opt-log-view/{id}.do", method = RequestMethod.GET)
+	public String optLogView(@PathVariable(value = "id") String id, Model model) {
+        OptLog optLog = optLogService.get(id);
+        model.addAttribute("optLog", optLog);
+        return "module/config/optlog/opt-log-view";
+	}
+
 	/**
 	 * 新增数据到数据库
 	 */

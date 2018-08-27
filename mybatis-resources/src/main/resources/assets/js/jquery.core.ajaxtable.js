@@ -167,7 +167,8 @@ $.extend({
                     return '';
                 }
             }],
-            onLoadSuccess: undefined
+            onLoadSuccess: undefined,
+            trClick: undefined
         }, options || {});
         tableData = $(settings.tableId);
         var limits = [settings.pageSize, 10, 20, 30, 40, 50, 60];
@@ -211,7 +212,7 @@ $.extend({
         }, 500);
         $(document).keyup(function (event) {
             if (event.keyCode == 13) {
-            	console.log('点击回车搜索')
+                console.log('点击回车搜索')
                 $("#" + tableId + "_currentPage").val(1);
                 _query_data_ajxa(settings);
                 _select_checkbox_all();
@@ -377,10 +378,11 @@ var _each_value = function (key, json) {
 var _create_grid_table = function (data, settings) {
     var tableId = settings.tableId.substring(1);
     var objs = data.content;
-    var trStr = "";
+    var trStrBuuiler = "";
     var array = settings.columns;
     var len;
     for (var j = 0; len = objs.length, j < len; j++) {
+        var trStr = "";
         var id = objs[j]['id'];
         tableData.data(id, objs[j]);
         var jsonStr = eval(objs[j]);
@@ -438,6 +440,7 @@ var _create_grid_table = function (data, settings) {
             }
         }
         trStr += tdObj + "</tr>";
+        trStrBuuiler += trStr;
     }
     if (settings.pageSize == 0) {
         throw "pageSize 必须大于0,初始化datagrid时必须设定pageSize的值";
@@ -476,7 +479,7 @@ var _create_grid_table = function (data, settings) {
         });
     });
     var _tb_id = tableId + "-data-body";
-    $("#" + _tb_id).html(trStr);
+    $("#" + _tb_id).html(trStrBuuiler);
     if ($("#paged").attr('data-type') != 1) {
         $('table').after('<div id="paged" data-type="1" style="text-align:right" class="page"></div>');
     }
@@ -498,7 +501,19 @@ var _create_grid_table = function (data, settings) {
                 }
             }
         })
-    })
+    });
+
+    var _trClick = settings.trClick;
+    if (_trClick) {
+        $(settings.tableId).find('tr').each(function () {
+            var dataId = $(this).attr('data-id');
+            var data = $(settings.tableId).data(dataId);
+            var _fn = eval(_trClick);
+            $(this).on('dblclick', function () {
+                _fn.call(this, data, $(settings.tableId))
+            });
+        });
+    }
 };
 
 var removeObjToArray = function (array, obj) {
