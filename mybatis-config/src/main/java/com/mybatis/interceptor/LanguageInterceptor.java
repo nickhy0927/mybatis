@@ -1,5 +1,7 @@
 package com.mybatis.interceptor;
 
+import com.mybatis.common.utils.JsonMapper;
+import com.mybatis.common.utils.RequestData;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.support.RequestContextUtils;
@@ -7,6 +9,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
+import java.util.Map;
 
 public class LanguageInterceptor extends HandlerInterceptorAdapter {
 
@@ -25,6 +28,8 @@ public class LanguageInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        Map<String, Object> requestDataToMap = RequestData.getRequestDataToMap(request);
+        System.out.println(JsonMapper.toJson(requestDataToMap));
         Locale newLocale = getLocale(request.getParameter(getParamName()));
         LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
         if (localeResolver == null) {

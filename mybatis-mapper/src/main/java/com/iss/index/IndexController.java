@@ -4,7 +4,6 @@ import com.mybatis.interceptor.MessageResources;
 import com.mybatis.platform.menu.entity.MenuTemplate;
 import com.mybatis.platform.menu.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,13 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 public class IndexController {
-
-    @Autowired
-    ResourceBundleMessageSource messageSource;
 
     @Autowired
     private MenuService menuService;
@@ -32,10 +27,9 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/main.do", method = RequestMethod.GET)
-    public ModelAndView main(Locale locale) {
-//        String s = MessageResources.getMessage("test.msg");
-        String message = messageSource.getMessage("test.msg", null, locale);
+    public ModelAndView main() {
         ModelAndView view = new ModelAndView("main");
+        String message = MessageResources.getMessageByKey("test.msg", null);
         view.addObject("test", message);
         return view;
     }

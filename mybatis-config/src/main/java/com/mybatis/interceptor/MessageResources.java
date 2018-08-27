@@ -1,9 +1,9 @@
 package com.mybatis.interceptor;
 
-import com.mybatis.common.singleton.UserSingleton;
-import org.springframework.web.servlet.support.RequestContext;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.context.support.ResourceBundleMessageSource;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
 
 /**
  * @program: mybatis-base
@@ -13,10 +13,31 @@ import javax.servlet.http.HttpServletRequest;
  **/
 public class MessageResources {
 
-//    public static String getMessage(String key){
-//        HttpServletRequest request = UserSingleton.getHttpServletRequest();
-//        RequestContext requestContext = new RequestContext(request);
-//        String value = requestContext.getMessage(key);
-//        return value;
-//    }
+    /**
+     * 获取国际化文件中国际化字段信息
+     * @param key
+     * @param args
+     * @return
+     */
+    public static String getMessageByKey(String key, Object[] args) {
+
+        // 读取国际化文件
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        // 国际化文件位置
+        messageSource.setBasenames("i18n.common");
+        messageSource.setDefaultEncoding("utf-8");
+        messageSource.setCacheSeconds(30000);
+        messageSource.setFallbackToSystemLocale(true);
+        String result = "";
+        try {
+            // 获取默认国际化标识
+            Locale locale = LocaleContextHolder.getLocale();
+            System.out.println("locale:===>" + locale);
+            // 获取国际化key-value
+            result = messageSource.getMessage(key, args, "暂无国际化", locale);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
