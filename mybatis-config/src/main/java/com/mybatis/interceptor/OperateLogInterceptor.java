@@ -37,17 +37,18 @@ public class OperateLogInterceptor implements HandlerInterceptor {
             	Class<?> service = operateLog.service();
             	Class<?> clazz= Class.forName(service.getName());
             	Object object = SpringContextHolder.getBean(clazz);
-//            	if (handlerMethod.getMethod().getName().toLowerCase().contains("delete")) {
-//					String[] ids = request.getParameter("id").split(",");
-//					List<Object> objects = new ArrayList<>();
-//					Class<?>[] parameterTypes = {String.class};
-//					ReflectionUtils.getDeclaredMethod(object, methodName, parameterTypes);
-//					for (String id : ids) {
-////						Object object = method.invoke(clazz, id);
-////						objects.add(object);
-//					}
-//				} else {
-//				}
+            	Object newInstance = object.getClass().newInstance();
+            	if (handlerMethod.getMethod().getName().toLowerCase().contains("delete")) {
+					String[] ids = request.getParameter("id").split(",");
+					List<Object> objects = new ArrayList<>();
+					Class<?>[] parameterTypes = {String.class};
+					Method method = ReflectionUtils.getDeclaredMethod(newInstance, methodName, parameterTypes);
+					for (String id : ids) {
+//						Object object = method.invoke(clazz, id);
+//						objects.add(object);
+					}
+				} else {
+				}
             	log.setData(JsonMapper.toJson(parameterMap));
             	OptLogService optLogService = SpringContextHolder.getBean(OptLogService.class);
             	optLogService.insert(log);
