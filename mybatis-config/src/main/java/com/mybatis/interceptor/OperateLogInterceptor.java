@@ -1,23 +1,20 @@
 package com.mybatis.interceptor;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.mybatis.common.utils.JsonMapper;
 import com.mybatis.common.utils.RequestData;
 import com.mybatis.config.optlog.entity.OptLog;
 import com.mybatis.config.optlog.service.OptLogService;
-import com.mybatis.core.orm.config.ReflectionUtils;
 import com.mybatis.core.orm.config.SpringContextHolder;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class OperateLogInterceptor implements HandlerInterceptor {
 
@@ -35,20 +32,19 @@ public class OperateLogInterceptor implements HandlerInterceptor {
             	String methodName = handlerMethod.getMethod().getName();
             	log.setMethod(methodName);
             	Class<?> service = operateLog.service();
-            	Class<?> clazz= Class.forName(service.getName());
-            	Object object = SpringContextHolder.getBean(clazz);
-//            	if (handlerMethod.getMethod().getName().toLowerCase().contains("delete")) {
-//					String[] ids = request.getParameter("id").split(",");
-//					List<Object> objects = new ArrayList<>();
-//					Class<?>[] parameterTypes = {String.class};
-//					ReflectionUtils.getDeclaredMethod(object, methodName, parameterTypes);
-//					for (String id : ids) {
-////						Object object = method.invoke(clazz, id);
-////						objects.add(object);
-//					}
-//				} else {
-//				}
-            	log.setData(JsonMapper.toJson(parameterMap));
+            	Class<?> classType= Class.forName(service.getName());
+                Object invokeObject = classType.getConstructor(new Class[] {}).newInstance(new Object[] {});
+                Method method = classType.getMethod(methodName, new Class[] { String.class });
+            	if (handlerMethod.getMethod().getName().toLowerCase().contains("delete")) {
+					String[] ids = request.getParameter("id").split(",");
+					List<Object> objects = new ArrayList<>();
+					for (String id : ids) {
+                        Object result = method.invoke(invokeObject, new Object[] { id });
+						objects.add(result);
+					}
+				} else {
+                    log.setData(JsonMapper.toJson(parameterMap));
+                }
             	OptLogService optLogService = SpringContextHolder.getBean(OptLogService.class);
             	optLogService.insert(log);
             }
