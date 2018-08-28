@@ -51,6 +51,12 @@ public class Menu extends IdEntity {
     @Column(name = "shows",comment = "是否显示 1 显示 0 隐藏 ")
 	private Integer shows;
 
+    /**
+     * 国际化编码
+     */
+    @Column(name = "local_code",comment = "国际化编码")
+    private String localCode;
+
 	/**
 	  * 信息备注
 	  */
@@ -220,5 +226,21 @@ public class Menu extends IdEntity {
      */
     public void setShowIndex(Integer showIndex) {
         this.showIndex = showIndex;
+    }
+
+    /**
+     * 设置：国际化编码
+     * @return
+     */
+    public String getLocalCode() {
+        return localCode;
+    }
+
+    /**
+     * 设置：国际化编码
+     * @param localCode
+     */
+    public void setLocalCode(String localCode) {
+        this.localCode = localCode;
     }
 }

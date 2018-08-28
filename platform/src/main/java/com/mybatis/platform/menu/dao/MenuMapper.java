@@ -2,9 +2,11 @@ package com.mybatis.platform.menu.dao;
 
 import com.mybatis.platform.menu.entity.Menu;
 import com.mybatis.core.orm.common.mapper.BaseMapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface MenuMapper extends BaseMapper<Menu,String> {
 
     /**

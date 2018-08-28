@@ -94,7 +94,9 @@
     <!-- 存储区域设置信息
          SessionLocaleResolver类通过一个预定义会话名将区域化信息存储在会话中。
      -->
-    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="en_US"/>
+    </bean>
     <!--配置LocaleInterceptor-->
     <mvc:interceptors>
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
