@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.deploy.news.dao.NewsMapper">
+	<insert id="insert" parameterType="com.mybatis.deploy.news.entity.News">
+		insert into t_d_news(
+				id,
+				create_time,
+				update_time,
+				status,
+				title,
+				content,
+				category_id,
+				user_id
+		)
+		values (
+				#{id},
+				#{createTime},
+				#{updateTime},
+				#{status},
+				#{title},
+				#{content},
+				#{categoryId},
+				#{userId}
+		)
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from t_d_news where id = #{id}
+	</delete>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from t_d_news where id in 
+		<foreach item="id" collection="list" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<update id="update" parameterType="com.mybatis.deploy.news.entity.News">
+		update t_d_news 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="id != null and id != ''">id = #{id},</if>
+			<if test="createTime != null and createTime != ''">create_time = #{createTime},</if>
+			<if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
+			<if test="status != null and status != ''">status = #{status},</if>
+			<if test="title != null and title != ''">title = #{title},</if>
+			<if test="content != null and content != ''">content = #{content},</if>
+			<if test="categoryId != null and categoryId != ''">category_id = #{categoryId},</if>
+			<if test="userId != null and userId != ''">user_id = #{userId},</if>
+		</trim>	
+		where id = #{id}
+	</update>
+	
+	<update id="updateBatch" parameterType="com.mybatis.deploy.news.entity.News">
+		update t_d_news 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="id != null and id != ''">id = #{id},</if>
+			<if test="createTime != null and createTime != ''">create_time = #{createTime},</if>
+			<if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
+			<if test="status != null and status != ''">status = #{status},</if>
+			<if test="title != null and title != ''">title = #{title},</if>
+			<if test="content != null and content != ''">content = #{content},</if>
+			<if test="categoryId != null and categoryId != ''">category_id = #{categoryId},</if>
+			<if test="userId != null and userId != ''">user_id = #{userId},</if>
+		</trim>	
+		where id = #{id}
+	</update>
+
+	<select id="get" parameterType="String" resultType="com.mybatis.deploy.news.entity.News">
+		select 
+			id,
+			create_time,
+			update_time,
+			status,
+			title,
+			content,
+			category_id,
+			user_id
+		from t_d_news where id = #{id}
+	</select>
+	<select id="getObject" 
+			parameterType="com.mybatis.deploy.news.entity.News" 
+			resultType="com.mybatis.deploy.news.entity.News">
+		select 
+			id,
+			create_time,
+			update_time,
+			status,
+			title,
+			content,
+			category_id,
+			user_id
+		from t_d_news where id = #{id}
+	</select>
+
+	<select id="queryListByMap" parameterType="java.util.Map" resultType="com.mybatis.deploy.news.entity.News">
+		select 
+			id,
+			create_time,
+			update_time,
+			status,
+			title,
+			content,
+			category_id,
+			user_id
+		from t_d_news
+		<include refid="conditions" />
+	</select>
+	
+	<select id="queryListByObject" 
+			parameterType="com.mybatis.deploy.news.entity.News" 
+			resultType="com.mybatis.deploy.news.entity.News">
+		select 
+			id,
+			create_time,
+			update_time,
+			status,
+			title,
+			content,
+			category_id,
+			user_id
+		from t_d_news
+		<include refid="conditions" />
+	</select>
+
+	<select id="queryPageByMap" parameterType="java.util.Map" resultType="com.mybatis.deploy.news.entity.News">
+		select 
+			id,
+			create_time,
+			update_time,
+			status,
+			title,
+			content,
+			category_id,
+			user_id
+		from t_d_news
+		<include refid="conditions" />
+		order by
+            <choose>
+                <when test="order != null">${order} ${sort}</when>
+                <when test="order != null">create_time desc</when>
+            </choose>
+	</select>
+
+	<sql id="conditions">
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="id != null and id != ''">and id = #{id}</if>
+			<if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+			<if test="updateTime != null and updateTime != ''">and update_time = #{updateTime}</if>
+			<if test="status != null and status != ''">and status = #{status}</if>
+			<if test="title != null and title != ''">and title = #{title}</if>
+			<if test="content != null and content != ''">and content = #{content}</if>
+			<if test="categoryId != null and categoryId != ''">and category_id = #{categoryId}</if>
+			<if test="userId != null and userId != ''">and user_id = #{userId}</if>
+		</trim>
+	</sql>
+</mapper>
