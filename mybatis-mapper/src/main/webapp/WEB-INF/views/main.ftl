@@ -47,6 +47,9 @@
         </div>
         <a href="${basePath}/main.do?lang=zh_CN">中文</a> &nbsp;&nbsp;&nbsp;
         <a href="?lang=en_US">英文</a>
-        <input value=" ${test}">
+        <input value=" ${test}"><br>
+
+        <br>
+        ${MessageResources.getMessage("test.msg")}
     </div>
 </@htmlBody>

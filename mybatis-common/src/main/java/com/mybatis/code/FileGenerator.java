@@ -83,6 +83,10 @@ public class FileGenerator {
 		if (configuration.isEdit()) {
 			editFile(root, configuration);
 		}
+		if (configuration.isInternationalization()) {
+			enUS(root, configuration);
+			zhCN(root, configuration);
+		}
 	}
 
 	/**
@@ -239,6 +243,25 @@ public class FileGenerator {
 		String url = configuration.getTarget().replaceAll("module/", "").toLowerCase();
 		root.put("accessPath", url + "/" + page);
 		root.put("ctx", "${pageContext.request.contextPath}");
+		writeSingleFile(cfg, root, template, projectPath, "", domainObjectName.toLowerCase(), suffix,
+				configuration.isEdit());
+	}
+	private static void zhCN(Map<String, Object> root, GeneratorConfiguration configuration) throws Exception {
+		Configuration cfg = getConfig();
+		String suffix = "_zh_CN.properties";
+		String projectPath = configuration.getInternationalizationPath();
+		String domainObjectName = configuration.getEntityName();
+		String template = "internationalization_zh_CN.ftl";
+		writeSingleFile(cfg, root, template, projectPath, "", domainObjectName.toLowerCase(), suffix,
+				configuration.isEdit());
+	}
+	
+	private static void enUS(Map<String, Object> root, GeneratorConfiguration configuration) throws Exception {
+		Configuration cfg = getConfig();
+		String suffix = "_en_US.properties";
+		String projectPath = configuration.getInternationalizationPath();
+		String domainObjectName = configuration.getEntityName();
+		String template = "internationalization_en_US.ftl";
 		writeSingleFile(cfg, root, template, projectPath, "", domainObjectName.toLowerCase(), suffix,
 				configuration.isEdit());
 	}

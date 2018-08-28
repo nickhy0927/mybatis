@@ -10,12 +10,12 @@ public class GenericType {
 		String typeName = field.getGenericType().getTypeName();
 		String dataType = "";
 		if (typeName.equals("java.lang.String")) {
-			if (column.isLob() && column.lenght() < 4000) {
-				dataType = "text(" + column.lenght() + ")";
-			} else if (column.isLob() && column.lenght() > 4000) {
-				dataType = "mediumtext(" + column.lenght() + ")";
+			if (column.isLob() && column.length() < 4000) {
+				dataType = "text(" + column.length() + ")";
+			} else if (column.isLob() && column.length() > 4000) {
+				dataType = "mediumtext(" + column.length() + ")";
 			} else
-				dataType = "varchar(" + column.lenght() + ")";
+				dataType = "varchar(" + column.length() + ")";
 		} else if (typeName.equals("java.util.Date")) {
 			dataType = "datetime";
 		} else if (typeName.equals("java.math.BigInteger")) {
@@ -37,12 +37,12 @@ public class GenericType {
 		} else if (typeName.equals("java.lang.byte[]")) {
 			dataType = "blob";
 		} else if (typeName.equals("java.lang.Integer")) {
-			int length = column.lenght() > 8 ? 8 : column.lenght();
+			int length = column.length() > 8 ? 8 : column.length();
 			dataType = "int(" + length + ")";
 		}  else if (typeName.equals("java.lang.Long")) {
 			dataType = "bigint";
 		} else if (typeName.equals("java.lang.Character")) {
-			int length = column.lenght() > 16 ? 16 : column.lenght();
+			int length = column.length() > 16 ? 16 : column.length();
 			dataType = "char(" + length + ")";
 		} else if (typeName.equals("java.lang.Byte")) {
 			dataType = "int(8)";

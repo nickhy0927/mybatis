@@ -43,7 +43,7 @@ public class OptLog extends IdEntity {
     @Column(name = "opt_type",comment = "操作类名称")
 	private Integer optType;
     
-    @Column(name = "data",comment = "数据", lenght = 4000)
+    @Column(name = "data",comment = "数据", length = 4000)
     private String data;
 	
     /**

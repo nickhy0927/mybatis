@@ -29,6 +29,10 @@ public class GeneratorConfiguration {
 	private String baseDir;
 	private String target;
 	
+	private boolean internationalization; // 是否国际化
+	
+	private String internationalizationPath;// 国际化路径
+	
 	private Integer templateType;
 	
 	public Integer getTemplateType() {
@@ -191,6 +195,22 @@ public class GeneratorConfiguration {
 		this.sqlMapperPath = sqlMapperPath;
 	}
 
+	public void setInternationalization(boolean internationalization) {
+		this.internationalization = internationalization;
+	}
+	
+	public boolean isInternationalization() {
+		return internationalization;
+	}
+	
+	public String getInternationalizationPath() {
+		return internationalizationPath;
+	}
+	
+	public void setInternationalizationPath(String internationalizationPath) {
+		this.internationalizationPath = internationalizationPath;
+	}
+	
 	@Override
 	public String toString() {
 		return "GeneratorConfiguration [projectPath=" + projectPath + ", overwrite=" + overwrite + ", entitywrite=" + entitywrite + ", daowrite=" + daowrite

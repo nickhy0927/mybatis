@@ -34,6 +34,8 @@ public class DomParser {
 			String templateType = connection.element("templateType").getStringValue();
 			Element config = element.element("config");
 			String projectPath = config.attributeValue("projectPath");
+			String internationalization = connection.element("internationalization").getStringValue();
+			String internationalizationPath = connection.element("internationalizationPath").getStringValue();
 			List<Element> elements = config.elements();
 			for (Element ele : elements) {
 				GeneratorConfiguration generatorConfiguration = generatorConfiguration(ele);
@@ -45,6 +47,8 @@ public class DomParser {
 				generatorConfiguration.setPassword(password);
 				String baseDir = ele.attributeValue("baseDir");
 				generatorConfiguration.setBaseDir(baseDir );
+				generatorConfiguration.setInternationalization(Boolean.valueOf(internationalization));
+				generatorConfiguration.setInternationalizationPath(internationalizationPath);
 				String target = ele.attributeValue("target");
 				generatorConfiguration.setTarget(target);
 				generatorConfiguration.setOverwrite(Boolean.valueOf(ele.attributeValue("overwrite")));

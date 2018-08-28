@@ -31,7 +31,7 @@ public class Icon extends IdEntity {
     @Column(name = "enable", comment = "是否启用： 1 启用 0 停用")
     private Integer enable;
 
-    @Column(name = "remark", comment = "图标备注信息", lenght = 500)
+    @Column(name = "remark", comment = "图标备注信息", length = 500)
     private String remark;
 
     /**

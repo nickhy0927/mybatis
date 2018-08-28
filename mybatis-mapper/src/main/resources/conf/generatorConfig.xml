@@ -6,14 +6,16 @@
 		<username>root</username>
 		<password>root</password>
 		<templateType>2</templateType>
+		<internationalization>true</internationalization>
+		<internationalizationPath>src/main/resources/i18n/</internationalizationPath>
 	</connection>
 	<config projectPath="src/main/java">
 		<domain list="true" create="true" edit="true" 
-			baseDir="src/main/resources/freemarker/" target="module/config/exceptionlog">
-			<java.file.package>com.mybatis.config</java.file.package>
-			<sql.mapper.path>com.mybatis.config</sql.mapper.path>
-			<entity.name>ExceptionLog</entity.name>
-			<table.name>sys_exception_log</table.name>
+			baseDir="src/main/resources/freemarker/" target="module/deploy/category">
+			<java.file.package>com.mybatis.deploy</java.file.package>
+			<sql.mapper.path>com.mybatis.deploy</sql.mapper.path>
+			<entity.name>Category</entity.name>
+			<table.name>t_d_category</table.name>
 			<overwrite>true</overwrite>
 			<entity.write>true</entity.write>
 			<dao.write>true</dao.write>
@@ -21,11 +23,47 @@
 			<controller.write>true</controller.write>
 		</domain>
 		<domain list="true" create="true" edit="true" 
-			baseDir="src/main/resources/freemarker/" target="module/config/optlog">
-			<java.file.package>com.mybatis.config</java.file.package>
-			<sql.mapper.path>com.mybatis.config</sql.mapper.path>
-			<entity.name>OptLog</entity.name>
-			<table.name>sys_opt_log</table.name>
+			baseDir="src/main/resources/freemarker/" target="module/deploy/news">
+			<java.file.package>com.mybatis.deploy</java.file.package>
+			<sql.mapper.path>com.mybatis.deploy</sql.mapper.path>
+			<entity.name>News</entity.name>
+			<table.name>t_d_news</table.name>
+			<overwrite>true</overwrite>
+			<entity.write>true</entity.write>
+			<dao.write>true</dao.write>
+			<service.write>true</service.write>
+			<controller.write>true</controller.write>
+		</domain>
+		<domain list="true" create="true" edit="true" 
+			baseDir="src/main/resources/freemarker/" target="module/deploy/poster">
+			<java.file.package>com.mybatis.deploy</java.file.package>
+			<sql.mapper.path>com.mybatis.deploy</sql.mapper.path>
+			<entity.name>Poster</entity.name>
+			<table.name>t_d_poster</table.name>
+			<overwrite>true</overwrite>
+			<entity.write>true</entity.write>
+			<dao.write>true</dao.write>
+			<service.write>true</service.write>
+			<controller.write>true</controller.write>
+		</domain>
+		<domain list="true" create="true" edit="true" 
+			baseDir="src/main/resources/freemarker/" target="module/deploy/picture">
+			<java.file.package>com.mybatis.deploy</java.file.package>
+			<sql.mapper.path>com.mybatis.deploy</sql.mapper.path>
+			<entity.name>Picture</entity.name>
+			<table.name>t_d_picture</table.name>
+			<overwrite>true</overwrite>
+			<entity.write>true</entity.write>
+			<dao.write>true</dao.write>
+			<service.write>true</service.write>
+			<controller.write>true</controller.write>
+		</domain>
+		<domain list="true" create="true" edit="true" 
+			baseDir="src/main/resources/freemarker/" target="module/platform/attachment">
+			<java.file.package>com.mybatis.platform</java.file.package>
+			<sql.mapper.path>com.mybatis.platform</sql.mapper.path>
+			<entity.name>Attachment</entity.name>
+			<table.name>sys_attach</table.name>
 			<overwrite>true</overwrite>
 			<entity.write>true</entity.write>
 			<dao.write>true</dao.write>

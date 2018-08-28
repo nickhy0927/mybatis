@@ -15,7 +15,7 @@ public class ${domainObjectName} extends IdEntity {
 	/**
 	  * ${column.remarks}
 	  */
-    @Column(name = "${column.actualColumnName}",comment = "${column.remarks}")
+    @Column(name = "${column.actualColumnName}", comment = "${column.remarks}", length = ${column.length})
 	private ${column.javaType.baseShortName?cap_first} ${column.javaProperty?uncap_first};
 </#list>
 	

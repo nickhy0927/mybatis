@@ -21,7 +21,7 @@ public @interface Column {
 
 	String name() default "";
 	
-	int lenght() default 200;
+	int length() default 200;
 	
 	boolean isLob() default false;
 }

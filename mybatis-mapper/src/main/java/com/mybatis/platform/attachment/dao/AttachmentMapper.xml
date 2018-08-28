@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.platform.attachment.dao.AttachmentMapper">
+	<insert id="insert" parameterType="com.mybatis.platform.attachment.entity.Attachment">
+		insert into sys_attach(
+				id,
+				create_time,
+				update_time,
+				status,
+				name,
+				path,
+				file_type,
+				file_size,
+				file_name,
+				suffix
+		)
+		values (
+				#{id},
+				#{createTime},
+				#{updateTime},
+				#{status},
+				#{name},
+				#{path},
+				#{fileType},
+				#{fileSize},
+				#{fileName},
+				#{suffix}
+		)
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from sys_attach where id = #{id}
+	</delete>
+
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from sys_attach where id in 
+		<foreach item="id" collection="list" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<update id="update" parameterType="com.mybatis.platform.attachment.entity.Attachment">
+		update sys_attach 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="id != null and id != ''">id = #{id},</if>
+			<if test="createTime != null and createTime != ''">create_time = #{createTime},</if>
+			<if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
+			<if test="status != null and status != ''">status = #{status},</if>
+			<if test="name != null and name != ''">name = #{name},</if>
+			<if test="path != null and path != ''">path = #{path},</if>
+			<if test="fileType != null and fileType != ''">file_type = #{fileType},</if>
+			<if test="fileSize != null and fileSize != ''">file_size = #{fileSize},</if>
+			<if test="fileName != null and fileName != ''">file_name = #{fileName},</if>
+			<if test="suffix != null and suffix != ''">suffix = #{suffix},</if>
+		</trim>	
+		where id = #{id}
+	</update>
+	
+	<update id="updateBatch" parameterType="com.mybatis.platform.attachment.entity.Attachment">
+		update sys_attach 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="id != null and id != ''">id = #{id},</if>
+			<if test="createTime != null and createTime != ''">create_time = #{createTime},</if>
+			<if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
+			<if test="status != null and status != ''">status = #{status},</if>
+			<if test="name != null and name != ''">name = #{name},</if>
+			<if test="path != null and path != ''">path = #{path},</if>
+			<if test="fileType != null and fileType != ''">file_type = #{fileType},</if>
+			<if test="fileSize != null and fileSize != ''">file_size = #{fileSize},</if>
+			<if test="fileName != null and fileName != ''">file_name = #{fileName},</if>
+			<if test="suffix != null and suffix != ''">suffix = #{suffix},</if>
+		</trim>	
+		where id = #{id}
+	</update>
+
+	<select id="get" parameterType="String" resultType="com.mybatis.platform.attachment.entity.Attachment">
+		select 
+			id,
+			create_time,
+			update_time,
+			status,
+			name,
+			path,
+			file_type,
+			file_size,
+			file_name,
+			suffix
+		from sys_attach where id = #{id}
+	</select>
+	<select id="getObject" 
+			parameterType="com.mybatis.platform.attachment.entity.Attachment" 
+			resultType="com.mybatis.platform.attachment.entity.Attachment">
+		select 
+			id,
+			create_time,
+			update_time,
+			status,
+			name,
+			path,
+			file_type,
+			file_size,
+			file_name,
+			suffix
+		from sys_attach where id = #{id}
+	</select>
+
+	<select id="queryListByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.attachment.entity.Attachment">
+		select 
+			id,
+			create_time,
+			update_time,
+			status,
+			name,
+			path,
+			file_type,
+			file_size,
+			file_name,
+			suffix
+		from sys_attach
+		<include refid="conditions" />
+	</select>
+	
+	<select id="queryListByObject" 
+			parameterType="com.mybatis.platform.attachment.entity.Attachment" 
+			resultType="com.mybatis.platform.attachment.entity.Attachment">
+		select 
+			id,
+			create_time,
+			update_time,
+			status,
+			name,
+			path,
+			file_type,
+			file_size,
+			file_name,
+			suffix
+		from sys_attach
+		<include refid="conditions" />
+	</select>
+
+	<select id="queryPageByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.attachment.entity.Attachment">
+		select 
+			id,
+			create_time,
+			update_time,
+			status,
+			name,
+			path,
+			file_type,
+			file_size,
+			file_name,
+			suffix
+		from sys_attach
+		<include refid="conditions" />
+		order by
+            <choose>
+                <when test="order != null">${order} ${sort}</when>
+                <when test="order != null">create_time desc</when>
+            </choose>
+	</select>
+
+	<sql id="conditions">
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="id != null and id != ''">and id = #{id}</if>
+			<if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+			<if test="updateTime != null and updateTime != ''">and update_time = #{updateTime}</if>
+			<if test="status != null and status != ''">and status = #{status}</if>
+			<if test="name != null and name != ''">and name = #{name}</if>
+			<if test="path != null and path != ''">and path = #{path}</if>
+			<if test="fileType != null and fileType != ''">and file_type = #{fileType}</if>
+			<if test="fileSize != null and fileSize != ''">and file_size = #{fileSize}</if>
+			<if test="fileName != null and fileName != ''">and file_name = #{fileName}</if>
+			<if test="suffix != null and suffix != ''">and suffix = #{suffix}</if>
+		</trim>
+	</sql>
+</mapper>
