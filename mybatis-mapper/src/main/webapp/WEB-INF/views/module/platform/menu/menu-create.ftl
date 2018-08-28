@@ -77,8 +77,9 @@
                 url: {required: true, maxlength: 200},
                 alias: {required: true, maxlength: 200},
                 enable: {required: true, maxlength: 200},
+                localCode: {required: true, maxlength: 200},
                 shows: {required: true, maxlength: 200},
-                remark: {required: true, maxlength: 200},
+                remark: {required: true, maxlength: 200}
             }, function () {
                 $.openTip('你确定要保存吗？', false, function () {
                     $.closeLoading();
@@ -128,6 +129,14 @@
                 </label>
                 <div class="formControls col-xs-9 col-sm-9">
                     <input type="text" name="name" id="name" class="input-text" value="" placeholder="请输入菜单名称">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3 col-sm-2">
+                    <span class="c-red">*</span> 国际化编码：
+                </label>
+                <div class="formControls col-xs-9 col-sm-9">
+                    <input type="text" name="localCode" id="localCode" class="input-text" value="" placeholder="请输入国际化编码">
                 </div>
             </div>
             <div class="row cl">
@@ -188,7 +197,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row cl">
+            [#--<div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
                     <span class="c-red">*</span>
                     是否主页显示：
@@ -203,7 +212,7 @@
                         <label for="sex-2">隐藏</label>
                     </div>
                 </div>
-            </div>
+            </div>--]
             <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
                     <span class="c-red">*</span>

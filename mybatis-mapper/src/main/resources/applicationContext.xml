@@ -95,6 +95,7 @@
         <property name="basenames">
             <list>
                 <value>i18n.common</value>
+                <value>i18n.menu</value>
             </list>
         </property>
         <property name="defaultEncoding" value="utf-8"/>

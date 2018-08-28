@@ -24,6 +24,11 @@ public class MenuTemplate {
     private String alias;
 
     /**
+     * 国际化编码
+     */
+    private String localCode;
+
+    /**
      * 上级菜单
      */
     private String menuId;
@@ -35,8 +40,17 @@ public class MenuTemplate {
         this.alias = menu.getAlias();
         this.name = menu.getName();
         this.url = menu.getUrl();
+        this.localCode = menu.getLocalCode();
         this.menuId = menu.getMenuId();
         this.children = children;
+    }
+
+    public String getLocalCode() {
+        return localCode;
+    }
+
+    public void setLocalCode(String localCode) {
+        this.localCode = localCode;
     }
 
     public List<MenuTemplate> getChildren() {

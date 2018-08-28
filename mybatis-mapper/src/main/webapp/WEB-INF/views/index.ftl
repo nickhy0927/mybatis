@@ -35,11 +35,15 @@
                 <nav class="nav navbar-nav">
                     <ul class="cl">
                         [#list menuList as menu]
-                            [#if menu_index == 0]
-                                <li class="navbar-levelone current"><a href="javascript:;">${menu.name}</a></li>
-                            [#else]
-                                <li class="navbar-levelone"><a href="javascript:;">${menu.name}</a></li>
-                            [/#if]
+                            <li class="navbar-levelone [#if menu_index == 0]current[/#if]">
+                                <a href="javascript:;">
+                                    [#if menu.localCode??]
+                                        ${MessageResources.getMessage("${menu.localCode}")}
+                                    [#else]
+                                        ${menu.name}
+                                    [/#if]
+                                </a>
+                            </li>
                         [/#list]
                     </ul>
                 </nav>
@@ -84,12 +88,30 @@
                 <div class="menu_dropdown bk_2" [#if menu_index == 0]style="display:block"[#else]style="display:none" [/#if]>
                     [#list menu.children as children]
                         <dl>
-                            <dt><i class="Hui-iconfont">&#xe616;</i> ${children.name}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+                            <dt>
+                                <i class="Hui-iconfont">&#xe616;</i>
+                                [#if children.localCode??]
+                                    ${MessageResources.getMessage("${children.localCode}")}
+                                [#else]
+                                    ${children.name}
+                                [/#if]
+                                <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+                            </dt>
                             <dd>
                                 [#if children.children??]
                                     <ul>
                                         [#list children.children as cMenu]
-                                            <li><a data-href="${basePath}/${cMenu.url}" data-title="${cMenu.name}" href="javascript:void(0)">${cMenu.name}</a></li>
+                                            <li>
+                                                [#if cMenu.localCode??]
+                                                    <a data-href="${basePath}/${cMenu.url}" data-title="${MessageResources.getMessage("${cMenu.localCode}")}" href="javascript:void(0)">
+                                                        ${MessageResources.getMessage("${cMenu.localCode}")}
+                                                    </a>
+                                                [#else]
+                                                    <a data-href="${basePath}/${cMenu.url}" data-title="${cMenu.name}" href="javascript:void(0)">
+                                                        ${cMenu.name}
+                                                    </a>
+                                                [/#if]
+                                            </li>
                                         [/#list]
                                     </ul>
                                 [/#if]

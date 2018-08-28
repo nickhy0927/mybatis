@@ -7,7 +7,7 @@
         }
         
         function edit(id) {
-            $.openWindow('修改菜单', '80%', '80%', "${basePath}/platform/menu/menu-edit/"+ id +".do");
+            $.openWindow('修改菜单', '80%', '95%', "${basePath}/platform/menu/menu-edit/"+ id +".do");
         }
         
         function del(id, single) {

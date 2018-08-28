@@ -5,13 +5,13 @@
 		insert into sys_menu(
             id,create_time, update_time, status,
             code, name, url, alias, menu_id,
-            enable, shows, remark, sort, show_index
+            enable, shows, remark, sort, show_index,local_code
 		)
 		values (
             #{id}, #{createTime}, #{updateTime}, #{status},
             #{code}, #{name}, #{url}, #{alias},
             #{menuId}, #{enable}, #{shows}, #{remark}, #{sort},
-            #{showIndex}
+            #{showIndex}, #{localCode}
 		)
 	</insert>
 
@@ -36,6 +36,7 @@
             <if test="code != null and code != ''">code = #{code},</if>
             <if test="name != null and name != ''">name = #{name},</if>
             <if test="url != null and url != ''">url = #{url},</if>
+            <if test="localCode != null and localCode != ''">local_code = #{localCode},</if>
             <if test="alias != null and alias != ''">alias = #{alias},</if>
             <if test="menuId != null and menuId != ''">menu_id = #{menuId},</if>
             <if test="showIndex != null and showIndex != ''">show_index = #{showIndex},</if>
@@ -53,6 +54,7 @@
             <if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
             <if test="status != null and status != ''">status = #{status},</if>
             <if test="code != null and code != ''">code = #{code},</if>
+            <if test="localCode != null and localCode != ''">local_code = #{localCode},</if>
             <if test="name != null and name != ''">name = #{name},</if>
             <if test="url != null and url != ''">url = #{url},</if>
             <if test="alias != null and alias != ''">alias = #{alias},</if>
@@ -68,7 +70,7 @@
 		select 
             id, create_time, update_time,
             status, code, name, url, alias,
-            menu_id, enable, shows, remark, sort
+            menu_id, enable, shows, remark, sort,local_code
 		from sys_menu where id = #{id}
 	</select>
     <select id="getObject"
@@ -77,7 +79,7 @@
 		select 
             id, create_time, update_time,
             status, code, name, url, alias,
-            menu_id, enable, shows, remark, sort
+            menu_id, enable, shows, remark, sort,local_code
 		from sys_menu where id = #{id}
 	</select>
 
@@ -85,7 +87,7 @@
         select
         id, create_time, update_time,
         status, code, name, url, alias,
-        menu_id, enable, shows, remark, t.sort sort
+        menu_id, enable, shows, remark, t.sort sort, local_code
         from sys_menu t
         <include refid="conditions" />
     </select>
@@ -96,7 +98,7 @@
         select
         id, create_time, update_time,
         status, code, name, url, alias,
-        menu_id, enable, shows, remark, t.sort sort
+        menu_id, enable, shows, remark, t.sort sort, local_code
         from sys_menu t
         <include refid="conditions" />
     </select>
@@ -104,16 +106,16 @@
     <select id="queryPageByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.menu.entity.Menu">
         select
         id, create_time, update_time,
-        status, code, name, url, alias,
+        status, code, name, url, alias, local_code,
         menu_id, enable, shows, remark, m.sort sort,
         (
-        SELECT
-        t.name
-        FROM
-        sys_menu t
-        WHERE
-        t.id = m.menu_id
-        ) AS parentName
+            select
+              t.name
+            from
+              sys_menu t
+            where
+              t.id = m.menu_id
+        ) as parentName
         from sys_menu m
         <include refid="conditions" />
         order by
@@ -162,6 +164,7 @@
             <if test="status != null and status != ''">and status = #{status}</if>
             <if test="code != null and code != ''">and code = #{code}</if>
             <if test="name != null and name != ''">and name like concat('%',#{name},'%')</if>
+            <if test="localCode != null and localCode != ''">and local_code like concat('%',#{localCode},'%')</if>
             <if test="url != null and url != ''">and url like concat('%',#{url},'%')</if>
             <if test="alias != null and alias != ''">and alias like concat('%',#{alias},'%')</if>
             <if test="menuId != null and menuId != ''">and menu_id = #{menuId}</if>
