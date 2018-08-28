@@ -75,7 +75,7 @@
         <property name="requestContextAttribute" value="request"/>
     </bean>
 
-    <mvc:view-controller path="/" view-name="index.do"/>
+    <mvc:view-controller path="/" view-name="login"/>
 
     <!-- 存储区域设置信息
          SessionLocaleResolver类通过一个预定义会话名将区域化信息存储在会话中。
