@@ -29,14 +29,8 @@ public class IndexController {
     @RequestMapping(value = "/main.do", method = RequestMethod.GET)
     public ModelAndView main() {
         ModelAndView view = new ModelAndView("main");
-        String message = MessageResources.getMessageByKey("test.msg", null);
+        String message = MessageResources.getMessage("test.msg", null);
         view.addObject("test", message);
         return view;
     }
-
-    public static void main(String[] args) throws IOException {
-
-    }
-
-
 }

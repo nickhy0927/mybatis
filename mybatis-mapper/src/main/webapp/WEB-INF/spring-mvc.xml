@@ -87,11 +87,4 @@
             <property name="paramName" value="lang"/>
         </bean>
     </mvc:interceptors>
-<!--
-    <mvc:interceptors>
-        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-            <property name="paramName" value="lang"/>
-        </bean>
-    </mvc:interceptors>
--->
 </beans>

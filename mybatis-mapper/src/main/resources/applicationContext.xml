@@ -89,4 +89,16 @@
         </property>
     </bean>
     <bean class="com.mybatis.copy.CopyInit" id="copyInit" init-method="init"/>
+
+
+    <bean id="messageResources" class="com.mybatis.interceptor.MessageResources" scope="singleton">
+        <property name="basenames">
+            <list>
+                <value>i18n.common</value>
+            </list>
+        </property>
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="cacheMillis" value="3000"/>
+        <property name="fallbackToSystemLocale" value="true" />
+    </bean>
 </beans>
