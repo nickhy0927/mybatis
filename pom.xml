@@ -11,8 +11,8 @@
 		<module>mybatis-config</module>
 		<module>mybatis-resources</module>
 		<module>mybatis-auth</module>
-		<module>mybatis-cms</module>
 		<module>mybatis-mapper</module>
+		<module>mybatis-cms</module>
 		<module>platform</module>
 	</modules>
 	<build>
