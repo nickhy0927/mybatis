@@ -48,6 +48,19 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
+    <bean id="freemarkerStaticModelsProps"  class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="properties">
+            <props>
+                <prop key="MessageResources">com.mybatis.interceptor.MessageResources</prop>
+                <prop key="StringUtils">org.apache.commons.lang3.StringUtils</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="freemarkerStaticModels" class="com.mybatis.common.utils.FreemarkerStaticModels" factory-method="getInstance">
+        <property name="staticModels" ref="freemarkerStaticModelsProps"/>
+    </bean>
+
     <bean id="freeMarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF/views/"></property>
         <property name="defaultEncoding" value="utf-8"/>
@@ -73,6 +86,7 @@
         <property name="exposeRequestAttributes" value="true"/>
         <property name="exposeSessionAttributes" value="true"/>
         <property name="requestContextAttribute" value="request"/>
+        <property name="attributesMap" ref="freemarkerStaticModels" />
     </bean>
 
     <mvc:view-controller path="/" view-name="login"/>
@@ -86,5 +100,7 @@
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
             <property name="paramName" value="lang"/>
         </bean>
-    </mvc:interceptors>
+    </mvc:interceptors><!--com.mybatis.common.utils.FreemarkerStaticModels-->
+
+
 </beans>

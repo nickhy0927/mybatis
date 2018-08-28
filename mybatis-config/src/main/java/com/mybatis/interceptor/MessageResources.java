@@ -54,7 +54,7 @@ public class MessageResources {
         this.cacheMillis = cacheMillis;
     }
 
-    public static String getMessage(String key, Object[] args) {
+    public static String getMessage(String key, Object ...args) {
         MessageResources messageResources = SpringContextHolder.getBean(MessageResources.class);
         return messageResources.getMessageByKey(key, args);
 

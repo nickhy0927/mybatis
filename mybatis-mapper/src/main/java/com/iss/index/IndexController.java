@@ -29,7 +29,7 @@ public class IndexController {
     @RequestMapping(value = "/main.do", method = RequestMethod.GET)
     public ModelAndView main() {
         ModelAndView view = new ModelAndView("main");
-        String message = MessageResources.getMessage("test.msg", null);
+        String message = MessageResources.getMessage("test.msg");
         view.addObject("test", message);
         return view;
     }
