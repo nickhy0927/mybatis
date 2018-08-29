@@ -89,4 +89,8 @@ public class MessageResources {
         }
         return result;
     }
+
+    public static String getDefaultLanguage () {
+        return Locale.getDefault().toString();
+    }
 }

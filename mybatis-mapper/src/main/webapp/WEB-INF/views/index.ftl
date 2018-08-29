@@ -1,7 +1,26 @@
 [#ftl encoding="utf-8" strict_syntax=true]
 [#include "common/header.ftl"]
 [@htmlHead title="FreeMarker宏测试 "]
+    <link rel="stylesheet" type="text/css" href="${basePath}/assets/lib/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="${basePath}/assets/lib/bootstrap-select/css/bootstrap-select.min.css"/> <!-- 自定义样式 -->
     <script type="text/javascript" src="${basePath}/assets/lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
+    <script type="text/javascript" src="${basePath}/assets/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${basePath}/assets/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="${basePath}/assets/lib/bootstrap-select/js/i18n/defaults-zh_CN.js"></script>
+    <script type="text/javascript" src="${basePath}/assets/lib/bootstrap-select/js/bootstrapSelect.js"></script>
+    <style type="text/css">
+        select.form-control {
+            width: auto !important;
+            margin-top: 5px !important;
+        }
+        ol, ul {
+            margin-top: 0;
+            margin-bottom: -5px;
+        }
+        .navbar {
+            min-height: 0px;
+        }
+    </style>
     <script type="text/javascript">
         $(function () {
             $("body").Huitab({
@@ -10,8 +29,28 @@
                 className:"current",
                 index:0
             });
-        });
+            var selectList = ${SystemConstants.getSelectList()};
+            var defaultLang = '${MessageResources.getDefaultLanguage ()}';
+            $.each(selectList, function (index, obj) {
+                if (defaultLang.toLocaleLowerCase() == obj.value.toLocaleLowerCase()) {
+                    $('#lang').append('<option selected="selected" value="' + obj.value + '">' + obj.text + '</option>')
+                } else
+                    $('#lang').append('<option value="' + obj.value + '">' + obj.text + '</option>')
 
+            });
+            $('#lang').on('change', function () {
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    data: {lang: $('#lang').val()},
+                    url: "${basePath}/change.json",
+                    success: function () {
+                        window.location.reload();
+                    }
+                })
+            })
+        });
+        console.log('test',  ${SystemConstants.getSelectList()});
         /*个人信息*/
         function myselfinfo() {
             layer.open({
@@ -28,7 +67,10 @@
 [@htmlBody]
 　　<header class="navbar-wrapper">
         <div class="navbar navbar-fixed-top">
-            <div class="container-fluid cl"><a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">测试系统</a>
+            <div class="container-fluid cl">
+                <a class="logo navbar-logo f-l mr-10 hidden-xs">
+                    <select id="lang" class="form-control"></select>
+                </a>
                 <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml">测试系统</a>
                 <span class="logo navbar-slogan f-l mr-10 hidden-xs"></span>
                 <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>

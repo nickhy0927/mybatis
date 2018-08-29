@@ -1,16 +1,18 @@
 package com.iss.index;
 
-import java.util.List;
-
+import com.mybatis.common.utils.MessageObject;
+import com.mybatis.interceptor.MessageResources;
+import com.mybatis.platform.menu.entity.MenuTemplate;
+import com.mybatis.platform.menu.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mybatis.interceptor.MessageResources;
-import com.mybatis.platform.menu.entity.MenuTemplate;
-import com.mybatis.platform.menu.service.MenuService;
+import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class IndexController {
@@ -32,5 +34,15 @@ public class IndexController {
         String message = MessageResources.getMessage("test.msg");
         view.addObject("test", message);
         return view;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/change.json", method = RequestMethod.POST)
+    public MessageObject change(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
+        messageObject.ok("语言切换成功", null);
+        return messageObject;
     }
 }

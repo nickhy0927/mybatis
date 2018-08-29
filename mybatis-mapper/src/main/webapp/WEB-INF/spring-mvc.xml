@@ -53,6 +53,7 @@
             <props>
                 <prop key="MessageResources">com.mybatis.interceptor.MessageResources</prop>
                 <prop key="StringUtils">org.apache.commons.lang3.StringUtils</prop>
+                <prop key="SystemConstants">com.mybatis.utils.SystemConstants</prop>
             </props>
         </property>
     </bean>
@@ -95,7 +96,7 @@
          SessionLocaleResolver类通过一个预定义会话名将区域化信息存储在会话中。
      -->
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
-        <property name="defaultLocale" value="en_US"/>
+        <property name="defaultLocale" value="zh_CN"/>
     </bean>
     <!--配置LocaleInterceptor-->
     <mvc:interceptors>
