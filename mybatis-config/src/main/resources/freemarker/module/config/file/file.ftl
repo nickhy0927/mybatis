@@ -96,7 +96,7 @@
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>是否重新生成：</label>
+                <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>重新生成：</label>
                 <div class="formControls col-xs-4 col-sm-4 skin-minimal">
                     <div class="radio-box">
                         <input type="radio" name="overwrite" id="overwrite-1" value="1" checked="checked"/>
@@ -107,7 +107,7 @@
                         <label for="base-2" style="margin-left: 20px;">否</label>
                     </div>
                 </div>
-                <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>是否生成实体：</label>
+                <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>生成实体：</label>
                 <div class="formControls col-xs-4 col-sm-4 skin-minimal">
                     <div class="radio-box">
                         <input type="radio" name="entitywrite" id="entitywrite-1" value="1"  checked="checked"/>
@@ -120,7 +120,7 @@
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>是否生成dao：</label>
+                <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>生成dao：</label>
                 <div class="formControls col-xs-4 col-sm-4 skin-minimal">
                     <div class="radio-box">
                         <input type="radio" name="daowrite" id="daowrite-1" value="1" checked="checked"/>
@@ -131,7 +131,7 @@
                         <label for="base-2" style="margin-left: 20px;">否</label>
                     </div>
                 </div>
-                <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>是否生成service：</label>
+                <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>生成service：</label>
                 <div class="formControls col-xs-4 col-sm-4 skin-minimal">
                     <div class="radio-box">
                         <input type="radio" name="servicewrite" id="servicewrite-1" value="1"  checked="checked"/>
@@ -144,7 +144,7 @@
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>是否生成controller：</label>
+                <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>生成controller：</label>
                 <div class="formControls col-xs-4 col-sm-4 skin-minimal">
                     <div class="radio-box">
                         <input type="radio" name="controllerwrite" id="controllerwrite-1" value="1" checked="checked"/>
@@ -155,7 +155,7 @@
                         <label for="base-2" style="margin-left: 20px;">否</label>
                     </div>
                 </div>
-                <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>是否生成列表页面：</label>
+                <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>生成列表页面：</label>
                 <div class="formControls col-xs-4 col-sm-4 skin-minimal">
                     <div class="radio-box">
                         <input type="radio" name="list" id="list-1" value="1"  checked="checked"/>
@@ -168,7 +168,7 @@
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>是否生成新增页面：</label>
+                <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>生成新增页面：</label>
                 <div class="formControls col-xs-4 col-sm-4 skin-minimal">
                     <div class="radio-box">
                         <input type="radio" name="create" id="create-1" value="1" checked="checked"/>
@@ -179,7 +179,7 @@
                         <label for="base-2" style="margin-left: 20px;">否</label>
                     </div>
                 </div>
-                <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>是否生成编辑页面：</label>
+                <label class="form-label col-xs-2 col-sm-2"><span class="c-red">*</span>生成编辑页面：</label>
                 <div class="formControls col-xs-4 col-sm-4 skin-minimal">
                     <div class="radio-box">
                         <input type="radio" name="edit" id="edit-1" value="1"  checked="checked"/>

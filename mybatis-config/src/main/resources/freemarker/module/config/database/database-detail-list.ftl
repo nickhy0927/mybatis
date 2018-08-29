@@ -2,7 +2,10 @@
 <@htmlHead>
     <script type="text/javascript">
         function createTemplate(tableName) {
-            $.openWindow('创建模板', '80%', '80%', '${basePath}/config/database/${id}/create-template.do?tableName=' + tableName);
+            $.openWindow('创建模板', '100%', '100%', '${basePath}/config/database/${id}/create-template.do?tableName=' + tableName);
+        }
+        function createPage(tableName) {
+            $.openWindow('创建模板', '80%', '90%', '${basePath}/config/database/${id}/create-page.do?tableName=' + tableName);
         }
 
         $(document).ready(function () {
@@ -22,8 +25,11 @@
                     {field: 'tableName', className: 'text-l', description: '数据库连接地址'},
                     {field: 'tableComment', className: 'text-l', description: '数据库名称', sort: true},
                     {field: 'operate', className: 'text-c', description: '操作', paramFormatter: function (row) {
-                        return "<a href=\"#\" title=\"修改\" onclick=\"createTemplate('" + row.tableName + "')\">"
+                        return "<a href=\"#\" title=\"创建后台\" onclick=\"createTemplate('" + row.tableName + "')\">"
                                 + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
+                             + "</a>&nbsp;&nbsp;"
+                             + "<a href=\"#\" title=\"创建页面\" onclick=\"createPage('" + row.tableName + "')\">"
+                                + "<i class=\"Hui-iconfont\">&#xe6df;</i>"
                              + "</a>";
                     }}
                 ]

@@ -104,6 +104,13 @@ public class DatabaseController {
 		modelAndView.addObject("id", id);
 		return modelAndView;
 	}
+	@RequestMapping(value = "/database/{id}/create-page.do", method = RequestMethod.GET)
+	public ModelAndView createPage(@PathVariable("id") String id, String tableName) {
+		ModelAndView modelAndView = new ModelAndView("module/config/file/page");
+		modelAndView.addObject("tableName", tableName);
+		modelAndView.addObject("id", id);
+		return modelAndView;
+	}
 
 	@RequestMapping(value = "/database/{id}/make-template.json", method = RequestMethod.POST)
 	public @ResponseBody MessageObject makeTemplate(@PathVariable("id") String id, String tableName,
