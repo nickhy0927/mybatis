@@ -1,7 +1,9 @@
 package com.mybatis.config.database.service;
 
+import java.util.List;
 import java.util.Map;
 
+import com.mybatis.code.meta.TableColumn;
 import com.mybatis.common.utils.PageSupport;
 import com.mybatis.common.utils.PagerInfo;
 import com.mybatis.config.database.dao.DatabaseMapper;
@@ -13,4 +15,5 @@ public interface DatabaseService  extends BaseService<Database, String, Database
 
 	PagerInfo<TableComment> queryTableNameAndCommentByPageMap(Map<String, Object> params, PageSupport support);
 
+	List<TableColumn> getTableColumnList(Database database, String tableName);
 }

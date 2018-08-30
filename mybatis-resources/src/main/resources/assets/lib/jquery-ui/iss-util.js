@@ -140,6 +140,20 @@ function _openWindow(title, width, height, url, callback) {
         end: callback ? callback(index) : null
     });
 }
+function _parentOpenWindow(title, width, height, url, callback) {
+    parent.layer.open({
+        type: 2,
+        title: title,
+        area: [width || '700px', height || '450px'],
+        fixed: false, //不固定
+        move: false,
+        shadeClose: false,
+        shade: 0.6,
+        maxmin: false,
+        content: url,
+        end: callback ? callback(index) : null
+    });
+}
 
 function _submitAjax(opt, success, error) {
     $.openLoading(opt.msg);
@@ -204,6 +218,7 @@ $.extend({
     datadel: _datadel,
     dateSimpleFormat: _date_format,
     openWindow: _openWindow,
+    parentOpenWindow: _parentOpenWindow,
     submitAjax: _submitAjax,
     validation: _validation
 });

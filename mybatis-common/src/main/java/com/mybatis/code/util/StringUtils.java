@@ -38,7 +38,7 @@ public class StringUtils {
         }
 
         if (firstCharacterUppercase) {
-            sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
+            sb.setCharAt(0, Character.toLowerCase(sb.charAt(0)));
         }
 
         return sb.toString();

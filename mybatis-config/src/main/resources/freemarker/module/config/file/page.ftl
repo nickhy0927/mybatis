@@ -4,8 +4,8 @@
     <script type="text/javascript" src="${basePath}/assets/lib/bootstrap/js/bootstrap.min.js"></script>
     <style type="text/css">
         table caption {
-            height: 30px;
-            line-height: 30px;
+            height: 40px;
+            line-height: 40px;
             border-top: 1px solid #ddd;
             border-left: 1px solid #ddd;
             border-right: 1px solid #ddd;
@@ -20,6 +20,13 @@
 
         table {
             margin-bottom: 20px;
+            border-collapse: collapse !important;
+        }
+        .operate {
+            width: 50px;
+            text-align: center !important;
+            padding-top: 12px !important;
+            font-size: 20px !important;
         }
     </style>
     <script type="text/javascript">
@@ -73,35 +80,117 @@
         <form class="form form-horizontal" id="addForm">
             <input value="${tableName}" type="hidden" name="tableName" id="tableName">
             <table class="table table-bordered">
-                <caption>创建新增页面</caption>
+                <caption>${MessageResources.getMessage("database.create.page.lable.create.caption")}</caption>
                 <tr>
-                    <td>显示文本</td>
-                    <td>选择字段</td>
-                    <td>默认值(多个值逗号分隔)</td>
+                    <td>${MessageResources.getMessage("database.create.page.lable.show.text")}</td>
+                    <td>${MessageResources.getMessage("database.create.page.lable.select.field")}</td>
+                    <td>${MessageResources.getMessage("database.create.page.lable.field.type")}</td>
+                    <td>${MessageResources.getMessage("database.create.page.lable.default.value")}</td>
+                    <td style="text-align: center">${MessageResources.getMessage("database.create.page.option")}</td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" class="form">
+                        <input type="text" class="form-control">
                     </td>
                     <td>
-                        <select class=""></select>
+                        <select class="form-control">
+                            <option value="">请选择</option>
+                            <#list columnList as column>
+                                <#if column_index == 0>
+                                    <#assign i = column.javaProperty >
+                                </#if>
+                                <option value="${column.javaProperty}">${column.javaType}</option>
+                            </#list>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-control">
+                            <option value="">请选择</option>
+                            <#list columnList as column>
+                                <option value="${column.javaProperty}">${column.remarks?default(column.javaProperty)}</option>
+                            </#list>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control">
+                    </td>
+                    <td class="operate">
+                        <i class="icon Hui-iconfont">&#xe604;</i>
                     </td>
                 </tr>
             </table>
             <table class="table table-bordered">
-                <caption>创建修改页面</caption>
+                <caption>${MessageResources.getMessage("database.create.page.lable.edit.caption")}</caption>
                 <tr>
-                    <td>显示文本</td>
-                    <td>选择字段</td>
-                    <td>默认值(多个值逗号分隔)</td>
+                    <td>${MessageResources.getMessage("database.create.page.lable.show.text")}</td>
+                    <td>${MessageResources.getMessage("database.create.page.lable.select.field")}</td>
+                    <td>${MessageResources.getMessage("database.create.page.lable.field.type")}</td>
+                    <td>${MessageResources.getMessage("database.create.page.lable.default.value")}</td>
+                    <td style="text-align: center">${MessageResources.getMessage("database.create.page.option")}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" class="form-control">
+                    </td>
+                    <td>
+                        <select class="form-control">
+                            <option value="">请选择</option>
+                            <#list columnList as column>
+                                <option value="${column.javaProperty}">${column.javaType}</option>
+                            </#list>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-control">
+                            <option value="">请选择</option>
+                            <#list columnList as column>
+                                <option value="${column.javaProperty}">${column.remarks?default(column.javaProperty)}</option>
+                            </#list>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control">
+                    </td>
+                    <td class="operate">
+                        <i class="icon Hui-iconfont">&#xe604;</i>
+                    </td>
                 </tr>
             </table>
             <table class="table table-bordered">
-                <caption>创建列表页面</caption>
+                <caption>${MessageResources.getMessage("database.create.page.lable.list.caption")}</caption>
                 <tr>
-                    <td>显示文本</td>
-                    <td>选择字段</td>
-                    <td>默认值(多个值逗号分隔)</td>
+                    <td>${MessageResources.getMessage("database.create.page.lable.show.text")}</td>
+                    <td>${MessageResources.getMessage("database.create.page.lable.select.field")}</td>
+                    <td>${MessageResources.getMessage("database.create.page.lable.field.type")}</td>
+                    <td>${MessageResources.getMessage("database.create.page.lable.default.value")}</td>
+                    <td style="text-align: center">${MessageResources.getMessage("database.create.page.option")}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" class="form-control">
+                    </td>
+                    <td>
+                        <select class="form-control">
+                            <option value="">请选择</option>
+                            <#list columnList as column>
+                                <option value="${column.javaProperty}">${column.javaType}</option>
+                            </#list>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-control">
+                            <option value="">请选择</option>
+                            <#list columnList as column>
+                                <option value="${column.javaProperty}">${column.remarks?default(column.javaProperty)}</option>
+                            </#list>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control">
+                    </td>
+                    <td class="operate">
+                        <i class="icon Hui-iconfont">&#xe604;</i>
+                    </td>
                 </tr>
             </table>
             <div class="row cl">

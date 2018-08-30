@@ -5,7 +5,7 @@
             $.openWindow('创建模板', '100%', '100%', '${basePath}/config/database/${id}/create-template.do?tableName=' + tableName);
         }
         function createPage(tableName) {
-            $.openWindow('创建模板', '80%', '90%', '${basePath}/config/database/${id}/create-page.do?tableName=' + tableName);
+            $.parentOpenWindow('创建模板', '100%', '100%', '${basePath}/config/database/${id}/create-page.do?tableName=' + tableName);
         }
 
         $(document).ready(function () {

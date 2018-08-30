@@ -1,18 +1,10 @@
 package com.mybatis.config.database.controller;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
+import com.google.common.collect.Lists;
+import com.mybatis.code.meta.TableColumn;
 import com.mybatis.code.parser.GeneratorConfiguration;
+import com.mybatis.code.util.JavaTypeResolver;
+import com.mybatis.code.util.StringUtils;
 import com.mybatis.common.utils.MessageObject;
 import com.mybatis.common.utils.PageSupport;
 import com.mybatis.common.utils.PagerInfo;
@@ -24,6 +16,18 @@ import com.mybatis.core.orm.entity.PageRowBounds;
 import com.mybatis.interceptor.OperateLog;
 import com.mybatis.interceptor.OperateType;
 import com.mybatis.mysql.MySQLDatabaseBackup;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.sql.*;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/config")
@@ -109,7 +113,10 @@ public class DatabaseController {
 		ModelAndView modelAndView = new ModelAndView("module/config/file/page");
 		modelAndView.addObject("tableName", tableName);
 		modelAndView.addObject("id", id);
-		return modelAndView;
+		Database database = databaseService.get(id);
+        List<TableColumn> columnList = databaseService.getTableColumnList(database, tableName);
+        modelAndView.addObject("columnList", columnList);
+        return modelAndView;
 	}
 
 	@RequestMapping(value = "/database/{id}/make-template.json", method = RequestMethod.POST)
@@ -118,7 +125,7 @@ public class DatabaseController {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Database database = databaseService.get(id);
-			String connectUrl = "jdbc:mysql://" + database.getIp() + ": " + database.getPort() + "/"
+			String connectUrl = "jdbc:mysql://" + database.getIp() + ":" + database.getPort() + "/"
 					+ database.getDatabaseName() + "?" + database.getParams();
 			if (database.getDatabaseType() == 2) {
 
