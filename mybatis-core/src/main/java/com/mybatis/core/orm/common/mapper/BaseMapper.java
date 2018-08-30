@@ -7,11 +7,13 @@ import java.util.Map;
 import com.mybatis.common.utils.PagerInfo;
 import com.mybatis.core.orm.core.exception.DAOException;
 import com.mybatis.core.orm.entity.PageRowBounds;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author yuanghuangd
  * @date 2018年8月15日 上午10:39:45
  */
+@Repository
 public interface BaseMapper<E, ID extends Serializable> {
 
 	/**

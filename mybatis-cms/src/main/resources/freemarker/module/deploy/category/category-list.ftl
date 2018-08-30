@@ -3,16 +3,16 @@
 [@htmlHead]
     <script type="text/javascript">
         function create() {
-            $.openWindow('创建模板', '80%', '80%', "${basePath}/deploy/category/category-create.do");
+            $.openWindow('新增栏目', '80%', '60%', "${basePath}/deploy/category/category-create.do");
         }
         
         function edit(id) {
-            $.openWindow('修改模板', '80%', '80%', "${basePath}/deploy/category/category-edit/"+ id +".do");
+            $.openWindow('修改栏目', '80%', '60%', "${basePath}/deploy/category/category-edit/"+ id +".do");
         }
         
         function del(id, single) {
             $.datadel({
-            	url: "${basePath}/deploy/category/category-delete/"+ id +".do",
+            	url: "${basePath}/deploy/category/category-delete/"+ id +".json",
                 type: "post",
                 data: {id: id},
                 success:function(data){
@@ -38,7 +38,7 @@
 		function initData() {
 			$("#dataGridList").dataGrid({
                 url: ctx + '/deploy/category/category-list.json',
-                title: 'Category管理列表',
+                title: '栏目管理列表',
                 method: 'POST',
                 checkbox: true,
                 method: 'POST',
@@ -51,17 +51,17 @@
                 tableId: '#dataGridList',
                 columns: [
                     {field: 'id', className: 'text-c'},
-                    {field: 'name', className: 'text-l', description: '栏目名称 ', sort: true, paramFormatter: function (row) {
-                        return row.name
-                    }},
                     {field: 'code', className: 'text-l', description: '栏目编号 ', sort: true, paramFormatter: function (row) {
                         return row.code
                     }},
-                    {field: 'categoryId', className: 'text-l', description: '父级ID ', sort: true, paramFormatter: function (row) {
+                    {field: 'name', className: 'text-l', description: '栏目名称 ', sort: true, paramFormatter: function (row) {
+                            return row.name
+                    }},
+                    {field: 'parentName', className: 'text-l', description: '上级栏目 ', sort: true, paramFormatter: function (row) {
                         return row.categoryId
                     }},
-                    {field: 'type', className: 'text-l', description: '栏目类型', sort: true, paramFormatter: function (row) {
-                        return row.type
+                    {field: 'typeName', className: 'text-l', description: '栏目类型', sort: true, paramFormatter: function (row) {
+                        return "${SysConstant.getCategoryName(1)}";
                     }},
                     {field: 'operate', className: 'text-c', description: '操作', paramFormatter: function (row) {
                         return "<a href=\"#\" title=\"修改\" onclick=\"edit('" + row.id + "')\">"
@@ -82,40 +82,18 @@
 [@htmlBody]
 	<nav class="breadcrumb">
         <i class="Hui-iconfont">&#xe67f;</i> 首页
-        <span class="c-gray en">&gt;</span> Category管理
-        <span class="c-gray en">&gt;</span> Category列表
-        <a class="btn btn-refresh radius r" style="line-height:1.6em;margin-top:3px"
-           href="javascript:location.replace(location.href);" title="刷新">
-            <i class="Hui-iconfont">&#xe68f;</i>
-        </a>
+        <span class="c-gray en">&gt;</span> 栏目管理
+        <span class="c-gray en">&gt;</span> 栏目列表
     </nav>
     <div class="page-container">
         <form name="listForm">
             <div class="text-l cl">
                 <ul class="sel-list">
-                     <li>主键ID：
-                         <input type="text" name="id" id="id" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
-                     </li>
-                     <li>新增时间：
-                         <input type="text" name="createTime" id="createTime" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
-                     </li>
-                     <li>修改时间：
-                         <input type="text" name="updateTime" id="updateTime" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
-                     </li>
-                     <li>有效状态：
-                         <input type="text" name="status" id="status" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
-                     </li>
                      <li>栏目名称 ：
                          <input type="text" name="name" id="name" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
                      </li>
                      <li>栏目编号 ：
                          <input type="text" name="code" id="code" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
-                     </li>
-                     <li>父级ID ：
-                         <input type="text" name="categoryId" id="categoryId" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
-                     </li>
-                     <li>栏目类型：
-                         <input type="text" name="type" id="type" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
                      </li>
                     <li>
                         <button type="button" class="btn btn-success radius" id="searchButton" name=""><i
@@ -128,7 +106,7 @@
         </form>
         <div class="cl pd-5 bg-1 bk-gray mt-20">
             <span class="l">
-                <a href="javascript:;" onclick="create()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 新增</a>
+                <a href="javascript:;" onclick="create()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>新增</a>
             </span>
         </div>
         <div class="mt-20">

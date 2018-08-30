@@ -43,7 +43,6 @@
                 tableId: '#dataGridList',
                 columns: [
                     {field: 'id', className: 'text-c'},
-					{field: '_index', className: 'text-l', description: '序号'},
 					{field: 'name', className: 'text-l', description: '菜单名称 ', sort: true},
 					{field: 'url', className: 'text-l', description: '菜单地址 ', sort: true},
 					{field: 'alias', className: 'text-l', description: '菜单别名 ', sort: true},

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.mybatis.interceptor.Authority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +41,7 @@ public class PictureController {
 	/**
 	 * 新增页面
 	 */
+    @Authority(alias = "picture-create")
 	@RequestMapping(value = "/deploy/picture/picture-create.do", method = RequestMethod.GET)
 	public String pictureCreate() {
 		return "module/deploy/picture/picture-create";
@@ -64,6 +66,7 @@ public class PictureController {
     /**
 	 * 修改页面
 	 */
+    @Authority(alias = "picture-edit")
 	@RequestMapping(value = "/deploy/picture/picture-edit/{id}.do", method = RequestMethod.GET)
 	public String pictureEdit(@PathVariable(value = "id") String id, Model model) {
 		Picture picture = pictureService.get(id);
@@ -91,6 +94,7 @@ public class PictureController {
 	 * 从数据库删除数据
 	 */
 	@ResponseBody
+    @Authority(alias = "picture-delete")
 	@RequestMapping(value = "/deploy/picture/picture-delete/{id}.json", method = RequestMethod.POST)
 	public MessageObject pictureDelete(@PathVariable(value = "id") String id) {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
@@ -108,6 +112,7 @@ public class PictureController {
 	/**
 	 * 列表页面
 	 */
+	@Authority(alias = "picture-mgt")
 	@RequestMapping(value = "/deploy/picture/picture-list.do", method = RequestMethod.GET)
 	public String pictureList() {
 		return "module/deploy/picture/picture-list";

@@ -15,7 +15,7 @@ import java.util.Map;
  * @author: Mr.Huang
  * @create: 2018-08-29 12:32
  **/
-public class SystemConstants {
+public class LanguageConstants {
 
     public static final String ZH = "zh_CN";
     public static final String EN = "en_US";

@@ -13,7 +13,7 @@
             //     $.closeLoading();
             // },5000)
             $('.selectpicker').combobox({
-                data: ${SystemConstants.getSelectList()},
+                data: ${LanguageConstants.getSelectList()},
                 valueField: 'value',
                 textField: 'text'
             });

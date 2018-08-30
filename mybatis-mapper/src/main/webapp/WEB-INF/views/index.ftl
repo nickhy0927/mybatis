@@ -20,6 +20,10 @@
         .navbar {
             min-height: 0px;
         }
+        .Hui-aside .menu_dropdown dd li a {
+            padding-left: 25px;
+            font-size: 14px;
+        }
     </style>
     <script type="text/javascript">
         $(function () {
@@ -29,7 +33,7 @@
                 className:"current",
                 index:0
             });
-            var selectList = ${SystemConstants.getSelectList()};
+            var selectList = ${LanguageConstants.getSelectList()};
             var defaultLang = '${MessageResources.getDefaultLanguage ()}';
             $.each(selectList, function (index, obj) {
                 if (defaultLang.toLocaleLowerCase() == obj.value.toLocaleLowerCase()) {
@@ -50,7 +54,6 @@
                 })
             })
         });
-        console.log('test',  ${SystemConstants.getSelectList()});
         /*个人信息*/
         function myselfinfo() {
             layer.open({
@@ -62,6 +65,7 @@
                 content: '<div>管理员信息</div>'
             });
         }
+        console.log('${SysConstant.getCategoryList()}')
     </script>
 [/@htmlHead]
 [@htmlBody]

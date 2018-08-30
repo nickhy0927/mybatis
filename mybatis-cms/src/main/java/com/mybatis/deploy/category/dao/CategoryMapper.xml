@@ -3,24 +3,12 @@
 <mapper namespace="com.mybatis.deploy.category.dao.CategoryMapper">
 	<insert id="insert" parameterType="com.mybatis.deploy.category.entity.Category">
 		insert into t_d_category(
-				id,
-				create_time,
-				update_time,
-				status,
-				name,
-				code,
-				category_id,
-				type
+			id, create_time, update_time, status,
+			name, code, category_id, type
 		)
 		values (
-				#{id},
-				#{createTime},
-				#{updateTime},
-				#{status},
-				#{name},
-				#{code},
-				#{categoryId},
-				#{type}
+			#{id}, #{createTime}, #{updateTime}, #{status},
+			#{name}, #{code}, #{categoryId}, #{type}
 		)
 	</insert>
 
@@ -67,72 +55,82 @@
 
 	<select id="get" parameterType="String" resultType="com.mybatis.deploy.category.entity.Category">
 		select 
-			id,
-			create_time,
-			update_time,
-			status,
-			name,
-			code,
-			category_id,
-			type
-		from t_d_category where id = #{id}
+			id, create_time, update_time, status,
+			name, code, category_id, type,
+            (
+				SELECT
+					t.name
+				FROM
+					t_d_category t
+				WHERE
+					t.id = d.category_id
+			) AS parentName
+		from t_d_category d where id = #{id}
 	</select>
 	<select id="getObject" 
 			parameterType="com.mybatis.deploy.category.entity.Category" 
 			resultType="com.mybatis.deploy.category.entity.Category">
 		select 
-			id,
-			create_time,
-			update_time,
-			status,
-			name,
-			code,
-			category_id,
-			type
-		from t_d_category where id = #{id}
+			id, create_time, update_time, status,
+			name, code, category_id, type,
+            (
+				SELECT
+					t.name
+				FROM
+					t_d_category t
+				WHERE
+					t.id = d.category_id
+			) AS parentName
+		from t_d_category d where id = #{id}
 	</select>
 
 	<select id="queryListByMap" parameterType="java.util.Map" resultType="com.mybatis.deploy.category.entity.Category">
-		select 
-			id,
-			create_time,
-			update_time,
-			status,
-			name,
-			code,
-			category_id,
-			type
-		from t_d_category
+		select
+		id, create_time, update_time, status,
+		name, code, category_id, type,
+		(
+			SELECT
+				t.name
+			FROM
+				t_d_category t
+			WHERE
+				t.id = d.category_id
+		) AS parentName
+		from t_d_category d
 		<include refid="conditions" />
 	</select>
 	
 	<select id="queryListByObject" 
 			parameterType="com.mybatis.deploy.category.entity.Category" 
 			resultType="com.mybatis.deploy.category.entity.Category">
-		select 
-			id,
-			create_time,
-			update_time,
-			status,
-			name,
-			code,
-			category_id,
-			type
-		from t_d_category
+		select
+			id, create_time, update_time, status,
+			name, code, category_id, type,
+			(
+				SELECT
+					t.name
+				FROM
+					t_d_category t
+				WHERE
+					t.id = d.category_id
+			) AS parentName
+		from t_d_category d
 		<include refid="conditions" />
 	</select>
 
 	<select id="queryPageByMap" parameterType="java.util.Map" resultType="com.mybatis.deploy.category.entity.Category">
-		select 
-			id,
-			create_time,
-			update_time,
-			status,
-			name,
-			code,
-			category_id,
-			type
-		from t_d_category
+		select
+			id, create_time, update_time, status,
+			name, code, category_id, type,
+			(
+				SELECT
+					t.name
+				FROM
+					t_d_category t
+				WHERE
+					t.id = d.category_id
+			) AS parentName
+		from t_d_category d
 		<include refid="conditions" />
 		order by
             <choose>
