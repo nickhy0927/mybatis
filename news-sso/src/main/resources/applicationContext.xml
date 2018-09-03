@@ -41,7 +41,23 @@
         <property name="password" value="${jdbc.password}"/>
         <property name="dbName" value="mybatis"/>
     </bean>
-
+    <bean id="smartFilter" class="org.sso.client.SmartContainer">
+        <property name="ssoServerUrl" value="${sso.server.url}" />
+        <!-- Dubbo服务开启时，打开注释
+        <property name="authenticationRpcService" ref="authenticationRpcService" />
+        -->
+        <property name="filters">
+            <list>
+                <!-- 单点登录 -->
+                <bean class="org.sso.client.SsoFilter"/>
+                <!-- 单点退出(选配) -->
+                <bean class="org.sso.client.LogoutFilter">
+                    <property name="pattern" value="/logout" />
+                    <property name="ssoBackUrl" value="/index.do" />
+                </bean>
+            </list>
+        </property>
+    </bean>
     <!-- 配置数据库连接 -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <!-- Connection Info -->
