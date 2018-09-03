@@ -91,7 +91,7 @@
         <property name="attributesMap" ref="freemarkerStaticModels" />
     </bean>
 
-    <mvc:view-controller path="/" view-name="login"/>
+    <mvc:view-controller path="/" view-name="redirect:/index.do"/>
 
     <!-- 存储区域设置信息
          SessionLocaleResolver类通过一个预定义会话名将区域化信息存储在会话中。
