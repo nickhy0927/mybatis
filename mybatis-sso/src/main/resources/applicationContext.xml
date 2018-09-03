@@ -12,7 +12,7 @@
 
     <context:annotation-config/>
     <!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
-    <context:component-scan base-package="org.spring.platform,com.mybatis">
+    <context:component-scan base-package="org.spring.platform,org.spring.common.service,com.mybatis">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
@@ -68,4 +68,9 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
     <mybatis-spring:scan base-package="com.mybatis.**.dao"/>
+    
+    <!-- SSO令牌管理(本地) -->
+	<bean id="tokenManager" class="org.spring.common.service.LocalTokenManager">
+		<property name="tokenTimeout" value="${sso.timeout}" />
+	</bean>
 </beans>
