@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Locale;
 
@@ -44,5 +46,11 @@ public class IndexController {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         messageObject.ok("语言切换成功", null);
         return messageObject;
+    }
+
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    public ModelAndView logout(HttpSession session) {
+        session.invalidate();
+        return new ModelAndView("redirect:index.do");
     }
 }
