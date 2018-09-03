@@ -101,7 +101,7 @@
                             <ul class="dropDown-menu menu radius box-shadow">
                                 <li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
                                 <li><a href="#">切换账户</a></li>
-                                <li><a href="#">退出</a></li>
+                                <li><a href="http://localhost:8443/cas/logout?service=http://localhost:8090/mapper/index.do">退出</a></li>
                             </ul>
                         </li>
                         <li id="Hui-msg">

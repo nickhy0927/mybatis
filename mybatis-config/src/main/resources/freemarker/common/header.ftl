@@ -45,6 +45,13 @@
             .check-box, .radio-box {
                 padding-left: 5px;
             }
+
+            a:visited,a:active {
+                text-underline: none;
+            }
+            .nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
+                border-color: cornsilk !important;
+            }
         </style>
         <link rel="stylesheet" href="${basePath}/assets/lib/layui/css/layui.css" media="all">
     	<script src="${basePath}/assets/lib/layui/layui.js"></script>
