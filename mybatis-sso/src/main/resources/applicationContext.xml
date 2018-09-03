@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:util="http://www.springframework.org/schema/util"
-	default-autowire="byType" default-lazy-init="false"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   default-autowire="byType" default-lazy-init="false"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
@@ -17,7 +17,7 @@
 	<context:component-scan base-package="org.spring.platform">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-	
+
 	<bean id="springContextHolder" class="org.spring.common.utils.SpringContextHolder" lazy-init="false"/>
 	<!-- 将多个配置文件位置放到列表中 -->
 	<bean id="propertyResources" class="java.util.ArrayList">
@@ -30,7 +30,7 @@
 			</list>
 		</constructor-arg>
 	</bean>
-	
+
 	<!-- 将配置文件读取到容器中，交给Spring管理 -->
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations" ref="propertyResources" />
@@ -56,49 +56,5 @@
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
-	<!-- 配置国际化资源文件路径 -->
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basenames">
-			<!-- 定义消息资源文件的相对路径 -->
-			<list>
-				<value>i18n/users</value>
-			</list>
-		</property>
-		<property name="defaultEncoding" value="UTF-8"/>
-		<property name="cacheSeconds" value="-1" />
-		<!-- 如果在国际化资源文件中找不到对应代码的信息，就用这个代码作为名称  -->               
-    	<property name="useCodeAsDefaultMessage" value="true" /> 
-	</bean>
-	
-	<!-- 编程式事务 -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-    	<property name="dataSource" ref="dataSource" />
-	</bean>
-	<tx:annotation-driven transaction-manager="transactionManager"/>
-
-	<!-- 声明式事务  开始-->
-	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
-	<tx:advice id="txAdvice" transaction-manager="txManager">
-		<tx:attributes>
-			<tx:method name="delete*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException" no-rollback-for="java.lang.RuntimeException"/>
-	      	<tx:method name="insert*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException" />
-	      	<tx:method name="save*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException" />
-	      	<tx:method name="update*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException" />
-	      	<tx:method name="find*" propagation="SUPPORTS"/>
-	     	<tx:method name="get*" propagation="SUPPORTS"/>
-	      	<tx:method name="select*" propagation="SUPPORTS"/>
-			<tx:method name="query*"  propagation="REQUIRED" isolation="DEFAULT" read-only="true" />
-		</tx:attributes>
-	</tx:advice>
-	<aop:config>
-		<aop:pointcut id="fooServiceMethods" expression="execution(* org.spring.ibatis.*.service.*.insert*(..))||
-					execution(* org.spring.common.service.impl.*.insert*(..))" />
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="fooServiceMethods" />
-	</aop:config>
-	<!-- 声明式事务  结束-->
-	
 	<import resource="static-resource.xml"/>
 </beans>
