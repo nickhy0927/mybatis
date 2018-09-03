@@ -31,6 +31,27 @@
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations" ref="propertyResources"/>
     </bean>
+    <bean id="smartFilter" class="com.smart.sso.client.SmartContainer">
+		<property name="ssoServerUrl" value="${sso.server.url}" />
+		<!-- Dubbo服务开启时，打开注释
+		<property name="authenticationRpcService" ref="authenticationRpcService" />
+		-->
+		<property name="filters">
+			<list>
+				<!-- 单点登录 -->
+				<bean class="com.smart.sso.client.SsoFilter"/>
+				<!-- 单点退出(选配) -->
+				<bean class="com.smart.sso.client.LogoutFilter">
+					<property name="pattern" value="/logout" />
+					<property name="ssoBackUrl" value="/index.do" />
+				</bean>
+				<!-- 权限控制(选配) -->
+				<bean class="com.smart.sso.client.PermissionFilter">
+					<property name="ssoAppCode" value="${sso.app.code}" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 
     <!-- 扫描包，生成数据库表 -->
     <bean class="com.mybatis.core.scan.ScanPackage" init-method="init">
