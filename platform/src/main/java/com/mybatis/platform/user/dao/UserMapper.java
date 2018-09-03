@@ -5,4 +5,5 @@ import com.mybatis.core.orm.common.mapper.BaseMapper;
 
 public interface UserMapper extends BaseMapper<User,String> {
 
+    User login(String loginName);
 }

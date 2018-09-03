@@ -82,7 +82,15 @@
 			last_login_time, id, create_time, update_time, status
 		from sys_user where id = #{id}
 	</select>
-
+	<select id="login"
+			parameterType="String"
+			resultType="com.mybatis.platform.user.entity.User">
+		select
+		real_name, login_name, password, locked,
+		enable, email, mobile, remark, position,
+		last_login_time, id, create_time, update_time, status
+		from sys_user where loginName = #{loginName}
+	</select>
 	<select id="queryListByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.user.entity.User">
 		select
 			real_name, login_name, password, locked,
