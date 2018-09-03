@@ -1,10 +1,11 @@
 package com.mybatis.interceptor;
 
-import com.mybatis.core.orm.config.SpringContextHolder;
+import java.util.Locale;
+
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
-import java.util.Locale;
+import com.mybatis.core.orm.config.SpringContextHolder;
 
 /**
  * @program: mybatis-base

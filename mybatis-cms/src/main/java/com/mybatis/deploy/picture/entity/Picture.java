@@ -1,7 +1,5 @@
 package com.mybatis.deploy.picture.entity;
 
-import java.util.Date;
-
 import com.mybatis.core.orm.annotation.Column;
 import com.mybatis.core.orm.annotation.Table;
 import com.mybatis.core.orm.entity.IdEntity;

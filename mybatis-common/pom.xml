@@ -28,6 +28,13 @@
 		<junit.version>4.11</junit.version>
 	</properties>
 	<dependencies>
+		<!-- 远程RPC调用hessian支持 -->
+		<dependency>
+			<groupId>com.caucho</groupId>
+			<artifactId>hessian</artifactId>
+			<version>4.0.38</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
