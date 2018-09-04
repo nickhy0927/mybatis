@@ -14,9 +14,6 @@
 		<module>mybatis-mapper</module>
 		<module>mybatis-cms</module>
 		<module>platform</module>
-		<module>mybatis-sso</module>
-		<module>sso-client</module>
-		<module>news-sso</module>
 	</modules>
 	<build>
 		<pluginManagement>
