@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.sso.client.SsoFilter;
 
 import com.mybatis.platform.user.entity.User;
@@ -59,20 +60,24 @@ public class LoginController extends BaseController{
 
 	@ApiOperation("登录提交")
 	@RequestMapping(value = "/login.json", method = RequestMethod.POST)
-	public String login(
+	public ModelAndView login(
 			@ApiParam(value = "返回链接", required = true) @ValidateParam({ Validator.NOT_BLANK }) String backUrl,
-			@ApiParam(value = "登录名", required = true) @ValidateParam({ Validator.NOT_BLANK }) String account,
+			@ApiParam(value = "登录名", required = true) @ValidateParam({ Validator.NOT_BLANK }) String username,
 			@ApiParam(value = "密码", required = true) @ValidateParam({ Validator.NOT_BLANK }) String password,
 			@ApiParam(value = "验证码", required = true) @ValidateParam({ Validator.NOT_BLANK }) String valid_code,
 			HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+		ModelAndView model = null;
 		if (!CaptchaHelper.validate(request, valid_code)) {
 			request.setAttribute("errorMessage", "验证码不正确");
-			return goLoginPath(backUrl, request);
+			model = new ModelAndView(goLoginPath(backUrl, request));
+			return model;
+				
 		}
-		Result result = loginService.login(getIpAddr(request), account, PasswordProvider.encrypt(password));
+		Result result = loginService.login(getIpAddr(request), username, PasswordProvider.encrypt(password));
 		if (!result.getCode().equals(ResultCode.SUCCESS)) {
 			request.setAttribute("errorMessage", result.getMessage());
-			return goLoginPath(backUrl, request);
+			model = new ModelAndView(goLoginPath(backUrl, request));
+			return model;
 		} else {
 			User user = (User) result.getData();
 			LoginUser loginUser = new LoginUser(user.getId(), user.getLoginName());
@@ -84,7 +89,9 @@ public class LoginController extends BaseController{
 
 			// 跳转到原请求
 			backUrl = URLDecoder.decode(backUrl, "utf-8");
-			return "redirect:" + authBackUrl(backUrl, token);
+			String url = "redirect:" + authBackUrl(backUrl, token);
+			model = new ModelAndView(url);
+			return model;
 		}
 	}
 

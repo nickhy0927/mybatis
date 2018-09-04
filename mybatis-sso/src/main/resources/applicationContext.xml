@@ -73,4 +73,5 @@
 	<bean id="tokenManager" class="org.spring.common.service.LocalTokenManager">
 		<property name="tokenTimeout" value="${sso.timeout}" />
 	</bean>
+	
 </beans>

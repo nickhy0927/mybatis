@@ -43,6 +43,7 @@
     </bean>
     <bean id="smartFilter" class="org.sso.client.SmartContainer">
         <property name="ssoServerUrl" value="${sso.server.url}" />
+        <property name="isServer" value="true" />
         <!-- Dubbo服务开启时，打开注释
         <property name="authenticationRpcService" ref="authenticationRpcService" />
         -->

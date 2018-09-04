@@ -34,7 +34,7 @@
 		while (_topWin != _topWin.parent.window) {    
 		     _topWin = _topWin.parent.window;    
 		}    
-		if (window != _topWin)_topWin.document.location.href = '${ctx}//user/login.do?url=${url}';    
+		if (window != _topWin)_topWin.document.location.href = '${ctx}/login.do?backUrl=${backUrl}';    
 	    function open() {
 			$("#submitDialog").dialog({
 				closeOnEscape: false,
@@ -60,7 +60,7 @@
 			    if (ev.keyCode == 13) {
 					open();
     				$.ajax({
-    					url:'${ctx}/user/userLogin.do?url=${url}',
+    					url:'${ctx}/login.json',
     					method:'POST',
     					data:$("#loginForm").serialize(),
     					dataType:'JSON',
@@ -88,7 +88,7 @@
    			$("#login_btn").click(function () {
    				open();
    				$.ajax({
-   					url:'${ctx}/user/userLogin.do?url=${url}',
+   					url:'${ctx}/login.json?backUrl=${backUrl}',
    					method:'POST',
    					data:$("#loginForm").serialize(),
    					dataType:'JSON',

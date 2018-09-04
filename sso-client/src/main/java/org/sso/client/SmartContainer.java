@@ -44,6 +44,9 @@ public class SmartContainer extends ParamFilter implements Filter {
 		}
 		for (ClientFilter filter : filters) {
 			filter.setSsoServerUrl(ssoServerUrl);
+			if (authenticationRpcService != null) {
+				filter.setAuthenticationRpcService(authenticationRpcService);
+			}
 			filter.init(filterConfig);
 		}
 	}

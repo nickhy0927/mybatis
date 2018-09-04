@@ -6,6 +6,8 @@ import java.net.URLEncoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.sso.rpc.RpcUser;
+
 /**
  * 单点登录及Token验证Filter
  * 
@@ -22,7 +24,7 @@ public class SsoFilter extends ClientFilter {
 		if (token == null) {
 			token = request.getParameter(SSO_TOKEN_NAME);
 			if (token != null) {
-//				invokeAuthInfoInSession(request, token);
+				invokeAuthInfoInSession(request, token);
 				// 再跳转一次当前URL，以便去掉URL中token参数
 				response.sendRedirect(getRemoveTokenBackUrl(request));
 				return false;
@@ -50,12 +52,12 @@ public class SsoFilter extends ClientFilter {
 	 * @return
 	 * @throws IOException
 	 */
-//	private void invokeAuthInfoInSession(HttpServletRequest request, String token) throws IOException {
-//		RpcUser rpcUser = authenticationRpcService.findAuthInfo(token);
-//		if (rpcUser != null) {
-//			SessionUtils.setSessionUser(request, new SessionUser(token, rpcUser.getAccount()));
-//		}
-//	}
+	private void invokeAuthInfoInSession(HttpServletRequest request, String token) throws IOException {
+		RpcUser rpcUser = authenticationRpcService.findAuthInfo(token);
+		if (rpcUser != null) {
+			SessionUtils.setSessionUser(request, new SessionUser(token, rpcUser.getAccount()));
+		}
+	}
 
 	/**
 	 * 跳转登录
@@ -72,7 +74,7 @@ public class SsoFilter extends ClientFilter {
 			SessionUtils.invalidate(request);
 
 			String ssoLoginUrl = new StringBuilder().append(ssoServerUrl)
-					.append("/login?backUrl=").append(URLEncoder.encode(getBackUrl(request), "utf-8")).toString();
+					.append("/login.do?backUrl=").append(URLEncoder.encode(getBackUrl(request), "utf-8")).toString();
 
 			response.sendRedirect(ssoLoginUrl);
 		}
