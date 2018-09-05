@@ -72,7 +72,7 @@
             	remark: { required:true, maxlength:200},
             	enable: { required:true}
             }, function () {
-                $.openTip('你确定要基础数据保存吗？',false ,function() {
+                $.openTip('你确定要保存基础数据吗？',false ,function() {
                     $.closeLoading();
                     $.openLoading('正在保存基础数据信息，请稍等...');
                     $.ajax({

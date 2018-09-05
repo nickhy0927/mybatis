@@ -2,7 +2,7 @@
 <@htmlHead>
     <script type="text/javascript">
         function create() {
-            $.openWindow('新增数据库', '80%', '80%', '${basePath}/config/database/database-create.do');
+            $.openWindow('新增数据库', '80%', '95%', '${basePath}/config/database/database-create.do');
         }
 
         function databaseViewDetail(id) {
@@ -40,7 +40,7 @@
 	        }, 2);
         }
 
-        $(document).ready(function () {
+        function initData() {
             $("#dataGridList").dataGrid({
                 url: ctx + '/config/database/database-list.json',
                 title: '数据库管理列表',
@@ -58,8 +58,8 @@
                     {field: 'databaseName', className: 'text-l', description: '数据库名称', sort: true},
                     {field: 'mysqldumpPath', className: 'text-l', description: 'mysqldump命令目录', sort: true},
                     {field: 'databaseType', className: 'text-l', description: '数据库用户名', sort: true,paramFormatter: function (row) {
-                    	return row.databaseType == 1 ? 'mysql' : 'oracle';
-                    }},
+                            return row.databaseType == 1 ? 'mysql' : 'oracle';
+                        }},
                     {field: 'port', className: 'text-l', description: '数据库端口', sort: true},
                     {field: 'username', className: 'text-l', description: '数据库用户名', sort: true},
                     {field: 'password', className: 'text-l', description: '数据库密码', sort: true},
@@ -79,6 +79,10 @@
                     }}
                 ]
             });
+        }
+
+        $(document).ready(function () {
+            initData();
         })
     </script>
 </@htmlHead>

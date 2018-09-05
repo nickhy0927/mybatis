@@ -23,31 +23,33 @@
                 username:{ required:true},
                 password:{ required:true,maxlength:50},
             }, function () {
-                $.openTip('你确定要保存吗？',false ,function() {
-                    $.openLoading("正在保存数据，请稍等...");
-                    $.submitAjax('${basePath}', {
+                $.openTip('你确定要保存数据库吗？',false ,function() {
+                    $.closeLoading();
+                    $.openLoading('正在保存数据库信息，请稍等...');
+                    $.ajax({
+                        url: '${basePath}/config/database/database-save.json',
                         method: 'POST',
                         dataType: 'JSON',
-                        url: '/config/database/database-save.json'
-                    },$("#addForm").serialize(), function (result) {
-                        if (result.code == 200) {
-                            $.openTip(result.msg ,true ,function() {
-                                parent.window.location.href = ctx + '/template/database/database-list.do';
+                        data: $("#addForm").serialize(),
+                        success: function (data) {
+                            $.closeLoading();
+                            if (data.status != 200 && data.code != 200) {
+                                $.openTip(data.msg, true);
+                                return;
+                            }
+                            $.openTip(data.msg, true, function () {
+                                window.parent.initData();
                                 var index = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(index);
                             });
-                        } else {
-                            $.openTip(result.msg ,true, function() {
-                                $.closeLoading();
-                            });
-                        }
-                    },function (err) {
-                        console.log(err);
-                        $.openTip("信息保存失败" ,true, function() {
+                        },
+                        error: function (err) {
                             $.closeLoading();
-                        });
-                    })
-                })
+                            $.openTip(err, true);
+                            return;
+                        }
+                    });
+                });
             });
         });
         //取消
