@@ -37,6 +37,8 @@ public class Database extends IdEntity {
 	@Column(comment = "连接数据库端口")
 	private Integer port;
 
+	private Integer connectCount;
+
 	public String getIp() {
 		return ip;
 	}
@@ -115,5 +117,13 @@ public class Database extends IdEntity {
 
 	public void setPort(Integer port) {
 		this.port = port;
+	}
+
+	public Integer getConnectCount() {
+		return connectCount;
+	}
+
+	public void setConnectCount(Integer connectCount) {
+		this.connectCount = connectCount;
 	}
 }

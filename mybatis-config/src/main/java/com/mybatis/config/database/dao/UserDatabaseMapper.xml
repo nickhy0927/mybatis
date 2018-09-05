@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.config.database.dao.UserDatabaseMapper">
+    <!-- sql备注： 不允许使用$,只能使用#来设值，防止sql注入 -->
+
+    <!-- 插入数据 -->
+    <insert id="insert" parameterType="com.mybatis.config.database.entity.UserDatabase">
+        insert into t_config_user_db (
+            id, create_time, update_time, status,user_id,
+            database_id
+        ) values (
+            #{id}, #{createTime}, #{updateTime}, #{status},
+            #{userId}, #{databaseId}
+        )
+    </insert>
+
+    <!-- 查询一条数据 -->
+    <select id="get" parameterType="String" resultType="com.mybatis.config.database.entity.UserDatabase">
+        select * from t_config_user_db t where 1 = 1 and t.status = 1 and id = #{id}
+    </select>
+</mapper>
