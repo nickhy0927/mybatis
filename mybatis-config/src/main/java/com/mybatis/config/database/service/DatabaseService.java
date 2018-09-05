@@ -16,4 +16,6 @@ public interface DatabaseService  extends BaseService<Database, String, Database
 	PagerInfo<TableComment> queryTableNameAndCommentByPageMap(Map<String, Object> params, PageSupport support);
 
 	List<TableColumn> getTableColumnList(Database database, String tableName);
+
+	Database queryConnectDatabase();
 }

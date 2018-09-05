@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.config.database.dao.DatabaseMapper">
 	<!-- sql备注： 不允许使用$,只能使用#来设值，防止sql注入 -->
-	
+
 	<!-- 插入数据 -->
 	<insert id="insert" parameterType="com.mybatis.config.database.entity.Database">
 		insert into t_config_database (
@@ -16,7 +16,7 @@
 		    #{driverClassName},#{mysqldumpPath},#{databaseType},#{params}
 		)
 	</insert>
-	
+
 	<!-- 查询一条数据 -->
 	<select id="get" parameterType="String" resultType="com.mybatis.config.database.entity.Database">
         select * from t_config_database t where 1 = 1 and t.status = 1 and id = #{id}
@@ -96,5 +96,24 @@
         WHERE
             table_schema = #{databaseName}
         limit #{startRow}, #{size}
+    </select>
+
+    <select id="queryConnectDatabase" resultType="com.mybatis.config.database.entity.Database">
+        select * from
+        (
+          select
+        (
+        select count(*)
+        from t_config_user_db t
+            where
+              t.database_id = tcd.id
+          ) as connect_count
+            ,tcd.*
+        from t_config_database tcd
+        ) d where d.connect_count &lt;= 1 and database_name like 'mybatis_%'
+        order by d.connect_count,d.create_time asc
+
+
+
     </select>
 </mapper>

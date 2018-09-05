@@ -18,6 +18,7 @@ import com.mybatis.common.utils.PagerInfo;
 import com.mybatis.core.orm.common.mapper.BaseMapper;
 import com.mybatis.core.orm.common.service.BaseService;
 import com.mybatis.core.orm.entity.PageRowBounds;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author yuanghuangd
@@ -30,6 +31,7 @@ public abstract class BaseServiceImpl<E, ID extends Serializable, T extends Base
 	@Autowired
 	private T mapper;
 
+	@Transactional
 	@Override
 	public int insert(E t) throws ServiceException {
         try {
@@ -60,6 +62,7 @@ public abstract class BaseServiceImpl<E, ID extends Serializable, T extends Base
         return 0;
 	}
 
+	@Transactional
 	@Override
 	public int update(E t) throws ServiceException {
 	    try {
@@ -84,6 +87,7 @@ public abstract class BaseServiceImpl<E, ID extends Serializable, T extends Base
         return 0;
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public E get(ID id) {
 		try {
@@ -93,7 +97,8 @@ public abstract class BaseServiceImpl<E, ID extends Serializable, T extends Base
         	throw new ServiceException(e.getMessage(), new Throwable());
 		}
 	}
-	
+
+	@Transactional(readOnly = true)
 	@Override
 	public E getObject(E e) {
 		try {
@@ -103,7 +108,8 @@ public abstract class BaseServiceImpl<E, ID extends Serializable, T extends Base
         	throw new ServiceException(e1.getMessage(), new Throwable());
 		}
 	}
-	
+
+	@Transactional(readOnly = true)
 	@Override
 	public List<E> queryListByMap(Map<String, Object> paramMap) {
 		try {
@@ -114,6 +120,7 @@ public abstract class BaseServiceImpl<E, ID extends Serializable, T extends Base
 		}
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public PagerInfo<E> queryPage(Map<String, Object> paramMap, PageRowBounds rowBounds) {
         try {
@@ -129,6 +136,7 @@ public abstract class BaseServiceImpl<E, ID extends Serializable, T extends Base
 		}
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public void updateBatch(E t) {
 		try {
@@ -139,11 +147,13 @@ public abstract class BaseServiceImpl<E, ID extends Serializable, T extends Base
 		}
 	}
 
+	@Transactional
 	@Override
 	public int delete(ID id) {
 		return this.mapper.delete(id);
 	}
 
+	@Transactional
 	@Override
 	public void deleteBatch(List<ID> ids) {
 		try {
@@ -154,6 +164,7 @@ public abstract class BaseServiceImpl<E, ID extends Serializable, T extends Base
 		}		
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public List<E> queryListByObject(E e) {
 		try {
@@ -163,7 +174,8 @@ public abstract class BaseServiceImpl<E, ID extends Serializable, T extends Base
         	throw new ServiceException(ex.getMessage(), new Throwable());
 		}
 	}
-	
+
+	@Transactional(readOnly = true)
 	@Override
 	public List<E> queryPageByMap(Map<String, Object> paramMap, PageRowBounds rowBounds) {
 		try {
@@ -173,6 +185,4 @@ public abstract class BaseServiceImpl<E, ID extends Serializable, T extends Base
         	throw new ServiceException(e.getMessage(), new Throwable());
 		}
 	}
-	
-
 }
