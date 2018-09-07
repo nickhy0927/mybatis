@@ -35,8 +35,8 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
-    <mvc:default-servlet-handler/>
 
+    <mvc:default-servlet-handler/>
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
@@ -104,5 +104,5 @@
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
             <property name="paramName" value="lang"/>
         </bean>
-    </mvc:interceptors>
+    </mvc:interceptors><!--com.mybatis.common.utils.FreemarkerStaticModels-->
 </beans>

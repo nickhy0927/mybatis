@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import com.mybatis.common.utils.PageSupport;
 import com.mybatis.common.utils.PagerInfo;
 import com.mybatis.core.orm.core.exception.DAOException;
 import com.mybatis.core.orm.entity.PageRowBounds;
@@ -97,6 +96,4 @@ public interface BaseMapper<E, ID extends Serializable> {
 	List<E> queryPageByMap(Map<String, Object> paramMap, PageRowBounds rowBounds) throws DAOException;
 	
 	PagerInfo<E> queryPage(Map<String, Object> paramMap, PageRowBounds rowBounds);
-
-	PagerInfo<E> queryPage(Map<String, Object> paramMap, PageSupport pageSupport);
 }

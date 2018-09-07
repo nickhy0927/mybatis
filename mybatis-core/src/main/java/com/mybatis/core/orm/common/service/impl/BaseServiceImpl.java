@@ -136,21 +136,6 @@ public abstract class BaseServiceImpl<E, ID extends Serializable, T extends Base
 		}
 	}
 
-	@Override
-	public PagerInfo<E> queryPage(Map<String, Object> paramMap, PageSupport support) {
-		try {
-			PageRowBounds rowBounds = new PageRowBounds(support);
-			paramMap.put("order", support.getOrder());
-			paramMap.put("sort", support.getSort());
-			List<E> list = mapper.queryPageByMap(paramMap, rowBounds);
-			support.setTotalRecord(queryListByMap(paramMap).size());
-			return new PagerInfo<>(support, list);
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			throw new ServiceException(e.getMessage(), new Throwable());
-		}
-	}
-
 	@Transactional(readOnly = true)
 	@Override
 	public void updateBatch(E t) {

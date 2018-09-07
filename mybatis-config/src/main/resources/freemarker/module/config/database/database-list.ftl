@@ -8,10 +8,7 @@
         function databaseViewDetail(id) {
             $.openWindow('查看数据库表', '100%', '100%', '${basePath}/config/database/database-detail-list.do?id=' + id);
         }
-        function viewConnectUser(id) {
-            $.parentOpenWindow('查看接入用户列表', '100%', '100%', '${basePath}/config/database/database-detail-list.do?id=' + id);
-        }
-
+    	
     	function backUpDatabase(id) {
     		layer.prompt({
     			title: '请输入导出的位置',
@@ -71,9 +68,6 @@
                                 + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
                              + "</a>&nbsp;&nbsp;"
                              + "<a href=\"#\" title=\"查看数据库表\" onclick=\"databaseViewDetail('" + row.id + "')\">"
-                                + "<i class=\"Hui-iconfont\">&#xe725;</i>"
-                             + "</a>&nbsp;&nbsp;"
-                             + "<a href=\"#\" title=\"查看接入用户\" onclick=\"viewConnectUser('" + row.id + "')\">"
                                 + "<i class=\"Hui-iconfont\">&#xe725;</i>"
                              + "</a>&nbsp;&nbsp;"
                              + "<a href=\"#\" title=\"备份数据库\" onclick=\"backUpDatabase('" + row.id + "')\">"
