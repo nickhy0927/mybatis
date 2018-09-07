@@ -1,18 +1,15 @@
 package com.mybatis.common.utils;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class PagerInfo<T> {
+public class PagerInfo<T> extends ArrayList<T> {
 	private long size = 10; // 分页大小
 	private long totalRecord;// 总记录数
 	private long totalPage;// 总页数
 	private long currentPage;// 当前页
 
 	private List<T> content;
-
-	private List<Map<String, Object>> maps;
-
 	public PagerInfo() {
 	}
 
@@ -22,10 +19,6 @@ public class PagerInfo<T> {
 		this.totalRecord = support.getTotalRecord();
 		this.totalPage = support.getTotalPage();
 		this.content = content;
-	}
-
-	public PagerInfo(List<Map<String, Object>> maps) {
-		this.maps = maps;
 	}
 
 	public long getSize() {
@@ -66,14 +59,6 @@ public class PagerInfo<T> {
 
 	public void setContent(List<T> content) {
 		this.content = content;
-	}
-
-	public List<Map<String, Object>> getMaps() {
-		return maps;
-	}
-
-	public void setMaps(List<Map<String, Object>> maps) {
-		this.maps = maps;
 	}
 
 	@Override

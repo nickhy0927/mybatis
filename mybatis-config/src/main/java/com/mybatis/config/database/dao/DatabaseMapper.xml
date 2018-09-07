@@ -112,8 +112,20 @@
         from t_config_database tcd
         ) d where d.connect_count &lt;= 1 and database_name like 'mybatis_%'
         order by d.connect_count,d.create_time asc
+    </select>
 
-
-
+    <select id="queryConnectDatabaseUserList" parameterType="java.util.Map" resultType="com.mybatis.config.database.entity.ConnectDatabaseUser">
+        select u.real_name, u.login_name, u.locked,
+			u.enable, u.email, u.mobile, u.remark, u.position,
+			u.last_login_time, u.id, u.create_time, u.update_time, u.status
+		from
+		    sys_user u
+		    left join t_config_user_db tcd
+		    on id = user_id and tcd.status = 1
+		where
+		    tcd.database_id = ${databaseId}
+		    and u.status = 1
+		    and u.real_name like concat('%', #{realName}, '%')
+		    and u.login_name like concat('%', #{loginName}, '%')
     </select>
 </mapper>
