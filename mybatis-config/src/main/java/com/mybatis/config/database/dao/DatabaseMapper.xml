@@ -114,7 +114,7 @@
         order by d.connect_count,d.create_time asc
     </select>
 
-    <select id="queryConnectDatabaseUserList" parameterType="java.util.Map" resultType="com.mybatis.config.database.entity.ConnectDatabaseUser">
+    <select id="queryConnectUserPageByCondition" parameterType="java.util.Map" resultType="com.mybatis.config.database.entity.ConnectDatabaseUser">
         select u.real_name, u.login_name, u.locked,
 			u.enable, u.email, u.mobile, u.remark, u.position,
 			u.last_login_time, u.id, u.create_time, u.update_time, u.status

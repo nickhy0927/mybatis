@@ -1,12 +1,16 @@
 package com.mybatis.platform.menu.controller;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.google.common.collect.Lists;
+import com.mybatis.common.utils.*;
+import com.mybatis.core.orm.constant.SysConstant;
+import com.mybatis.core.orm.core.exception.ServiceException;
+import com.mybatis.interceptor.Authority;
+import com.mybatis.interceptor.OperateLog;
+import com.mybatis.interceptor.OperateType;
+import com.mybatis.platform.menu.entity.Menu;
+import com.mybatis.platform.menu.entity.MenuTree;
+import com.mybatis.platform.menu.service.MenuService;
+import com.mybatis.utils.NumberCreate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,22 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.common.collect.Lists;
-import com.mybatis.common.utils.JsonMapper;
-import com.mybatis.common.utils.MessageObject;
-import com.mybatis.common.utils.PageSupport;
-import com.mybatis.common.utils.PagerInfo;
-import com.mybatis.common.utils.RequestData;
-import com.mybatis.core.orm.constant.SysConstant;
-import com.mybatis.core.orm.core.exception.ServiceException;
-import com.mybatis.core.orm.entity.PageRowBounds;
-import com.mybatis.interceptor.Authority;
-import com.mybatis.interceptor.OperateLog;
-import com.mybatis.interceptor.OperateType;
-import com.mybatis.platform.menu.entity.Menu;
-import com.mybatis.platform.menu.entity.MenuTree;
-import com.mybatis.platform.menu.service.MenuService;
-import com.mybatis.utils.NumberCreate;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author yuanhuangd
@@ -166,7 +159,7 @@ public class MenuController {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             Map<String, Object> paramsMap = RequestData.getParameterMap(request);
-            PagerInfo<Menu> pagerInfo = menuService.queryPage(paramsMap, new PageRowBounds(support));
+            PagerInfo<Menu> pagerInfo = menuService.queryPageByMap(paramsMap, support);
             messageObject.ok("查询菜单列表信息成功", pagerInfo);
         } catch (ServiceException e) {
             e.printStackTrace();

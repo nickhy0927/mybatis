@@ -1,10 +1,10 @@
 package com.mybatis.config.database.dao;
 
+import com.mybatis.common.utils.PageSupport;
 import com.mybatis.common.utils.PagerInfo;
 import com.mybatis.config.database.entity.Database;
 import com.mybatis.config.database.entity.TableComment;
 import com.mybatis.core.orm.common.mapper.BaseMapper;
-import com.mybatis.core.orm.entity.PageRowBounds;
 import com.mybatis.platform.user.entity.User;
 import org.springframework.stereotype.Repository;
 
@@ -23,8 +23,8 @@ public interface DatabaseMapper extends BaseMapper<Database, String> {
     /**
      * 查询用户列表
      * @param paramMap
-     * @param rowBounds
+     * @param support
      * @return
      */
-    PagerInfo<User> queryConnectDatabaseUserList(Map<String, Object> paramMap, PageRowBounds rowBounds);
+    PagerInfo<User> queryConnectUserPageByCondition(Map<String, Object> paramMap, PageSupport support);
 }

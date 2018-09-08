@@ -7,6 +7,7 @@ import java.util.Map;
 import com.mybatis.common.utils.PagerInfo;
 import com.mybatis.core.orm.core.exception.DAOException;
 import com.mybatis.core.orm.entity.PageRowBounds;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -93,7 +94,5 @@ public interface BaseMapper<E, ID extends Serializable> {
 	 * @return
 	 * @throws DAOException
 	 */
-	List<E> queryPageByMap(Map<String, Object> paramMap, PageRowBounds rowBounds) throws DAOException;
-	
-	PagerInfo<E> queryPage(Map<String, Object> paramMap, PageRowBounds rowBounds);
+	List<E> queryPageByMap(Map<String, Object> paramMap, RowBounds rowBounds) throws DAOException;
 }

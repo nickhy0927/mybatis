@@ -21,11 +21,11 @@ public interface DatabaseService  extends BaseService<Database, String, Database
 
 	Database queryConnectDatabase();
 
-	/**
-	 * 查询用户列表
-	 * @param paramMap
-	 * @param rowBounds
-	 * @return
-	 */
-	PagerInfo<User> queryConnectDatabaseUserList(Map<String, Object> paramMap, PageSupport support);
+    /**
+     * 查询用户列表
+     * @param paramMap
+     * @param support
+     * @return
+     */
+    PagerInfo<User> queryConnectUserPageByCondition(Map<String, Object> paramMap, PageSupport support);
 }

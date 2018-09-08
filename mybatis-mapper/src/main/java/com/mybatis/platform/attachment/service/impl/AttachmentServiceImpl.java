@@ -8,6 +8,6 @@ import com.mybatis.platform.attachment.entity.Attachment;
 import com.mybatis.platform.attachment.service.AttachmentService;
 
 @Service
-public class AttachmentServiceImpl extends BaseServiceImpl<Attachment, String, AttachmentMapper> implements AttachmentService{
+public class AttachmentServiceImpl extends BaseServiceImpl<Attachment, String, AttachmentMapper> implements AttachmentService {
 
 }

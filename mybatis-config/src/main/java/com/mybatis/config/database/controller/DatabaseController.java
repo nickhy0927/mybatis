@@ -1,10 +1,15 @@
 package com.mybatis.config.database.controller;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.mybatis.code.meta.TableColumn;
+import com.mybatis.code.parser.GeneratorConfiguration;
+import com.mybatis.common.utils.*;
+import com.mybatis.config.database.entity.Database;
+import com.mybatis.config.database.entity.TableComment;
+import com.mybatis.config.database.service.DatabaseService;
+import com.mybatis.interceptor.OperateLog;
+import com.mybatis.interceptor.OperateType;
+import com.mybatis.mysql.MySQLDatabaseBackup;
+import com.mybatis.platform.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,19 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mybatis.code.meta.TableColumn;
-import com.mybatis.code.parser.GeneratorConfiguration;
-import com.mybatis.common.utils.MessageObject;
-import com.mybatis.common.utils.PageSupport;
-import com.mybatis.common.utils.PagerInfo;
-import com.mybatis.common.utils.RequestData;
-import com.mybatis.config.database.entity.Database;
-import com.mybatis.config.database.entity.TableComment;
-import com.mybatis.config.database.service.DatabaseService;
-import com.mybatis.core.orm.entity.PageRowBounds;
-import com.mybatis.interceptor.OperateLog;
-import com.mybatis.interceptor.OperateType;
-import com.mybatis.mysql.MySQLDatabaseBackup;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/config")
@@ -46,8 +41,10 @@ public class DatabaseController {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> dataToMap = RequestData.getRequestDataToMap(request);
-			PagerInfo<Database> pagerInfo = databaseService.queryPage(dataToMap, new PageRowBounds(support));
-			messageObject.ok("获取列表信息成功", pagerInfo);
+			PagerInfo<Database> pagerInfo = databaseService.queryPageByMap(dataToMap, support);
+            PagerInfo<User> userPagerInfo = databaseService.queryConnectUserPageByCondition(dataToMap, support);
+            System.out.println(JsonMapper.toJson(userPagerInfo));
+            messageObject.ok("获取列表信息成功", pagerInfo);
 		} catch (Exception e) {
 			e.printStackTrace();
 			messageObject.error("获取列表失败");

@@ -1,13 +1,14 @@
 package com.mybatis.platform.rolemenu.controller;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.mybatis.common.utils.MessageObject;
+import com.mybatis.common.utils.PageSupport;
+import com.mybatis.common.utils.PagerInfo;
+import com.mybatis.common.utils.RequestData;
+import com.mybatis.interceptor.Authority;
+import com.mybatis.interceptor.OperateLog;
+import com.mybatis.interceptor.OperateType;
+import com.mybatis.platform.rolemenu.entity.RoleMenu;
+import com.mybatis.platform.rolemenu.service.RoleMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,16 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mybatis.platform.rolemenu.entity.RoleMenu;
-import com.mybatis.platform.rolemenu.service.RoleMenuService;
-import com.mybatis.common.utils.MessageObject;
-import com.mybatis.common.utils.PageSupport;
-import com.mybatis.common.utils.PagerInfo;
-import com.mybatis.common.utils.RequestData;
-import com.mybatis.core.orm.entity.PageRowBounds;
-import com.mybatis.interceptor.Authority;
-import com.mybatis.interceptor.OperateLog;
-import com.mybatis.interceptor.OperateType;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Title: roleMenuController.java
@@ -133,7 +130,7 @@ public class RoleMenuController {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
-			PagerInfo<RoleMenu> pagerInfo = roleMenuService.queryPage(paramsMap, new PageRowBounds(support));
+			PagerInfo<RoleMenu> pagerInfo = roleMenuService.queryPageByMap(paramsMap, support);
 			messageObject.ok("获取模版输出成功", pagerInfo);
 		} catch (IOException e) {
 			e.printStackTrace();

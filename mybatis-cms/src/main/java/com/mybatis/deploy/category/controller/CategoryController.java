@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mybatis.common.utils.*;
 import com.mybatis.core.orm.constant.SysConstant;
-import com.mybatis.core.orm.entity.PageRowBounds;
 import com.mybatis.deploy.category.entity.Category;
 import com.mybatis.deploy.category.entity.CategoryTree;
 import com.mybatis.deploy.category.service.CategoryService;
@@ -150,7 +149,7 @@ public class CategoryController {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
-			PagerInfo<Category> pagerInfo = categoryService.queryPage(paramsMap, new PageRowBounds(support));
+			PagerInfo<Category> pagerInfo = categoryService.queryPageByMap(paramsMap, support);
 			messageObject.ok("获取栏目列表成功", pagerInfo);
 		} catch (IOException e) {
 			e.printStackTrace();

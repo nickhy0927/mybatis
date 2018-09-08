@@ -132,7 +132,7 @@ public class UserController {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
-			PagerInfo<User> pagerInfo = userService.queryPage(paramsMap, new PageRowBounds(support));
+			PagerInfo<User> pagerInfo = userService.queryPageByMap(paramsMap, support);
 			messageObject.ok("获取用户信息成功", pagerInfo);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,8 +1,9 @@
 package com.mybatis.platform.user.service;
 
-import com.mybatis.core.orm.common.mapper.BaseMapper;
+import com.mybatis.core.orm.common.service.BaseService;
+import com.mybatis.platform.user.dao.UserMapper;
 import com.mybatis.platform.user.entity.User;
 
-public interface UserService extends BaseMapper<User, String> {
+public interface UserService extends BaseService<User, String, UserMapper> {
 
 }

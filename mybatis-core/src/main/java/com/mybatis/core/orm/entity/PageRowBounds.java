@@ -3,9 +3,8 @@
  */
 package com.mybatis.core.orm.entity;
 
-import org.apache.ibatis.session.RowBounds;
-
 import com.mybatis.common.utils.PageSupport;
+import org.apache.ibatis.session.RowBounds;
 
 /**
  * @author yuanghuangd
@@ -18,7 +17,6 @@ public class PageRowBounds extends RowBounds {
 
 	/* 默认Limit是int的最大值，因此它使用的是逻辑分页 **/
 	public static final int NO_ROW_LIMIT = Integer.MAX_VALUE;
-	public static final RowBounds DEFAULT = new RowBounds();
 
 	private int offset;
 	private int limit;

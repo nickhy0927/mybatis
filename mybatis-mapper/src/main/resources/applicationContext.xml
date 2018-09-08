@@ -75,17 +75,17 @@
     <bean id="logFilter" class="com.alibaba.druid.filter.stat.StatFilter">
         <property name="slowSqlMillis" value="50"/>
         <property name="logSlowSql" value="false"/>
-        <property name="mergeSql" value="true"/>
+        <property name="mergeSql" value="false"/>
     </bean>
     <!-- 配置SqlMapClient对象 -->
     <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="configLocation" value="classpath:mybatis-config.xml" />
+        <property name="dataSource" ref="dataSource" />
         <property name="mapperLocations">
             <list>
                 <value>classpath*:com/mybatis/**/*Mapper.xml</value>
             </list>
         </property>
-        <property name="dataSource" ref="dataSource" />
     </bean>
     <mybatis-spring:scan base-package="com.mybatis.**.dao" />
 

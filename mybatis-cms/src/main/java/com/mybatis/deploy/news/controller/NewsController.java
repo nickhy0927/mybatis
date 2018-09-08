@@ -122,7 +122,7 @@ public class NewsController {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
-			PagerInfo<News> pagerInfo = newsService.queryPage(paramsMap, new PageRowBounds(support));
+			PagerInfo<News> pagerInfo = newsService.queryPageByMap(paramsMap, support);
 			messageObject.ok("获取列表成功", pagerInfo);
 		} catch (IOException e) {
 			e.printStackTrace();

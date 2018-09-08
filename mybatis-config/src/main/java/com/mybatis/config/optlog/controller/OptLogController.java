@@ -1,24 +1,24 @@
 package com.mybatis.config.optlog.controller;
 
+import com.mybatis.common.utils.MessageObject;
+import com.mybatis.common.utils.PageSupport;
+import com.mybatis.common.utils.PagerInfo;
+import com.mybatis.common.utils.RequestData;
+import com.mybatis.config.optlog.entity.OptLog;
+import com.mybatis.config.optlog.service.OptLogService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import com.mybatis.config.optlog.entity.OptLog;
-import com.mybatis.config.optlog.service.OptLogService;
-import com.mybatis.common.utils.MessageObject;
-import com.mybatis.common.utils.PageSupport;
-import com.mybatis.common.utils.PagerInfo;
-import com.mybatis.core.orm.entity.PageRowBounds;
-import com.mybatis.common.utils.RequestData;
 
 /**
  * @Title: optLogController.java
@@ -130,7 +130,7 @@ public class OptLogController {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
-			PagerInfo<OptLog> pagerInfo = optLogService.queryPage(paramsMap, new PageRowBounds(support));
+			PagerInfo<OptLog> pagerInfo = optLogService.queryPageByMap(paramsMap, support);
 			messageObject.ok("获取列表成功", pagerInfo);
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -1,12 +1,11 @@
 package com.mybatis.config.exceptionlog.controller;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.mybatis.common.utils.MessageObject;
+import com.mybatis.common.utils.PageSupport;
+import com.mybatis.common.utils.PagerInfo;
+import com.mybatis.common.utils.RequestData;
+import com.mybatis.config.exceptionlog.entity.ExceptionLog;
+import com.mybatis.config.exceptionlog.service.ExceptionLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,13 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mybatis.config.exceptionlog.entity.ExceptionLog;
-import com.mybatis.config.exceptionlog.service.ExceptionLogService;
-import com.mybatis.common.utils.MessageObject;
-import com.mybatis.common.utils.PageSupport;
-import com.mybatis.common.utils.PagerInfo;
-import com.mybatis.core.orm.entity.PageRowBounds;
-import com.mybatis.common.utils.RequestData;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Title: exceptionLogController.java
@@ -122,7 +119,7 @@ public class ExceptionLogController {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
-			PagerInfo<ExceptionLog> pagerInfo = exceptionLogService.queryPage(paramsMap, new PageRowBounds(support));
+			PagerInfo<ExceptionLog> pagerInfo = exceptionLogService.queryPageByMap(paramsMap, support);
 			messageObject.ok("获取列表成功", pagerInfo);
 		} catch (IOException e) {
 			e.printStackTrace();

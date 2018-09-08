@@ -119,23 +119,6 @@ public abstract class BaseServiceImpl<E, ID extends Serializable, T extends Base
         	throw new ServiceException(e.getMessage(), new Throwable());
 		}
 	}
-
-	@Transactional(readOnly = true)
-	@Override
-	public PagerInfo<E> queryPage(Map<String, Object> paramMap, PageRowBounds rowBounds) {
-        try {
-			PageSupport support = rowBounds.getSupport();
-			paramMap.put("order", support.getOrder());
-			paramMap.put("sort", support.getSort());
-			List<E> list = mapper.queryPageByMap(paramMap, rowBounds);
-			support.setTotalRecord(queryListByMap(paramMap).size());
-			return new PagerInfo<>(support, list);
-		} catch (ServiceException e) {
-			e.printStackTrace();
-        	throw new ServiceException(e.getMessage(), new Throwable());
-		}
-	}
-
 	@Transactional(readOnly = true)
 	@Override
 	public void updateBatch(E t) {
@@ -177,9 +160,13 @@ public abstract class BaseServiceImpl<E, ID extends Serializable, T extends Base
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<E> queryPageByMap(Map<String, Object> paramMap, PageRowBounds rowBounds) {
+	public PagerInfo<E> queryPageByMap(Map<String, Object> paramMap, PageSupport support) {
 		try {
-			return this.mapper.queryPageByMap(paramMap, rowBounds);
+			paramMap.put("order", support.getOrder());
+			paramMap.put("sort", support.getSort());
+			List<E> list = mapper.queryPageByMap(paramMap, new PageRowBounds(support));
+			support.setTotalRecord(queryListByMap(paramMap).size());
+			return new PagerInfo<>(support, list);
 		} catch (ServiceException e) {
 			e.printStackTrace();
         	throw new ServiceException(e.getMessage(), new Throwable());

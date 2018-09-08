@@ -4,7 +4,6 @@ import com.mybatis.common.utils.MessageObject;
 import com.mybatis.common.utils.PageSupport;
 import com.mybatis.common.utils.PagerInfo;
 import com.mybatis.common.utils.RequestData;
-import com.mybatis.core.orm.entity.PageRowBounds;
 import com.mybatis.interceptor.Authority;
 import com.mybatis.interceptor.OperateLog;
 import com.mybatis.interceptor.OperateType;
@@ -132,7 +131,7 @@ public class BaseParamsController {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
-			PagerInfo<BaseParams> pagerInfo = baseParamsService.queryPage(paramsMap, new PageRowBounds(support));
+			PagerInfo<BaseParams> pagerInfo = baseParamsService.queryPageByMap(paramsMap, support);
 			messageObject.ok("获取系统参数列表成功", pagerInfo);
 		} catch (IOException e) {
 			e.printStackTrace();

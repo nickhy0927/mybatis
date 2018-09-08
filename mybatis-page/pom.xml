@@ -1,0 +1,26 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.mybatis.base</groupId>
+        <artifactId>mybatis-base</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>mybatis-page</artifactId>
+    <packaging>jar</packaging>
+    <name>mybatis-page</name>
+    <url>http://maven.apache.org</url>
+    <description>mybatis-page</description>
+    <dependencies>
+        <dependency>
+            <groupId>org.mybatis.base</groupId>
+            <artifactId>mybatis-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.base</groupId>
+            <artifactId>mybatis-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+</project>

@@ -120,10 +120,7 @@ public class DatabaseServiceImpl extends BaseServiceImpl<Database, String, Datab
     }
 
     @Override
-    public PagerInfo<User> queryConnectDatabaseUserList(Map<String, Object> paramMap, PageSupport support) {
-        PageRowBounds rowBounds = new PageRowBounds(support);
-        paramMap.put("order", support.getOrder());
-        paramMap.put("sort", support.getSort());
-        return databaseMapper.queryConnectDatabaseUserList(paramMap, rowBounds);
+    public PagerInfo<User> queryConnectUserPageByCondition(Map<String, Object> paramMap, PageSupport support) {
+        return databaseMapper.queryConnectUserPageByCondition(paramMap, support);
     }
 }

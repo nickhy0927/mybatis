@@ -138,7 +138,7 @@ public class IconController extends BaseController{
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
             Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
-            PagerInfo<Icon> pagerInfo = iconService.queryPage(paramsMap, new PageRowBounds(support));
+            PagerInfo<Icon> pagerInfo = iconService.queryPageByMap(paramsMap, support);
             messageObject.ok("获取图标列表成功", pagerInfo);
         } catch (IOException e) {
             e.printStackTrace();

@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mybatis.common.utils.*;
 import com.mybatis.core.orm.constant.SysConstant;
-import com.mybatis.core.orm.entity.PageRowBounds;
 import com.mybatis.interceptor.Authority;
 import com.mybatis.interceptor.OperateLog;
 import com.mybatis.interceptor.OperateType;
@@ -149,7 +148,7 @@ public class BaseDataController {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		try {
 			Map<String, Object> paramsMap = RequestData.getRequestDataToMap(request);
-			PagerInfo<BaseData> pagerInfo = baseDataService.queryPage(paramsMap, new PageRowBounds(support));
+			PagerInfo<BaseData> pagerInfo = baseDataService.queryPageByMap(paramsMap, support);
 			messageObject.ok("获取基础数据成功", pagerInfo);
 		} catch (IOException e) {
 			e.printStackTrace();
