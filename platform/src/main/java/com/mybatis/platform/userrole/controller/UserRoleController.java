@@ -1,23 +1,31 @@
 package com.mybatis.platform.userrole.controller;
 
-import com.mybatis.common.utils.MessageObject;
-import com.mybatis.common.utils.PageSupport;
-import com.mybatis.common.utils.PagerInfo;
-import com.mybatis.common.utils.RequestData;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.mybatis.common.utils.*;
+import com.mybatis.core.orm.constant.SysConstant;
 import com.mybatis.interceptor.Authority;
+import com.mybatis.interceptor.MessageResources;
 import com.mybatis.interceptor.OperateLog;
 import com.mybatis.interceptor.OperateType;
+import com.mybatis.platform.role.entity.Role;
+import com.mybatis.platform.role.entity.RoleTree;
+import com.mybatis.platform.role.service.RoleService;
+import com.mybatis.platform.user.service.UserService;
 import com.mybatis.platform.userrole.entity.UserRole;
 import com.mybatis.platform.userrole.service.UserRoleService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.util.JAXBSource;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -37,12 +45,30 @@ public class UserRoleController {
     @Autowired
     private UserRoleService userRoleService;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
+
     /**
      * 新增页面
      */
     @Authority(alias = "user-role-create")
     @RequestMapping(value = "/platform/userrole/user-role-create.do", method = RequestMethod.GET)
-    public String userRoleCreate() {
+    public String userRoleCreate(ModelMap modelMap, String userId) {
+        List<UserRole> userRoles = userRoleService.queryUserRoleList(userId);
+        modelMap.put("defaultValue", JsonMapper.toJson(userRoles));
+        modelMap.put("user", userService.get(userId));
+        Map<String, Object> params = Maps.newConcurrentMap();
+        params.put("status",  1);
+        params.put("frozen", SysConstant.Frozen.YES);
+        List<Role> roleList = roleService.queryListByMap(params);
+        List<RoleTree> roleTrees = Lists.newArrayList();
+        for(Role role : roleList) {
+            roleTrees.add(new RoleTree(role));
+        }
+        modelMap.put("roleTrees", JsonMapper.toJson(roleTrees));
         return "module/platform/userrole/user-role-create";
     }
 
@@ -52,13 +78,23 @@ public class UserRoleController {
     @ResponseBody
     @RequestMapping(value = "/platform/userrole/user-role-save.json", method = RequestMethod.POST)
     @OperateLog(message = "新增用户角色信息", optType = OperateType.OptType.INSERT, service = UserRoleService.class)
-    public MessageObject userRoleSave(UserRole userRole) {
+    public MessageObject userRoleSave(String userId, String roleIds) {
         MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
         try {
-            userRoleService.insert(userRole);
-            messageObject.ok("保存信息成功", userRole);
+            List<UserRole> userRoles = Lists.newArrayList();
+            if(StringUtils.isNotEmpty(roleIds)) {
+                String[] strings = roleIds.split(",");
+                for (String roleId: strings) {
+                    UserRole userRole = new UserRole();
+                    userRole.setRoleId(roleId);
+                    userRole.setUserId(userId);
+                    userRoles.add(userRole);
+                }
+                userRoleService.insertBatch(userRoles);
+                messageObject.ok(MessageResources.getMessage("UserRole.save.success"), roleIds);
+            } else messageObject.error(MessageResources.getMessage("UserRole.save.fail"));
         } catch (Exception e) {
-            messageObject.error("保存信息失败");
+            messageObject.error(MessageResources.getMessage("UserRole.save.fail"));
         }
         return messageObject;
     }

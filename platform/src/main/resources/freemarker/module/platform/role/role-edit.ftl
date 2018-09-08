@@ -150,11 +150,11 @@
                 <div class="formControls col-xs-3 col-sm-3 skin-minimal">
                     <div class="radio-box">
                         <input name="locked" [#if role.frozen == 1]checked="checked"[/#if] value="1" type="radio" id="locked-1" checked>
-                        <label for="locked-1">未冻结</label>
+                        <label for="locked-1">启用</label>
                     </div>
                     <div class="radio-box">
                         <input type="radio" value="0" [#if role.frozen == 0]checked="checked"[/#if] id="locked-2" name="locked">
-                        <label for="locked-2">冻结</label>
+                        <label for="locked-2">停用</label>
                     </div>
                 </div>
             </div>

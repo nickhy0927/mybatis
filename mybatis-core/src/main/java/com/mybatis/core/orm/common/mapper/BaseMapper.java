@@ -26,6 +26,12 @@ public interface BaseMapper<E, ID extends Serializable> {
 	int insert(E t) throws DAOException;
 
 	/**
+	 * 批量新增
+	 * @param t
+	 * @throws DAOException
+	 */
+	void insertBatch(List<E> t) throws DAOException;
+	/**
 	 * 修改
 	 * @param t
 	 * @return

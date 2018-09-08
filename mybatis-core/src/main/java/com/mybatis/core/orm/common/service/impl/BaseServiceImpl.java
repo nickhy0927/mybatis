@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import com.mybatis.core.orm.annotation.Column;
 import com.mybatis.core.orm.constant.SysConstant;
+import com.mybatis.core.orm.core.exception.DAOException;
 import com.mybatis.core.orm.core.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -62,7 +63,38 @@ public abstract class BaseServiceImpl<E, ID extends Serializable, T extends Base
         return 0;
 	}
 
-	@Transactional
+    @Override
+    public void insertBatch(List<E> list) throws DAOException {
+        try {
+            for(E t : list) {
+                Class<? extends Object> objClass = t.getClass();
+                Field[] fields = objClass.getSuperclass().getDeclaredFields();
+                for (Field field : fields) {
+                    Column column = field.getAnnotation(Column.class);
+                    field.setAccessible(true);
+                    if (column != null) {
+                        if (column.isKey()) {
+                            field.set(t, UUID.randomUUID().toString().replaceAll("-", ""));
+                        } else if (column.createTime()) {
+                            field.set(t, new Date());
+                        } else if (column.status() == SysConstant.DataStatus.VALID) {
+                            field.set(t, SysConstant.DataStatus.VALID);
+                        } else if (column.status() == SysConstant.DataStatus.INVALID) {
+                            field.set(t, SysConstant.DataStatus.INVALID);
+                        }
+                    }
+                }
+            }
+            mapper.insertBatch(list);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+            throw new ServiceException(e.getMessage(), new Throwable());
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Transactional
 	@Override
 	public int update(E t) throws ServiceException {
 	    try {

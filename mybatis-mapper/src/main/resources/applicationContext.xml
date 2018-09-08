@@ -124,6 +124,7 @@
                 <value>i18n.common</value>
                 <value>i18n.menu</value>
                 <value>i18n.database</value>
+                <value>i18n.user</value>
             </list>
         </property>
         <property name="defaultEncoding" value="utf-8"/>

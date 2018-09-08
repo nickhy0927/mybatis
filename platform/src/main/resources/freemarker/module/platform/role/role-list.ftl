@@ -9,7 +9,11 @@
         function edit(id) {
             $.openWindow('修改角色', '80%', '60%', "${basePath}/platform/role/role-edit/"+ id +".do");
         }
-        
+
+        function settingRole(id) {
+            $.openWindow('设置权限', '40%', '90%', "${basePath}/platform/rolemenu/role-menu-create.do?id=" + id);
+        }
+
         function del(id, single) {
             $.datadel({
             	url: "${basePath}/platform/role/role-delete/"+ id +".json",
@@ -37,7 +41,7 @@
                 orderField: 'createTime',
                 sort: 'desc',
                 searchButtonId: '#searchButton',
-                queryParamsId: ['#connectUrl', "#databaseName", "#username"],
+                queryParamsId: ['#name', "#roleId"],
                 tableId: '#dataGridList',
                 columns: [
                     {field: 'id', className: 'text-c'},
@@ -46,12 +50,15 @@
 					{field: 'roleName', className: 'text-l', description: '上级角色 ', sort: true},
 					{field: 'remark', className: 'text-l', description: '信息备注 ', sort: true},
                     {field: 'frozen', className: 'text-l', description: '是否冻结', sort: true, paramFormatter: function (row) {
-                            return row.frozen == 1 ? '未冻结' : '冻结';
+                            return row.frozen != 1 ? '停用' : '启用';
                     }},
                     {field: 'operate', className: 'text-c', description: '操作', paramFormatter: function (row) {
                         return "<a href=\"#\" title=\"修改\" onclick=\"edit('" + row.id + "')\">"
                                 + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
                              + "</a>&nbsp;&nbsp;"
+                             + "<a href=\"#\" title=\"设置权限\" onclick=\"settingRole('" + row.id + "')\">"
+                                + "<i class=\"Hui-iconfont\">&#xe61d;</i>"
+                                + "</a>&nbsp;&nbsp;"
                              + "<a href=\"#\" title=\"删除\" onclick=\"del('" + row.id + "', true)\">"
                                 + "<i class=\"Hui-iconfont\">&#xe609;</i>"
                              + "</a>";
@@ -75,11 +82,11 @@
             <div class="text-l cl">
                 <ul class="sel-list">
                     <li>角色名称：
-                        <input type="text" name="connectUrl" id="connectUrl" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
+                        <input type="text" name="name" id="name" class="input-text" style="width:auto;" placeholder="请输入角色名称">
                     </li>
                     <li>
                         <button type="button" class="btn btn-success radius" id="searchButton" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
-                        <button type="reset" class="btn btn-danger radius" id="searchButton" name="">&nbsp;&nbsp; 重置&nbsp;&nbsp;</button>
+                        <button type="reset" class="btn btn-danger radius" id="resetButton" name="">&nbsp;&nbsp; 重置&nbsp;&nbsp;</button>
                     </li>
                 </ul>
             </div>

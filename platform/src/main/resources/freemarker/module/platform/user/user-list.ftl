@@ -9,7 +9,11 @@
         function edit(id) {
             $.openWindow('修改用户信息', '80%', '80%', "${basePath}/platform/user/user-edit/"+ id +".do");
         }
-        
+
+        function settingRole(id) {
+            $.openWindow('设置权限', '430px', '90%', "${basePath}/platform/userrole/user-role-create.do?userId=" + id);
+        }
+
         function del(id, single) {
             $.datadel({
             	url: "${basePath}/platform/user/user-delete/"+ id +".json",
@@ -54,6 +58,9 @@
                     {field: 'operate', className: 'text-c', description: '操作', paramFormatter: function (row) {
                         return "<a href=\"#\" title=\"修改\" onclick=\"edit('" + row.id + "')\">"
                                 + "<i class=\"Hui-iconfont\">&#xe60c;</i>"
+                             + "</a>&nbsp;&nbsp;"
+                             + "<a href=\"#\" title=\"设置权限\" onclick=\"settingRole('" + row.id + "')\">"
+                                + "<i class=\"Hui-iconfont\">&#xe61d;</i>"
                              + "</a>&nbsp;&nbsp;"
                              + "<a href=\"#\" title=\"删除\" onclick=\"del('" + row.id + "', true)\">"
                                 + "<i class=\"Hui-iconfont\">&#xe609;</i>"

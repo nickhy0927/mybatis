@@ -2,6 +2,7 @@ package com.mybatis.platform.menu.dao;
 
 import com.mybatis.platform.menu.entity.Menu;
 import com.mybatis.core.orm.common.mapper.BaseMapper;
+import com.mybatis.platform.role.entity.Role;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,4 +21,11 @@ public interface MenuMapper extends BaseMapper<Menu,String> {
      * @return
      */
     List<Menu> queryMenuByMenuId(Menu menu);
+
+    /**
+     * 根据角色查询菜单信息
+     * @param roleList
+     * @return
+     */
+    List<Menu> queryMenuByRoleList(List<Role> roleList);
 }

@@ -1,14 +1,13 @@
 package com.mybatis.core.orm.common.service;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-
 import com.mybatis.common.utils.PageSupport;
 import com.mybatis.common.utils.PagerInfo;
 import com.mybatis.core.orm.common.mapper.BaseMapper;
 import com.mybatis.core.orm.core.exception.DAOException;
-import com.mybatis.core.orm.entity.PageRowBounds;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author yuanghuangd
@@ -23,6 +22,13 @@ public interface BaseService<E, ID extends Serializable, T extends BaseMapper<E,
      * @throws DAOException
      */
     int insert(E t) throws DAOException;
+
+    /**
+     * 批量新增
+     * @param t
+     * @throws DAOException
+     */
+    void insertBatch(List<E> t) throws DAOException;
 
     /**
      * 修改

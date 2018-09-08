@@ -105,19 +105,19 @@
 
     <select id="queryPageByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.menu.entity.Menu">
         select
-        id, create_time, update_time,
-        status, code, name, url, alias, local_code,
-        menu_id, enable, shows, remark, m.sort sort,
-        (
-            select
-              t.name
-            from
-              sys_menu t
-            where
-              t.id = m.menu_id
-        ) as parentName
+            id, create_time, update_time,
+            status, code, name, url, alias, local_code,
+            menu_id, enable, shows, remark, m.sort sort,
+            (
+                select
+                  t.name
+                from
+                  sys_menu t
+                where
+                  t.id = m.menu_id
+            ) as parentName
         from sys_menu m
-        <include refid="conditions" />
+          <include refid="conditions" />
         order by
         <choose>
             <when test="order != null">${order} ${sort}</when>
@@ -172,4 +172,25 @@
             <if test="shows != null and shows != ''">and shows = #{shows}</if>
         </trim>
     </sql>
+
+    <select id="queryMenuByRoleList" parameterType="java.util.List" resultType="com.mybatis.platform.menu.entity.Menu">
+        select
+            m.id, m.create_time, m.update_time,
+            m.status, code, m.name, m.url, m.alias, m.local_code,
+            m.menu_id, enable, m.shows, m.remark, m.sort sort,
+            (
+                select
+                  t.name
+                from
+                  sys_menu t
+                where
+                  t.id = m.menu_id
+            ) as parentName
+        from sys_menu m, sys_role_menu sm
+
+        where
+          m.id = sm.menu_id
+          and m.status = 1 and sm.role_id in
+          (<foreach collection="list" item="item" separator=",">#{item.id}</foreach>)
+    </select>
 </mapper>

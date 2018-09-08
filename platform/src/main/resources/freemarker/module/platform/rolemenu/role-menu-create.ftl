@@ -1,123 +1,118 @@
-<#include "../../../common/header.ftl">
-<@htmlHead>
+[#ftl encoding="utf-8" strict_syntax=true]
+[#include "/common/header.ftl"]
+[@htmlHead]
+    <style type="text/css">
+        ul.ztree {
+            margin-top: 0px;
+            margin-left: 15px;
+            margin-rigth: 15px;
+            border: 1px solid #617775;
+            background: #f0f6e4;
+            width: auto;
+            height: auto;
+            overflow-y: scroll;
+            overflow-x: auto;
+        }
+    </style>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('.skin-minimal input').iCheck({
-                checkboxClass: 'icheckbox-blue',
-                radioClass: 'iradio-blue',
-                increaseArea: '20%'
-            });
-            $.validator.addMethod("phone", function(value, element) {
-                var reg = /^(\d{1,12})$/;
-                return this.optional(element) || reg.test(value);
-            }, "请输入12位以内的纯数字号码");
+        var zNodes = ${menuList};
+        var setting = {
+            check: {
+                enable: true,
+                chkStyle: "checkbox",
+                chkboxType: {"Y": "ps", "N": "s"}
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            }
+        };
+        var zTree;
 
-            //表单验证
-            $.validation('addForm', {
-            	id: { required:true, maxlength:200},
-            	createTime: { required:true, maxlength:200},
-            	updateTime: { required:true, maxlength:200},
-            	status: { required:true, maxlength:200},
-            	roleId: { required:true, maxlength:200},
-            	menuId: { required:true, maxlength:200},
-            }, function () {
-                $.openTip('你确定要保存吗？',false ,function() {
-                    $.openLoading("正在保存数据，请稍等...");
-                    $.submitAjax("${basePath}", {
+        var items = '${defaultValue}';
+        $(document).ready(function () {
+            zTree = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            if (items) {
+                items = eval('(' + items + ')');
+                console.log(items);
+                $.each(items, function (index, item) {
+                    var node = zTree.getNodeByParam("id", item.menuId);//根据ID找到该节点
+                    zTree.checkNode(node, true, true);
+                });
+            }
+
+            $('#submitBtn').on('click', function () {
+                $.openTip('确定要保存权限吗？', false, function () {
+                    var nodes = zTree.getCheckedNodes(true);
+                    var menuIds = [];
+                    for (var i = 0; i < nodes.length; i++) {
+                        menuIds.push(nodes[i].id);
+                    }
+                    console.log(menuIds);
+                    $.openLoading("正在保存权限信息，请稍候...");
+                    $.ajax({
                         method: 'POST',
                         dataType: 'JSON',
-                        url: ctx + '/platform/rolemenu/role-menu-save.json'
-                    },$("#addForm").serialize(), function (result) {
-                        if (result.code == 200) {
-                            $.openTip(result.msg ,true ,function() {
-                                parent.window.location.href = ctx + '/platform/rolemenu/role-menu-list.do';
-                                var index = parent.layer.getFrameIndex(window.name);
-                                parent.layer.close(index);
-                            });
-                        } else {
-                            $.openTip(result.msg ,true, function() {
-                                $.closeLoading();
-                            });
-                        }
-                    },function (err) {
-                        console.log(err);
-                        $.openTip("保存数据失败，请稍后再试." ,true, function() {
+                        url: '${basePath}/platform/rolemenu/role-menu-save.json',
+                        data: {
+                            roleId: '${role.id}',
+                            menuIds: menuIds.join(",")
+                        },
+                        success: function (res) {
                             $.closeLoading();
-                        });
+                            if (res.code == 200) {
+                                $.openTip(res.msg, true, function () {
+                                    $.closeLoading();
+                                    window.parent.initData();
+                                });
+                            } else {
+                                $.openTip(res.msg, true);
+                                return;
+                            }
+                        }, error: function (err) {
+                            $.closeLoading();
+                            $.openTip("保存权限失败,请稍候再试.", true);
+                            return;
+                        }
                     })
                 })
-            });
+            })
+
         });
+
         //取消
-        function removeIframe(){
+        function removeIframe() {
             var index = parent.layer.getFrameIndex(window.name);
             parent.layer.close(index);
         }
     </script>
-</@htmlHead>
-<@htmlBody>
+[/@htmlHead]
+[@htmlBody]
     <article class="page-container">
         <form class="form form-horizontal" id="addForm">
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		主键ID：
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-4">
+                    <span class="c-red">*</span> 当前角色：
                 </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="id" id="id" class="input-text" value="" placeholder="please enter id">
+                <div class="formControls col-xs-5 col-sm-5">
+                    <input type="text" readonly="readonly" name="roleName" id="roleName" class="input-text"
+                           value="${role.name}" placeholder="请输入国际化编码">
+                    <input type="hidden" readonly="readonly" name="roleId" id="roleId" class="input-text"
+                           value="${role.id}"
+                           placeholder="">
                 </div>
             </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		新增时间：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="createTime" id="createTime" class="input-text" value="" placeholder="please enter createTime">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		修改时间：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="updateTime" id="updateTime" class="input-text" value="" placeholder="please enter updateTime">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		有效状态：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="status" id="status" class="input-text" value="" placeholder="please enter status">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		角色ID ：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="roleId" id="roleId" class="input-text" value="" placeholder="please enter roleId">
-                </div>
-            </div>
-			<div class="row cl">
-                <label class="form-label col-xs-3 col-sm-2">
-                	<span class="c-red">*</span>
-                		菜单ID：
-                </label>
-                <div class="formControls col-xs-9 col-sm-9">
-                    <input type="text" name="menuId" id="menuId" class="input-text" value="" placeholder="please enter menuId">
-                </div>
+            <div class="row cl" style="height: 75%;overflow-y: auto">
+                <ul id="treeDemo" class="ztree"></ul>
             </div>
             <div class="row cl">
-                <div class="col-xs-7 col-sm-8 col-xs-offset-2 col-sm-offset-2">
-                    <button class="btn btn-primary radius" type="submit">&nbsp;&nbsp;保存&nbsp;&nbsp;</button>
+                <div class="col-xs-7 col-sm-8">
+                    <button class="btn btn-primary radius" type="button" id="submitBtn">&nbsp;&nbsp;保存&nbsp;&nbsp;
+                    </button>
                     <button onClick="removeIframe();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
                 </div>
             </div>
         </form>
     </article>
-</@htmlBody>
+[/@htmlBody]

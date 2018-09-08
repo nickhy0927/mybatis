@@ -2,6 +2,7 @@ package com.mybatis.platform.menu.service.impl;
 
 import java.util.List;
 
+import com.mybatis.platform.role.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,5 +38,10 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu, String, MenuMapper> i
             }
         }
         return templates;
+    }
+
+    @Override
+    public List<Menu> queryMenuByRoleList(List<Role> roleList) {
+        return menuMapper.queryMenuByRoleList(roleList);
     }
 }

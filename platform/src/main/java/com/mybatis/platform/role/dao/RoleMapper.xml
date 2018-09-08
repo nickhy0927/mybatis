@@ -3,26 +3,13 @@
 <mapper namespace="com.mybatis.platform.role.dao.RoleMapper">
 	<insert id="insert" parameterType="com.mybatis.platform.role.entity.Role">
 		insert into sys_role(
-				id,
-				create_time,
-				update_time,
-				status,
-				code,
-				name,
-				role_id,
-				remark,
-				frozen
+			id, create_time, update_time,
+			status, code,
+			name, role_id, remark, frozen
 		)
 		values (
-				#{id},
-				#{createTime},
-				#{updateTime},
-				#{status},
-				#{code},
-				#{name},
-				#{roleId},
-				#{remark},
-				#{frozen}
+			#{id}, #{createTime}, #{updateTime}, #{status},
+			#{code}, #{name}, #{roleId}, #{remark}, #{frozen}
 		)
 	</insert>
 
@@ -70,80 +57,92 @@
 	</update>
 
 	<select id="get" parameterType="String" resultType="com.mybatis.platform.role.entity.Role">
-		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				code,
-				name,
-				role_id,
-				remark,
-				frozen
-		from sys_role where id = #{id}
+		select
+			id, create_time, update_time,
+			status, code, name, role_id,
+			remark, frozen,
+			(
+				select
+					t.name
+				from
+					sys_role t
+				where
+					t.id = r.role_id
+			) as roleName
+		from
+			sys_role r where id = #{id}
 	</select>
 	<select id="getObject" parameterType="com.mybatis.platform.role.entity.Role" 
 			resultType="com.mybatis.platform.role.entity.Role">
-		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				code,
-				name,
-				role_id,
-				remark,
-				frozen
-		from sys_role where id = #{id}
+		select
+			id, create_time, update_time,
+			status, code, name, role_id,
+			remark, frozen,
+			(
+				select
+					t.name
+				from
+					sys_role t
+				where
+					t.id = r.role_id
+			) as roleName
+		from
+			sys_role r where id = #{id}
 	</select>
 
 	<select id="queryListByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.role.entity.Role">
-		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				code,
-				name,
-				role_id,
-				remark,
-				frozen
-		from sys_role
+		select
+			id, create_time, update_time,
+			status, code, name, role_id,
+			remark, frozen,
+			(
+				select
+				t.name
+				from
+				sys_role t
+				where
+				t.id = r.role_id
+			) as roleName
+		from
+			sys_role r
 		<include refid="conditions" />
 	</select>
 	
 	<select id="queryListByObject" 
 			parameterType="com.mybatis.platform.role.entity.Role" 
 			resultType="com.mybatis.platform.role.entity.Role">
-		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				code,
-				name,
-				role_id,
-				remark,
-				frozen
-		from sys_role
+		select
+			id, create_time, update_time,
+			status, code, name, role_id,
+			remark, frozen,
+			(
+				select
+					t.name
+				from
+					sys_role t
+				where
+					t.id = r.role_id
+			) as roleName
+		from
+			sys_role r
 		<include refid="conditions" />
 	</select>
 
 	<select id="queryPageByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.role.entity.Role">
-		SELECT
+		select
 			id, create_time, update_time,
-			STATUS, CODE, NAME, role_id,
+			status, code, name, role_id,
 			remark, frozen,
 			(
-				SELECT
+				select
 					t.name
-				FROM
+				from
 					sys_role t
-				WHERE
+				where
 					t.id = r.role_id
-			) AS roleName
-		FROM
-		sys_role r
+			) as roleName
+		from
+			sys_role r
 		<include refid="conditions" />
 		order by
             <choose>
@@ -165,4 +164,24 @@
 			<if test="frozen != null">and frozen = #{frozen}</if>
 		</trim>
 	</sql>
+
+	<select id="queryRoleByUserId" parameterType="String" resultType="com.mybatis.platform.role.entity.Role">
+		select r.id, r.create_time, r.update_time,
+			r.status, r.code, r.name, r.role_id,
+			r.remark, r.frozen,
+			(
+				select
+					t.name
+				from
+					sys_role t
+				where
+					t.id = r.role_id
+			) as roleName
+		from
+			sys_role r, sys_user_role su
+		where
+			r.id = su.role_id
+			and su.user_id = #{userId}
+			and r.status = 1 and r.frozen = 1
+	</select>
 </mapper>

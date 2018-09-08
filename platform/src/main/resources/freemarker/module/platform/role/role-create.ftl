@@ -152,11 +152,11 @@
                 <div class="formControls col-xs-3 col-sm-3 skin-minimal">
                     <div class="radio-box">
                         <input name="frozen" value="1" type="radio" id="frozen-1" checked>
-                        <label for="locked-1">未冻结</label>
+                        <label for="locked-1">启用</label>
                     </div>
                     <div class="radio-box">
                         <input type="radio" value="0" id="locked-2" name="frozen">
-                        <label for="frozen-2">冻结</label>
+                        <label for="frozen-2">停用</label>
                     </div>
                 </div>
             </div>

@@ -4,7 +4,7 @@ import com.mybatis.core.orm.annotation.Column;
 import com.mybatis.core.orm.annotation.Table;
 import com.mybatis.core.orm.entity.IdEntity;
 
-@Table(name = "sys_user_role", remark = "")
+@Table(name = "sys_user_role", remark = "用户角色")
 public class UserRole extends IdEntity {
 
 	/**

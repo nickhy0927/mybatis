@@ -2,26 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.platform.rolemenu.dao.RoleMenuMapper">
 	<insert id="insert" parameterType="com.mybatis.platform.rolemenu.entity.RoleMenu">
-		insert into sys_role_menu(
-				id,
-				create_time,
-				update_time,
-				status,
-				role_id,
-				menu_id
-		)
-		values (
-				#{id},
-				#{createTime},
-				#{updateTime},
-				#{status},
-				#{roleId},
-				#{menuId}
-		)
+		insert into sys_role_menu(id, create_time, update_time, status, role_id, menu_id)
+		values ( #{id}, #{createTime}, #{updateTime}, #{status}, #{roleId}, #{menuId})
+	</insert>
+	<insert id="insertBatch" parameterType="com.mybatis.platform.rolemenu.entity.RoleMenu">
+		insert into sys_role_menu(id, create_time, update_time, status, role_id, menu_id)
+		values
+			<foreach collection="list" item="item" separator=",">
+				(#{item.id}, #{item.createTime}, #{item.updateTime},#{item.status}, #{item.roleId}, #{item.menuId})
+			</foreach>
 	</insert>
 
 	<delete id="delete" parameterType="java.lang.String">
-		delete from sys_role_menu where id = #{id}
+		delete from sys_role_menu where role_id = #{roleId}
 	</delete>
 
 	<delete id="deleteBatch" parameterType="java.util.List">
@@ -57,80 +50,16 @@
 		where id = #{id}
 	</update>
 
-	<select id="get" parameterType="String" resultType="com.mybatis.platform.rolemenu.entity.RoleMenu">
+	<select id="getRoleMenuList" parameterType="String" resultType="com.mybatis.platform.rolemenu.entity.RoleMenu">
 		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				role_id,
-				menu_id
-		from sys_role_menu where id = #{id}
+            id, create_time, update_time, status, role_id, menu_id
+		from sys_role_menu where role_id = #{roleId}
 	</select>
 	<select id="getObject" 
 			parameterType="com.mybatis.platform.rolemenu.entity.RoleMenu" 
 			resultType="com.mybatis.platform.rolemenu.entity.RoleMenu">
 		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				role_id,
-				menu_id
+				id, create_time, update_time, status, role_id, menu_id
 		from sys_role_menu where id = #{id}
 	</select>
-
-	<select id="queryListByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.rolemenu.entity.RoleMenu">
-		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				role_id,
-				menu_id
-		from sys_role_menu
-		<include refid="conditions" />
-	</select>
-	
-	<select id="queryListByObject" 
-			parameterType="com.mybatis.platform.rolemenu.entity.RoleMenu" 
-			resultType="com.mybatis.platform.rolemenu.entity.RoleMenu">
-		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				role_id,
-				menu_id
-		from sys_role_menu
-		<include refid="conditions" />
-	</select>
-
-	<select id="queryPageByMap" parameterType="java.util.Map" resultType="com.mybatis.platform.rolemenu.entity.RoleMenu">
-		select 
-				id,
-				create_time,
-				update_time,
-				status,
-				role_id,
-				menu_id
-		from sys_role_menu
-		<include refid="conditions" />
-		order by
-            <choose>
-                <when test="order != null">${order} ${sort}</when>
-                <when test="order != null">create_time desc</when>
-            </choose>
-	</select>
-
-	<sql id="conditions">
-		<trim prefix="where" prefixOverrides="and|or">
-			<if test="id != null">and id = #{id}</if>
-			<if test="createTime != null">and create_time = #{createTime}</if>
-			<if test="updateTime != null">and update_time = #{updateTime}</if>
-			<if test="status != null">and status = #{status}</if>
-			<if test="roleId != null">and role_id = #{roleId}</if>
-			<if test="menuId != null">and menu_id = #{menuId}</if>
-		</trim>
-	</sql>
 </mapper>
