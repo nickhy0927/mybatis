@@ -8,6 +8,8 @@ import com.google.common.collect.Lists;
 import com.mybatis.code.meta.TableColumn;
 import com.mybatis.code.util.JavaTypeResolver;
 import com.mybatis.code.util.StringUtils;
+import com.mybatis.core.orm.entity.PageRowBounds;
+import com.mybatis.platform.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -115,5 +117,13 @@ public class DatabaseServiceImpl extends BaseServiceImpl<Database, String, Datab
         if (databases != null && databases.size() > 0)
             return databases.get(0);
         return null;
+    }
+
+    @Override
+    public PagerInfo<User> queryConnectDatabaseUserList(Map<String, Object> paramMap, PageSupport support) {
+        PageRowBounds rowBounds = new PageRowBounds(support);
+        paramMap.put("order", support.getOrder());
+        paramMap.put("sort", support.getSort());
+        return databaseMapper.queryConnectDatabaseUserList(paramMap, rowBounds);
     }
 }

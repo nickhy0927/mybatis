@@ -10,6 +10,8 @@ import com.mybatis.config.database.dao.DatabaseMapper;
 import com.mybatis.config.database.entity.Database;
 import com.mybatis.config.database.entity.TableComment;
 import com.mybatis.core.orm.common.service.BaseService;
+import com.mybatis.core.orm.entity.PageRowBounds;
+import com.mybatis.platform.user.entity.User;
 
 public interface DatabaseService  extends BaseService<Database, String, DatabaseMapper>{
 
@@ -18,4 +20,12 @@ public interface DatabaseService  extends BaseService<Database, String, Database
 	List<TableColumn> getTableColumnList(Database database, String tableName);
 
 	Database queryConnectDatabase();
+
+	/**
+	 * 查询用户列表
+	 * @param paramMap
+	 * @param rowBounds
+	 * @return
+	 */
+	PagerInfo<User> queryConnectDatabaseUserList(Map<String, Object> paramMap, PageSupport support);
 }
