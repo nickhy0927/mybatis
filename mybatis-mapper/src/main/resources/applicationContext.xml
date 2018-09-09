@@ -21,6 +21,7 @@
             <list>
                 <value>classpath*:application.properties</value>
                 <value>classpath*:redis.properties</value>
+                <value>classpath*:fastdfs.properties</value>
             </list>
         </constructor-arg>
     </bean>
@@ -98,6 +99,7 @@
             <list>
                 <value>platform-1.0-SNAPSHOT.jar</value>
                 <value>mybatis-config-1.0-SNAPSHOT.jar</value>
+                <value>mybatis-cms-1.0-SNAPSHOT.jar</value>
             </list>
         </property>
     </bean>
@@ -136,4 +138,6 @@
 
     <!-- 初始化用户到redis中 -->
     <bean class="com.mybatis.utils.InitEnvironment" init-method="init"/>
+
+    <import resource="application-fastdfs.xml" />
 </beans>

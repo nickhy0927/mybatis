@@ -25,7 +25,14 @@
         <link rel="stylesheet" type="text/css" href="${basePath}/assets/lib/zTree/v3/css/zTreeStyle/zTreeStyle.css"> <!-- zTree插件 -->
         <link rel="stylesheet" type="text/css" href="${basePath}/assets/css/pagination.css" media="screen"/> <!-- 分页样式 -->
         <link rel="stylesheet" type="text/css" href="${basePath}/assets/lib/font-awesome/css/font-awesome.min.css"/> <!-- 自定义样式 -->
+
+        <link rel="stylesheet" type="text/html" href="${basePath}/assets/lib/webuploader/0.1.5/webuploader.css">
+        <link rel="stylesheet" type="text/html" href="${basePath}/assets/lib/webuploader/webloader.css">
+        <script type="text/javascript" src="${basePath}/assets/lib/webuploader/0.1.5/webuploader.js"></script>
+        <script type="text/javascript" src="${basePath}/assets/lib/webuploader/img_Upload.js"></script>
+
         <link rel="stylesheet" type="text/css" href="${basePath}/assets/css/style.css"/> <!-- 自定义样式 -->
+
         <style type="text/css">
             .ui-widget-overlay {
                 opacity: .5;

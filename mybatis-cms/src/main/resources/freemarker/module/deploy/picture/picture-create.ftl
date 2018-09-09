@@ -1,5 +1,6 @@
 [#ftl encoding="utf-8" strict_syntax=true]
 [#include "/common/header.ftl"]
+[#include "/common/fileUpload.ftl"]
 [@htmlHead]
     <script type="text/javascript">
         $(document).ready(function () {
@@ -59,6 +60,7 @@
 [@htmlBody]
     <article class="page-container">
         <form class="form form-horizontal" id="addForm">
+            [@fileUpload][/@fileUpload]
 			<div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">
                 	<span class="c-red">*</span>

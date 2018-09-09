@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="fastdfsEnvironment" class="com.mybatis.fastdfs.client.FastdfsEnvironment">
+        <property name="fileServerAddr" value="${file_server_addr}"/>
+        <property name="fastDFSHttpSecretKey" value="${fastdfs.http_secret_key}"/>
+        <property name="fastdfsConfigPath" value="fastdfs.properties"/>
+        <property name="maxStorageConnection" value="${max_storage_connection}"/>
+        <property name="fileName" value="filename"/>
+        <property name="maxFileSize" value="100000000"/>
+    </bean>
+
+    <bean class="com.mybatis.fastdfs.client.FastdfsClient" id="fastdfsClient" init-method="initExt">
+        <property name="fastdfsEnvironment" ref="fastdfsEnvironment"/>
+    </bean>
+</beans>

@@ -30,6 +30,12 @@
         <commons-logging.version>1.2</commons-logging.version>
     </properties>
     <dependencies>
+        <!-- FastDFS Client -->
+        <dependency>
+            <groupId>net.oschina.zcx7878</groupId>
+            <artifactId>fastdfs-client-java</artifactId>
+            <version>1.27.0.0</version>
+        </dependency>
         <!-- redis cache related.....start -->
         <dependency>
             <groupId>org.springframework.data</groupId>

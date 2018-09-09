@@ -3,7 +3,7 @@
 [@htmlHead]
     <script type="text/javascript">
         function create() {
-            $.openWindow('创建模板', '80%', '80%', "${basePath}/deploy/picture/picture-create.do");
+            $.parentOpenWindow('上传图片', '100%', '100%', "${basePath}/deploy/picture/picture-create.do");
         }
         
         function edit(id) {
@@ -87,41 +87,18 @@
         <i class="Hui-iconfont">&#xe67f;</i> 首页
         <span class="c-gray en">&gt;</span> Picture管理
         <span class="c-gray en">&gt;</span> Picture列表
-        <a class="btn btn-refresh radius r" style="line-height:1.6em;margin-top:3px"
-           href="javascript:location.replace(location.href);" title="刷新">
-            <i class="Hui-iconfont">&#xe68f;</i>
-        </a>
     </nav>
     <div class="page-container">
         <form name="listForm">
             <div class="text-l cl">
                 <ul class="sel-list">
-                     <li>主键ID：
-                         <input type="text" name="id" id="id" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
-                     </li>
-                     <li>新增时间：
-                         <input type="text" name="createTime" id="createTime" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
-                     </li>
-                     <li>修改时间：
-                         <input type="text" name="updateTime" id="updateTime" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
-                     </li>
-                     <li>有效状态：
-                         <input type="text" name="status" id="status" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
-                     </li>
-                     <li>上传人ID ：
-                         <input type="text" name="userId" id="userId" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
-                     </li>
-                     <li>附件ID ：
-                         <input type="text" name="attachmentId" id="attachmentId" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
-                     </li>
-                     <li>排序 ：
-                         <input type="text" name="sort" id="sort" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
+                     <li>上传人 ：
+                         <input type="text" name="realName" id="realName"
+                                class="input-text" style="width:auto;" placeholder="输入上传人姓名">
+                         <input type="text" name="userId" id="userId">
                      </li>
                      <li>图片备注 ：
                          <input type="text" name="remaker" id="remaker" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
-                     </li>
-                     <li>访问连接：
-                         <input type="text" name="url" id="url" class="input-text" style="width:auto;" placeholder="输入数据库连接地址">
                      </li>
                     <li>
                         <button type="button" class="btn btn-success radius" id="searchButton" name=""><i

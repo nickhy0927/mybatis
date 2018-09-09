@@ -86,6 +86,10 @@
         <!-- 表单验证插件 -->
         <script type="text/javascript" src="${basePath}/assets/lib/jquery.validation/1.14.0/messages_zh.js"></script> <!-- 表单验证插件 -->
 
+        <link rel="stylesheet" type="text/html" href="${basePath}/assets/lib/webuploader/0.1.5/webuploader.css">
+        <link rel="stylesheet" type="text/html" href="${basePath}/assets/lib/webuploader/webloader.css">
+        <script type="text/javascript" src="${basePath}/assets/lib/webuploader/0.1.5/webuploader.js"></script>
+        <script type="text/javascript" src="${basePath}/assets/lib/webuploader/img_Upload.js"></script>
         <script type="text/javascript" src="${basePath}/assets/lib/angular/v1.2.30/angular.min.js"></script><!-- 引入angularJS -->
         <script type="text/javascript" src="${basePath}/assets/lib/angular/v1.2.30/app.js"></script><!-- 引入angularJS -->
         <script type="text/javascript" src="${basePath}/assets/lib/angular/v1.2.30/controllers.js"></script>
