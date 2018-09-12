@@ -35,7 +35,12 @@
 			<version>4.2.6.RELEASE</version>
 			<scope>provided</scope>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.mybatis.base</groupId>
+            <artifactId>platform</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 	<build>
 		<resources>
 			<resource>

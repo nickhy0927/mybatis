@@ -26,15 +26,11 @@
             <p>或者也许你只是键入错误了一些东西。</p>
             请不要担心，这没事。如果该资源对你很重要，请与管理员联系。
             </p>
-
-            <p>
-                火星不太安全，我可以免费送你回地球
-            </p>
         </div>
-        <a href="http://www.cssmoban.com/" title="返回SJ5D首页">
+        <a href="#" title="返回SJ5D首页">
             <div class="link" id="home"></div>
         </a>
-        <a href="http://www.cssmoban.com/" title="联系管理员">
+        <a href="#" title="联系管理员">
             <div class="link" id="contact"></div>
         </a>
     </div>

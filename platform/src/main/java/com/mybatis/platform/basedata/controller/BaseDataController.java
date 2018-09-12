@@ -53,7 +53,7 @@ public class BaseDataController {
 		for (BaseData baseData : baseDataList) {
 			baseDataTrees.add(new BaseDataTree(baseData));
 		}
-		model.addAttribute("baseDataList", JsonMapper.toJson(baseDataTrees));
+		model.addAttribute("baseDataList", new JsonMapper().toJson(baseDataTrees));
 		return "module/platform/basedata/base-data-create";
 	}
 	
@@ -89,7 +89,7 @@ public class BaseDataController {
 		}
 		BaseData baseData = baseDataService.get(id);
 		model.addAttribute("baseData", baseData);
-		model.addAttribute("baseDataList", JsonMapper.toJson(baseDataTrees));
+		model.addAttribute("baseDataList", new JsonMapper().toJson(baseDataTrees));
 		return "module/platform/basedata/base-data-edit";
 	}
 	

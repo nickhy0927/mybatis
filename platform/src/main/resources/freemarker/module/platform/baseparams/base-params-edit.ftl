@@ -1,5 +1,6 @@
-<#include "../../../common/header.ftl">
-<@htmlHead>
+[#ftl encoding="utf-8" strict_syntax=true]
+[#include "/common/header.ftl"]
+[@htmlHead title="新增系统参数"]
     <script type="text/javascript">
         $(document).ready(function () {
             $('.skin-minimal input').iCheck({
@@ -55,8 +56,8 @@
             parent.layer.close(index);
         }
     </script>
-</@htmlHead>
-<@htmlBody>
+[/@htmlHead]
+[@htmlBody]
     <article class="page-container">
         <form class="form form-horizontal" id="addForm">
             <input type="hidden" name="id" id="id" class="input-text" value="${baseParams.id}" placeholder="please enter id">
@@ -113,4 +114,4 @@
             </div>
         </form>
     </article>
-</@htmlBody>
+[/@htmlBody]

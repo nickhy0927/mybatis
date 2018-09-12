@@ -1,5 +1,6 @@
-<#include "/common/header.ftl">
-<@htmlHead>
+[#ftl encoding="utf-8" strict_syntax=true]
+[#include "/common/header.ftl"]
+[@htmlHead title="图标列表"]
     <style type="text/css">
         ul.ztree {
             margin-top: 0px;
@@ -70,8 +71,8 @@
             parent.layer.close(index);
         }
     </script>
-</@htmlHead>
-<@htmlBody>
+[/@htmlHead]
+[@htmlBody]
     <article class="page-container">
         <form class="form form-horizontal" id="addForm">
             <input type="hidden" name="id" id="id" class="input-text" value="${menu.id}" placeholder="please enter id">
@@ -130,4 +131,4 @@
             </div>
         </form>
     </article>
-</@htmlBody>
+[/@htmlBody]

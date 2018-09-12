@@ -1,5 +1,6 @@
-<#include "../../../common/header.ftl">
-<@htmlHead>
+[#ftl encoding="utf-8" strict_syntax=true]
+[#include "/common/header.ftl"]
+[@htmlHead title="角色菜单编辑"]
     <script type="text/javascript">
         $(document).ready(function () {
             $('.skin-minimal input').iCheck({
@@ -54,8 +55,8 @@
             parent.layer.close(index);
         }
     </script>
-</@htmlHead>
-<@htmlBody>
+[/@htmlHead]
+[@htmlBody]
     <article class="page-container">
         <form class="form form-horizontal" id="addForm">
 			<div class="row cl">
@@ -120,4 +121,4 @@
             </div>
         </form>
     </article>
-</@htmlBody>
+[/@htmlBody]

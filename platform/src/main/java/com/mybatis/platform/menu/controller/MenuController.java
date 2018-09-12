@@ -54,7 +54,7 @@ public class MenuController {
             for (Menu menu : menuList) {
                 menuTrees.add(new MenuTree(menu));
             }
-            model.addAttribute("menuList", JsonMapper.toJson(menuTrees));
+            model.addAttribute("menuList", new JsonMapper().toJson(menuTrees));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -95,7 +95,7 @@ public class MenuController {
                 menuTrees.add(new MenuTree(m));
             }
             model.addAttribute("parent", menuService.get(menu.getMenuId()));
-            model.addAttribute("menuList", JsonMapper.toJson(menuTrees));
+            model.addAttribute("menuList", new JsonMapper().toJson(menuTrees));
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -58,7 +58,7 @@ public class UserRoleController {
     @RequestMapping(value = "/platform/userrole/user-role-create.do", method = RequestMethod.GET)
     public String userRoleCreate(ModelMap modelMap, String userId) {
         List<UserRole> userRoles = userRoleService.queryUserRoleList(userId);
-        modelMap.put("defaultValue", JsonMapper.toJson(userRoles));
+        modelMap.put("defaultValue", new JsonMapper().toJson(userRoles));
         modelMap.put("user", userService.get(userId));
         Map<String, Object> params = Maps.newConcurrentMap();
         params.put("status",  1);
@@ -68,7 +68,7 @@ public class UserRoleController {
         for(Role role : roleList) {
             roleTrees.add(new RoleTree(role));
         }
-        modelMap.put("roleTrees", JsonMapper.toJson(roleTrees));
+        modelMap.put("roleTrees", new JsonMapper().toJson(roleTrees));
         return "module/platform/userrole/user-role-create";
     }
 

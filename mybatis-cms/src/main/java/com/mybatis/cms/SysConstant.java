@@ -42,6 +42,6 @@ public class SysConstant {
         categoryMap.put("value", CategoryType.BLOG);
         categoryMap.put("text", CategoryType.BLOG_NAME);
         categoryList.add(categoryMap);
-        return JsonMapper.toJson(categoryList);
+        return new JsonMapper().toJson(categoryList);
     }
 }

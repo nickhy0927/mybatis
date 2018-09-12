@@ -38,6 +38,6 @@ public class LanguageConstants {
         map.put("value", JP);
         map.put("text", MessageResources.getMessage("jp"));
         selectList.add(map);
-        return JsonMapper.toJson(selectList);
+        return new JsonMapper().toJson(selectList);
     }
 }

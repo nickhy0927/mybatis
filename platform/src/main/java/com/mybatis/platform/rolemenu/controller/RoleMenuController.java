@@ -58,12 +58,12 @@ public class RoleMenuController {
         menu.setEnable(SysConstant.Enable.YES);
         Role role = roleService.get(id);
         modelMap.put("role", role);
-        modelMap.put("defaultValue", JsonMapper.toJson(roleMenuService.getRoleMenuList(id)));
+        modelMap.put("defaultValue", new JsonMapper().toJson(roleMenuService.getRoleMenuList(id)));
         List<Menu> menus = menuService.queryListByObject(menu);
         List<MenuTree> menuTrees = Lists.newArrayList();
         for (Menu m : menus)
             menuTrees.add(new MenuTree(m));
-        modelMap.put("menuList", JsonMapper.toJson(menuTrees));
+        modelMap.put("menuList", new JsonMapper().toJson(menuTrees));
         return "module/platform/rolemenu/role-menu-create";
     }
 

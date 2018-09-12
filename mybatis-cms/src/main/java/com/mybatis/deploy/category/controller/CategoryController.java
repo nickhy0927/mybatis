@@ -53,7 +53,7 @@ public class CategoryController {
         for (Category category : categoryList) {
             categoryTrees.add(new CategoryTree(category));
         }
-        model.addAttribute("catgoryList", JsonMapper.toJson(categoryTrees));
+        model.addAttribute("catgoryList", new JsonMapper().toJson(categoryTrees));
 		return "module/deploy/category/category-create";
 	}
 	
@@ -88,7 +88,7 @@ public class CategoryController {
         for (Category category : categoryList) {
             categoryTrees.add(new CategoryTree(category));
         }
-        model.addAttribute("catgoryList", JsonMapper.toJson(categoryTrees));
+        model.addAttribute("catgoryList", new JsonMapper().toJson(categoryTrees));
         Category category = categoryService.get(id);
         model.addAttribute("category", category);
 		return "module/deploy/category/category-edit";

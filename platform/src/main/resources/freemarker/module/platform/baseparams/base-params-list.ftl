@@ -1,5 +1,6 @@
-<#include "../../../common/header.ftl">
-<@htmlHead>
+[#ftl encoding="utf-8" strict_syntax=true]
+[#include "/common/header.ftl"]
+[@htmlHead]
     <script type="text/javascript">
         function create() {
             $.openWindow('新增系统参数', '80%', '80%', "${basePath}/platform/baseparams/base-params-create.do");
@@ -62,8 +63,8 @@
             initData();
         })
     </script>
-</@htmlHead>
-<@htmlBody>
+[/@htmlHead]
+[@htmlBody]
 	<nav class="breadcrumb">
         <i class="Hui-iconfont">&#xe67f;</i> 首页
         <span class="c-gray en">&gt;</span> 系统参数管理
@@ -97,4 +98,4 @@
             <table id="dataGridList" class="table table-border table-bordered table-hover table-bg table-sort"></table>
         </div>
     </div>
-</@htmlBody>
+[/@htmlBody]

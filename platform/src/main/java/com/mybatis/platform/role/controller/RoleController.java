@@ -54,7 +54,7 @@ public class RoleController {
 			for (Role role : roleList) {
 				roleTrees.add(new RoleTree(role));
 			}
-			model.addAttribute("roleList", JsonMapper.toJson(roleTrees));
+			model.addAttribute("roleList", new JsonMapper().toJson(roleTrees));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -96,7 +96,7 @@ public class RoleController {
         Role parent = roleService.get(role.getRoleId());
         role.setRoleName(parent != null ? parent.getName() : "");
         model.addAttribute("role", role);
-        model.addAttribute("roleList", JsonMapper.toJson(roleTrees));
+        model.addAttribute("roleList", new JsonMapper().toJson(roleTrees));
 		return "module/platform/role/role-edit";
 	}
 	

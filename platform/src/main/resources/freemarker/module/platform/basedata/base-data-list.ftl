@@ -1,5 +1,6 @@
-<#include "../../../common/header.ftl">
-<@htmlHead>
+[#ftl encoding="utf-8" strict_syntax=true]
+[#include "/common/header.ftl"]
+[@htmlHead title="基础数据列表"]
     <script type="text/javascript">
         function create() {
             $.openWindow('新增基础数据', '80%', '80%', "${basePath}/platform/basedata/base-data-create.do");
@@ -67,8 +68,8 @@
             initData();
         })
     </script>
-</@htmlHead>
-<@htmlBody>
+[/@htmlHead]
+[@htmlBody]
 	<nav class="breadcrumb">
         <i class="Hui-iconfont">&#xe67f;</i> 首页
         <span class="c-gray en">&gt;</span> 基础数据管理
@@ -102,4 +103,4 @@
             <table id="dataGridList" class="table table-border table-bordered table-hover table-bg table-sort"></table>
         </div>
     </div>
-</@htmlBody>
+[/@htmlBody]

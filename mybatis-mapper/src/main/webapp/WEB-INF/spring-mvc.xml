@@ -47,7 +47,7 @@
             <bean class="com.mybatis.interceptor.OperateLogInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
-
+    <bean class="com.mybatis.interceptor.ExceptionDispatcherResolver" />
     <bean id="freemarkerStaticModelsProps"  class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="properties">
             <props>

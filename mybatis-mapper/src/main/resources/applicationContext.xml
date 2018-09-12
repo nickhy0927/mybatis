@@ -137,7 +137,7 @@
     <import resource="application-redis.xml"/>
 
     <!-- 初始化用户到redis中 -->
-    <bean class="com.mybatis.utils.InitEnvironment" init-method="init"/>
+    <bean class="com.mybatis.common.utils.InitEnvironment" init-method="init"/>
 
     <import resource="application-fastdfs.xml" />
 </beans>
