@@ -15,13 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mybatis.deploy.news.entity.News;
-import com.mybatis.deploy.news.service.NewsService;
 import com.mybatis.common.utils.MessageObject;
 import com.mybatis.common.utils.PageSupport;
 import com.mybatis.common.utils.PagerInfo;
-import com.mybatis.core.orm.entity.PageRowBounds;
 import com.mybatis.common.utils.RequestData;
+import com.mybatis.deploy.news.entity.News;
+import com.mybatis.deploy.news.service.NewsService;
 
 /**
  * @Title: newsController.java

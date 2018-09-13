@@ -14,7 +14,6 @@
         <module>mybatis-auth</module>
         <module>mybatis-mapper</module>
         <module>mybatis-cms</module>
-        <module>mybatis-page</module>
         <module>platform</module>
     </modules>
     <build>
