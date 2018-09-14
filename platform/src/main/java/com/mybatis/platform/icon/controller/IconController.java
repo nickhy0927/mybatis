@@ -21,7 +21,6 @@ import com.mybatis.common.utils.PageSupport;
 import com.mybatis.common.utils.PagerInfo;
 import com.mybatis.common.utils.RequestData;
 import com.mybatis.core.orm.controller.BaseController;
-import com.mybatis.core.orm.entity.PageRowBounds;
 import com.mybatis.interceptor.Authority;
 import com.mybatis.interceptor.OperateLog;
 import com.mybatis.interceptor.OperateType;

@@ -89,7 +89,8 @@ public class InitEnvironment {
     public static List<Role> getRoleInfo(String loginName) {
         Map<String, String> roleMap = JedisUtil.getMap(ROLE_MAP);
         String json = roleMap.get(loginName);
-        List<Role> roleList = new JsonMapper().jsonToList(json, Role.class);
+        new JsonMapper();
+		List<Role> roleList = JsonMapper.jsonToList(json, Role.class);
         return roleList;
     }
 

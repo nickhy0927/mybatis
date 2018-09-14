@@ -3,7 +3,6 @@ package com.mybatis.config.database.entity;
 import com.mybatis.core.orm.annotation.Column;
 import com.mybatis.core.orm.annotation.Table;
 import com.mybatis.core.orm.entity.IdEntity;
-import org.springframework.stereotype.Component;
 
 @Table(name = "t_config_user_db", remark = "用户接入数据库实体")
 public class UserDatabase extends IdEntity {

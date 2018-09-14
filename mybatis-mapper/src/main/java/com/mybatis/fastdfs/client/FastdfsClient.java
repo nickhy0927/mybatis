@@ -437,11 +437,9 @@ public class FastdfsClient {
 
         TrackerServer trackerServer = TrackerServerPool.borrowObject();
         StorageClient1 storageClient = new StorageClient1(trackerServer, null);
-        InputStream is = null;
         byte[] fileByte = null;
         try {
             fileByte = storageClient.download_file1(filepath);
-
             if(fileByte == null){
                 throw new FastDFSException(ErrorCode.FILE_NOT_EXIST.CODE, ErrorCode.FILE_NOT_EXIST.MESSAGE);
             }

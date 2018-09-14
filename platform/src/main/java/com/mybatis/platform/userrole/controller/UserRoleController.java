@@ -1,8 +1,29 @@
 package com.mybatis.platform.userrole.controller;
 
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.mybatis.common.utils.*;
+import com.mybatis.common.utils.JsonMapper;
+import com.mybatis.common.utils.MessageObject;
+import com.mybatis.common.utils.PageSupport;
+import com.mybatis.common.utils.PagerInfo;
+import com.mybatis.common.utils.RequestData;
 import com.mybatis.core.orm.constant.SysConstant;
 import com.mybatis.interceptor.Authority;
 import com.mybatis.interceptor.MessageResources;
@@ -14,22 +35,6 @@ import com.mybatis.platform.role.service.RoleService;
 import com.mybatis.platform.user.service.UserService;
 import com.mybatis.platform.userrole.entity.UserRole;
 import com.mybatis.platform.userrole.service.UserRoleService;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.bind.util.JAXBSource;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author yuanhuangd

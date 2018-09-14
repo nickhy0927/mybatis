@@ -1,10 +1,9 @@
 package com.mybatis.platform.userrole.dao;
 
-import com.mybatis.platform.role.entity.Role;
-import com.mybatis.platform.userrole.entity.UserRole;
-import com.mybatis.core.orm.common.mapper.BaseMapper;
-
 import java.util.List;
+
+import com.mybatis.core.orm.common.mapper.BaseMapper;
+import com.mybatis.platform.userrole.entity.UserRole;
 
 public interface UserRoleMapper extends BaseMapper<UserRole,String> {
 

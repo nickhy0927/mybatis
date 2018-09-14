@@ -8,6 +8,7 @@ package com.mybatis.fastdfs.client;
  * @name FastDFSException
  * @date 2017-10-13 15:12
  */
+@SuppressWarnings("serial")
 public class FastDFSException extends Exception {
 
     /**

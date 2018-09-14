@@ -1,18 +1,21 @@
 package com.mybatis.config.database.service.impl;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Lists;
 import com.mybatis.code.meta.TableColumn;
 import com.mybatis.code.util.JavaTypeResolver;
 import com.mybatis.code.util.StringUtils;
-import com.mybatis.core.orm.entity.PageRowBounds;
-import com.mybatis.platform.user.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.mybatis.common.utils.PageSupport;
 import com.mybatis.common.utils.PagerInfo;
 import com.mybatis.config.database.dao.DatabaseMapper;
@@ -20,6 +23,7 @@ import com.mybatis.config.database.entity.Database;
 import com.mybatis.config.database.entity.TableComment;
 import com.mybatis.config.database.service.DatabaseService;
 import com.mybatis.core.orm.common.service.impl.BaseServiceImpl;
+import com.mybatis.platform.user.entity.User;
 
 @Service
 public class DatabaseServiceImpl extends BaseServiceImpl<Database, String, DatabaseMapper> implements DatabaseService {

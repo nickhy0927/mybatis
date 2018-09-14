@@ -10,7 +10,6 @@ import com.mybatis.config.database.dao.DatabaseMapper;
 import com.mybatis.config.database.entity.Database;
 import com.mybatis.config.database.entity.TableComment;
 import com.mybatis.core.orm.common.service.BaseService;
-import com.mybatis.core.orm.entity.PageRowBounds;
 import com.mybatis.platform.user.entity.User;
 
 public interface DatabaseService  extends BaseService<Database, String, DatabaseMapper>{

@@ -101,7 +101,8 @@ public class JsonMapper {
         return this.mapper;
     }
 
-    public static <T> List<T> jsonToList(String str, Class<T> clazz) {
+    @SuppressWarnings("unchecked")
+	public static <T> List<T> jsonToList(String str, Class<T> clazz) {
         JSONArray json = JSONArray.fromObject(str);
         JSONObject object;
         T t;

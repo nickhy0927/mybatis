@@ -1,16 +1,24 @@
 package com.mybatis.common.utils;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.ConvertUtils;
-import org.apache.commons.beanutils.converters.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.converters.BigDecimalConverter;
+import org.apache.commons.beanutils.converters.BooleanConverter;
+import org.apache.commons.beanutils.converters.DoubleConverter;
+import org.apache.commons.beanutils.converters.FloatConverter;
+import org.apache.commons.beanutils.converters.IntegerConverter;
+import org.apache.commons.beanutils.converters.LongConverter;
+import org.apache.commons.beanutils.converters.ShortConverter;
+import org.apache.commons.beanutils.converters.SqlDateConverter;
+import org.apache.commons.beanutils.converters.SqlTimestampConverter;
+import org.apache.commons.beanutils.converters.StringConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BeanCopyUtils {
 
@@ -37,7 +45,8 @@ public class BeanCopyUtils {
      * @param origObj 源对象
      * @return desObj 目标对象
      */
-    public static <T, E> T copyObject(Class<T> t, E origObj) {
+    @SuppressWarnings("unchecked")
+	public static <T, E> T copyObject(Class<T> t, E origObj) {
         try {
             Object desObj = t.newInstance();
             if (origObj != null && desObj != null)

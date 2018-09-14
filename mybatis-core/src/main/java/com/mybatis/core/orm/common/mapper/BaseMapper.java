@@ -4,11 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import com.mybatis.common.utils.PagerInfo;
-import com.mybatis.core.orm.core.exception.DAOException;
-import com.mybatis.core.orm.entity.PageRowBounds;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Repository;
+
+import com.mybatis.core.orm.core.exception.DAOException;
 
 /**
  * @author yuanghuangd
