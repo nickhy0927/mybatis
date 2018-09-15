@@ -11,6 +11,7 @@
 	</parent>
 	<artifactId>authority-auth-server</artifactId>
 	<name>authority-auth-server</name>
+	<packaging>war</packaging>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
