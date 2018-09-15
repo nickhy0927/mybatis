@@ -17,6 +17,7 @@
 		<module>mybatis-cms</module>
 		<module>platform</module>
 		<module>mybatis-dubbo</module>
+		<module>server-project</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>
