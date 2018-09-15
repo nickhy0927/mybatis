@@ -9,23 +9,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.iss.module.platform.user.pojo.User;
 import com.iss.module.platform.user.service.UserService;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class IndexController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@RequestMapping(value = "/index.do")
 	public String index(Model model) {
 		List<User> users = userService.queryPageByMap();
 		model.addAttribute("users", users);
 		return "index";
 	}
-	@RequestMapping(value = "/login.do")
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
-		List<User> users = userService.queryPageByMap();
-		model.addAttribute("users", users);
 		return "login";
 	}
 }

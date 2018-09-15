@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
@@ -33,7 +33,7 @@
 		            draggable: false,
 		            modal: true,
 		            //隐藏默认的关闭按钮
-		            open: function (event, ui) {
+		            open: function () {
 		                $(".ui-dialog-titlebar-close", $(this).parent()).hide();
 		                $(".ui-dialog-titlebar").remove();
 		                $("#submitDialog").attr('style','width: auto;min-height: 0px;max-height: none;height: 30px;color:white')
@@ -43,63 +43,13 @@
 				});
 			}
 	    	$(function () {
-				document.onkeydown = function(e){ 
-				    var ev = document.all ? window.event : e;
-				    if (ev.keyCode == 13) {
-						open();
-	    				$.ajax({
-	    					url:'${ctx}/user/userLogin.do?url=${url}',
-	    					method:'POST',
-	    					data:$("#loginForm").serialize(),
-	    					dataType:'JSON',
-	    					success: function (data) {
-	    						$("#submitDialog").dialog('close')  
-	    						if(data.code == '403') {
-	    							$("#code_img").attr('src','${ctx}/auth/authCode.image?rmd=<%=new Date().getTime()%>');
-	    							$("#loginErr").text(data.message);
-	    						} else {
-									window.location.href = data.object;
-								}
-	    					},
-	    					error: function () {
-	    						$("#submitDialog").dialog('close')  
-	    						$("#code_img").attr('src','${ctx}/auth/authCode.image?rmd=<%=new Date().getTime()%>');
-	    						$("#loginErr").text('用户名或密码错误');
-	    					
-	    					}
-	    				});
-			    	}
-	   				setInterval(function () {
-	   					$("#loginErr").html('');
-	   				}, 10000);
-		    	}
 	   			$("#login_btn").click(function () {
 	   				open();
-	   				$.ajax({
-	   					url:'${ctx}/user/userLogin.do?url=${url}',
-	   					method:'POST',
-	   					data:$("#loginForm").serialize(),
-	   					dataType:'JSON',
-	   					success: function (data) {
-	   						$("#submitDialog").dialog('close')  
-	   						if(data.code == '403') {
-	   							$("#code_img").attr('src','${ctx}/auth/authCode.image?rmd=<%=new Date().getTime()%>');
-	   							$("#loginErr").text(data.message);
-	   						} else {
-								window.location.href = data.object;
-							}
-	   					},
-	   					error: function () {
-	   						$("#submitDialog").dialog('close')  
-	   						$("#code_img").attr('src','${ctx}/auth/authCode.image?rmd=<%=new Date().getTime()%>');
-	   						$("#loginErr").text('用户名或密码错误');
-	   					}
-	   				});
 				});
 	   			setInterval(function () {
 	   				$("#loginErr").html('');
 	   			}, 10000);
-			});    	
+			});
 	    	function changeCode() {
 	    		var rmd = new Date().getTime();
 	    		$("#code_img").attr('src','${ctx}/auth/authCode.image?rmd=' + rmd);
@@ -123,7 +73,7 @@
 		 	<img style="height: 30px;" th:src="@{/static/assets/jquery/loading_circle_40b82ef.gif}">
 		 	&nbsp;&nbsp;<span>正在操作，请稍候...</span>
 		</div>
-	    <form method="post" id="loginForm">
+	    <form method="post" id="loginForm" action="/login">
 	    	<div class="login_m">
 			    <div class="login_boder">
 			    	<div style="margin-left:15px;float:left;padding:10px 20px 15px 10px;color:#000;font-size:25px;">

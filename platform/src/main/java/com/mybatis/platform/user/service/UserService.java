@@ -6,4 +6,5 @@ import com.mybatis.platform.user.entity.User;
 
 public interface UserService extends BaseService<User, String, UserMapper> {
 
+    User login(String loginName);
 }

@@ -1,14 +1,22 @@
 package com.iss.module.platform.user.pojo;
 
-import java.util.Date;
+import org.springframework.security.core.GrantedAuthority;
 
-public class User {
-	
-	private String id;
-	/**
+import java.util.Date;
+import java.util.List;
+
+public class User extends org.springframework.security.core.userdetails.User {
+
+    private String id;
+    /**
      * 真实姓名
      */
     private String realName;
+
+    /**
+     * 账户密码
+     */
+    private String password;
 
     /**
      * 登录账号
@@ -60,14 +68,20 @@ public class User {
      */
     private String lastLoginIp;
 
+    private List<GrantedAuthority> grantedAuthorities;
+
+    public User(String loginName, String password, List<GrantedAuthority> grantedAuthorities) {
+        super(loginName, password, grantedAuthorities);
+    }
+
     public String getId() {
-		return id;
-	}
-    
+        return id;
+    }
+
     public void setId(String id) {
-		this.id = id;
-	}
-    
+        this.id = id;
+    }
+
     public String getLoginCount() {
         return loginCount;
     }
@@ -210,4 +224,19 @@ public class User {
         this.lastLoginTime = lastLoginTime;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<GrantedAuthority> getGrantedAuthorities() {
+        return grantedAuthorities;
+    }
+
+    public void setGrantedAuthorities(List<GrantedAuthority> grantedAuthorities) {
+        this.grantedAuthorities = grantedAuthorities;
+    }
 }

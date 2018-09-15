@@ -1,0 +1,18 @@
+* {
+	font-family: "Courier New";
+	font-weight: lighter;
+	font-size: 20px;
+}
+
+.item {
+	width: 100%;
+	display: block;
+	clear: both;
+}
+
+.item div {
+	float: left;
+	padding: 10px;
+	border: 1px solid #dddddd;
+	width: auto;
+}

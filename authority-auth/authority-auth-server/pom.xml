@@ -18,6 +18,21 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>org.mybatis.base</groupId>
+			<artifactId>mybatis-common</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+        <dependency>
+            <groupId>org.mybatis.base</groupId>
+            <artifactId>mybatis-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.dubbo.base</groupId>
+            <artifactId>dubbo-platform-service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
