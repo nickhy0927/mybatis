@@ -4,7 +4,7 @@
     <script type="text/javascript">
         function del(id, single) {
             $.datadel({
-            	url: "${basePath}/config/操作日志/opt-log-delete/"+ id +".do",
+            	url: "${basePath}/system/optlog/opt-log-delete/"+ id +".do",
                 type: "post",
                 data: {id: id},
                 success:function(data){

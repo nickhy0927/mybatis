@@ -4,7 +4,7 @@
     <script type="text/javascript">
         function del(id, single) {
             $.datadel({
-            	url: "${basePath}/config/异常日志/exception-log-delete/"+ id +".do",
+            	url: "${basePath}/system/exceptionlog/exception-log-delete/"+ id +".do",
                 type: "post",
                 data: {id: id},
                 success:function(data){
@@ -29,7 +29,7 @@
         }
 		function initData() {
 			$("#dataGridList").dataGrid({
-                url: ctx + '/config/exceptionlog/exception-log-list.json',
+                url: ctx + '/system/exceptionlog/exception-log-list.json',
                 title: '异常日志管理列表',
                 method: 'POST',
                 checkbox: true,

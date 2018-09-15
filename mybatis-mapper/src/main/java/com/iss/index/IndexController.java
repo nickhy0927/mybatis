@@ -36,8 +36,8 @@ public class IndexController {
         ModelAndView view = new ModelAndView("main");
         String message = MessageResources.getMessage("test.msg");
         view.addObject("test", message);
-        throw new RuntimeException("自定义异常");
-//        return view;
+//        throw new RuntimeException("自定义异常");
+        return view;
     }
 
     @ResponseBody

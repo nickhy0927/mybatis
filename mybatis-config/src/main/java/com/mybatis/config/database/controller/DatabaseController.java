@@ -43,6 +43,7 @@ public class DatabaseController {
         try {
             Map<String, Object> dataToMap = RequestData.getRequestDataToMap(request);
             PagerInfo<Database> pagerInfo = databaseService.queryPageByMap(dataToMap, support);
+            dataToMap.put("databaseId", "041eba444ea0454e828b6ae2387760f2");
             PagerInfo<User> userPagerInfo = databaseService.queryConnectUserPageByCondition(dataToMap, support);
             System.out.println(new JsonMapper().toJson(userPagerInfo));
             messageObject.ok("获取列表信息成功", pagerInfo);

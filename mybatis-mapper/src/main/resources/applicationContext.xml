@@ -64,15 +64,15 @@
         <property name="filters" value="stat" />
         <property name="proxyFilters">
             <list>
-                <ref bean="statFilter"/>
+                <!--<ref bean="statFilter"/>-->
                 <ref bean="logFilter"/>
             </list>
         </property>
     </bean>
-    <bean id="statFilter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
+    <!--<bean id="statFilter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
         <property name="statementExecutableSqlLogEnable" value="false"/>
         <property name="dataSourceLogEnabled" value="false"/>
-    </bean>
+    </bean>-->
     <bean id="logFilter" class="com.alibaba.druid.filter.stat.StatFilter">
         <property name="slowSqlMillis" value="50"/>
         <property name="logSlowSql" value="false"/>

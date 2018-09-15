@@ -149,11 +149,11 @@
                                         [#list children.children as cMenu]
                                             <li>
                                                 [#if cMenu.localCode??]
-                                                    <a data-href="${basePath}/${cMenu.url}" data-title="${MessageResources.getMessage("${cMenu.localCode}")}" href="javascript:void(0)">
+                                                    <a data-href="${basePath}${cMenu.url}" data-title="${MessageResources.getMessage("${cMenu.localCode}")}" href="javascript:void(0)">
                                                         ${MessageResources.getMessage("${cMenu.localCode}")}
                                                     </a>
                                                 [#else]
-                                                    <a data-href="${basePath}/${cMenu.url}" data-title="${cMenu.name}" href="javascript:void(0)">
+                                                    <a data-href="${basePath}${cMenu.url}" data-title="${cMenu.name}" href="javascript:void(0)">
                                                         ${cMenu.name}
                                                     </a>
                                                 [/#if]
