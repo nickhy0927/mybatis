@@ -18,6 +18,7 @@
 		<module>platform</module>
 		<module>mybatis-dubbo</module>
 		<module>server-project</module>
+		<module>authority-auth</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>
