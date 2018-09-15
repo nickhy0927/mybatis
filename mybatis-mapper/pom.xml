@@ -38,14 +38,14 @@
 			<groupId>org.mybatis.base</groupId>
 			<artifactId>mybatis-cms</artifactId>
 		</dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
-        </dependency>
+        </dependency> -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

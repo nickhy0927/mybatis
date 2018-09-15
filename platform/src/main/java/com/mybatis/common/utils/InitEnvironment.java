@@ -62,10 +62,10 @@ public class InitEnvironment {
         JedisUtil.setMap(USER_MAP, userMap, 0);
         JedisUtil.setMap(ROLE_MAP, roleMap, 0);
         JedisUtil.setMap(MENU_MAP, menuMap, 0);
-        getUserInfo("yangzi");
+        //getUserInfo("yangzi");
     }
 
-    public static UserInfo getUserInfo(String loginName) {
+    public UserInfo getUserInfo(String loginName) {
         Map<String, String> userMap = JedisUtil.getMap(USER_MAP);
         UserInfo userInfo;
         if (userMap != null) {
@@ -86,7 +86,7 @@ public class InitEnvironment {
      * @param loginName
      * @return
      */
-    public static List<Role> getRoleInfo(String loginName) {
+    public List<Role> getRoleInfo(String loginName) {
         Map<String, String> roleMap = JedisUtil.getMap(ROLE_MAP);
         String json = roleMap.get(loginName);
         new JsonMapper();
@@ -100,7 +100,7 @@ public class InitEnvironment {
      * @param loginName
      * @return
      */
-    public static List<Menu> getMenuInfo(String loginName) {
+    public List<Menu> getMenuInfo(String loginName) {
         Map<String, String> userMap = JedisUtil.getMap(MENU_MAP);
         String json = userMap.get(loginName);
         List<Menu> menuList = JsonMapper.jsonToList(json, Menu.class);
