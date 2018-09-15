@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.module.platform.user.mapper.UserMapper">
+	<select id="login" parameterType="String" resultType="com.iss.module.platform.user.pojo.User">
+		select * from sys_user t where t.status = 1 and t.login_name = #{loginName}
+	</select>
+	<select id="queryPageByMap" resultType="com.iss.module.platform.user.pojo.User">
+		select * from sys_user t where t.status = 1
+	</select>
+</mapper>
