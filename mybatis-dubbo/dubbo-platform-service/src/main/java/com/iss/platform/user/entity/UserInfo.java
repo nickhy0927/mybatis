@@ -6,6 +6,7 @@ import com.iss.utils.IdEntity;
 import java.io.Serializable;
 import java.util.Date;
 
+@SuppressWarnings("serial")
 public class UserInfo extends IdEntity implements Serializable{
 
     /**

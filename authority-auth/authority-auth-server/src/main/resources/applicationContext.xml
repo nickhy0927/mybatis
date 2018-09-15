@@ -13,6 +13,7 @@
         <constructor-arg>
             <list>
                 <value>classpath*:redis.properties</value>
+                <value>classpath*:dubbo-customer.properties</value>
             </list>
         </constructor-arg>
     </bean>
@@ -36,4 +37,5 @@
         <property name="fallbackToSystemLocale" value="true" />
     </bean>
     <import resource="application-redis.xml"/>
+    <import resource="dubbo-customer.xml"/>
 </beans>

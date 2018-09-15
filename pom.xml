@@ -22,11 +22,21 @@
 	</modules>
 	<dependencyManagement>
 		<dependencies>
-			<!-- dubbo 需要的jar start -->
+			<dependency>
+				<groupId>com.101tec</groupId>
+				<artifactId>zkclient</artifactId>
+				<version>0.3</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.zookeeper</groupId>
+				<artifactId>zookeeper</artifactId>
+				<version>3.3.4</version>
+			</dependency>
 			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>dubbo</artifactId>
-				<version>2.5.3</version>
+				<version>2.4.10</version>
+				<scope>compile</scope>
 				<exclusions>
 					<exclusion>
 						<artifactId>spring</artifactId>
@@ -34,38 +44,6 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
-			<dependency>
-				<groupId>org.apache.zookeeper</groupId>
-				<artifactId>zookeeper</artifactId>
-				<version>3.4.5</version>
-				<exclusions>
-					<exclusion>
-						<groupId>javax.jms</groupId>
-						<artifactId>jms</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>com.sun.jdmk</groupId>
-						<artifactId>jmxtools</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>com.sun.jmx</groupId>
-						<artifactId>jmxri</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>com.101tec</groupId>
-				<artifactId>zkclient</artifactId>
-				<version>0.3</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.netty</groupId>
-				<artifactId>netty</artifactId>
-				<version>3.2.5.Final</version>
-			</dependency>
-			<!-- Zookeeper 用于分布式服务管理 end -->
-			<!-- dubbo 需要的jar end -->
-
 			<dependency>
 				<groupId>org.mybatis.base</groupId>
 				<artifactId>mybatis-config</artifactId>

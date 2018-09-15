@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: 权限认证服务器
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Hyuan
+Implementation-Vendor-Id: com.mytatis.auth
+Build-Jdk: 1.8.0_73
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/authority-auth-boot-server
+Created-By: Maven Integration for Eclipse
+

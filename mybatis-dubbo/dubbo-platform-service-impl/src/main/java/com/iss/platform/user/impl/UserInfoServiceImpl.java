@@ -1,5 +1,8 @@
 package com.iss.platform.user.impl;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.iss.platform.user.entity.UserInfo;
 import com.iss.platform.user.service.UserInfoService;
 import com.iss.utils.ResponesEntity;
@@ -8,11 +11,7 @@ import com.mybatis.common.utils.MD5;
 import com.mybatis.core.orm.core.exception.ServiceException;
 import com.mybatis.platform.user.entity.User;
 import com.mybatis.platform.user.service.UserService;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
 public class UserInfoServiceImpl implements UserInfoService {
 
     @Autowired

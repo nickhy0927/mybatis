@@ -1,4 +1,4 @@
-package org.mybatis.utils;
+package com.mybatis.utils;
 
 import org.apache.commons.lang3.StringUtils;
 

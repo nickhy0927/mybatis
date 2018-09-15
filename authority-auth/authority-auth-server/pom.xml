@@ -18,20 +18,43 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>com.101tec</groupId>
+			<artifactId>zkclient</artifactId>
+			<version>0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.3.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<version>2.4.10</version>
+			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
 			<groupId>org.mybatis.base</groupId>
 			<artifactId>mybatis-common</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
-        <dependency>
-            <groupId>org.mybatis.base</groupId>
-            <artifactId>mybatis-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.dubbo.base</groupId>
-            <artifactId>dubbo-platform-service</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+		<dependency>
+			<groupId>org.mybatis.base</groupId>
+			<artifactId>mybatis-core</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.dubbo.base</groupId>
+			<artifactId>dubbo-platform-service</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -39,4 +62,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<build>
+		<finalName>auth</finalName>
+	</build>
 </project>

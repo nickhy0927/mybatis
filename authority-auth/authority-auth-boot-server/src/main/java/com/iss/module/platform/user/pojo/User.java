@@ -7,7 +7,11 @@ import java.util.List;
 
 public class User extends org.springframework.security.core.userdetails.User {
 
-    private String id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6592398108019365430L;
+	private String id;
     /**
      * 真实姓名
      */

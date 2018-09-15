@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>模板页面</title>
+		<link type="text/css" rel="stylesheet" th:href="@{/static/lib/css/style.css}">
+	</head>
+	<body>
+		<!-- <div th:include="../../core/common::javasrcipt"></div> -->
+		<div th:id="template">
+			<div th:each="user : ${users}">
+				<div th:object="${user}">
+					<div class="item">
+						<div th:text="*{loginName}"></div>
+						<div th:text="*{password}"></div>
+						<div th:text="${#dates.format(user.lastLoginTime,'yyyy-MM-dd hh:mm:ss')}"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
