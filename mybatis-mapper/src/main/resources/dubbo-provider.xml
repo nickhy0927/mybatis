@@ -14,5 +14,5 @@
     <dubbo:protocol name="${dubbo.protocol.name}"  host="192.168.237.1" port="${dubbo.protocol.port}" />
     <!-- 声明需要暴露的服务接口 -->
 	<bean class="com.iss.platform.user.impl.UserInfoServiceImpl" id="userInfoService"/>
-    <dubbo:service interface="com.iss.platform.user.service.UserInfoService" ref="userInfoService" />
+    <dubbo:service interface="com.iss.platform.user.service.UserInfoService" ref="userInfoService" timeout="1200000"/>
 </beans>

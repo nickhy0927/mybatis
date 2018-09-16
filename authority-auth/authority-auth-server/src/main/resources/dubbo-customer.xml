@@ -13,5 +13,5 @@
     <!-- 用dubbo协议在20880端口暴露服务 -->
     <dubbo:protocol name="${dubbo.protocol.name}" host="192.168.237.1" port="${dubbo.protocol.port}" />
     <!-- 声明需要暴露的服务接口 -->
-    <dubbo:reference id="userInfoService" interface="com.iss.platform.user.service.UserInfoService"/>
+    <dubbo:reference id="userInfoService" interface="com.iss.platform.user.service.UserInfoService" check="false" lazy="true"/>
 </beans>

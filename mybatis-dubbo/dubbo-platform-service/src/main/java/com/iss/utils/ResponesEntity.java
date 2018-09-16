@@ -1,6 +1,9 @@
 package com.iss.utils;
 
-public class ResponesEntity<T> {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class ResponesEntity<T> implements Serializable{
     private int code;
     private String msg;
 

@@ -3,6 +3,7 @@ package com.iss.index;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iss.platform.user.entity.UserInfo;
@@ -16,7 +17,8 @@ public class LoginController {
 	@Autowired
 	private UserInfoService userInfoService;
 
-	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
+	@ResponseBody
+	@RequestMapping(value = "/login.do",  method = RequestMethod.GET)
 	public MessageObject login() {
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
 		ResponesEntity<UserInfo> responesEntity = userInfoService.findUserInfoByLoginname("yangzi", "q1w2e3");

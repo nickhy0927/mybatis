@@ -8,6 +8,8 @@ import java.util.Properties;
 import java.util.Set;
 
 import freemarker.ext.beans.BeansWrapper;
+import freemarker.ext.beans.BeansWrapperBuilder;
+import freemarker.template.Configuration;
 import freemarker.template.TemplateHashModel;
 
 /**
@@ -56,7 +58,7 @@ public class FreemarkerStaticModels extends HashMap<Object, Object> {
 
 	public static TemplateHashModel useStaticPackage(String packageName) {
 		try {
-			BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
+			BeansWrapper wrapper = new BeansWrapperBuilder(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS).build();
 			TemplateHashModel staticModels = wrapper.getStaticModels();
 			TemplateHashModel fileStatics = (TemplateHashModel) staticModels.get(packageName);
 			return fileStatics;

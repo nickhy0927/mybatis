@@ -32,7 +32,7 @@ public class FileGenerator {
 	 * @throws IOException
 	 */
 	private static Configuration getConfig() throws IOException {
-		Configuration cfg = new Configuration();
+		Configuration cfg = new Configuration(Configuration.VERSION_2_3_0);
 		String ftlPath = FileGenerator.class.getResource("/META-INF/template").getPath();
 		cfg.setDirectoryForTemplateLoading(new File(ftlPath)); // 需要文件夹绝对路径
 		cfg.setDefaultEncoding("UTF-8");

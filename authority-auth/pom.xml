@@ -13,4 +13,32 @@
 		<module>authority-auth-server</module>
 		<module>authority-auth-boot-server</module>
 	</modules>
+	<properties>
+		<spring-security>4.2.1.RELEASE</spring-security>
+	</properties>
+	<dependencyManagement>
+		<!--spring security  -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring-security}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring-security}</version>
+        </dependency>
+        
+         <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring-security}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${spring-security}</version>
+        </dependency>
+	</dependencyManagement>
 </project>
