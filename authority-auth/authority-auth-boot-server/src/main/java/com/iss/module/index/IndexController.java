@@ -1,16 +1,16 @@
 package com.iss.module.index;
 
-import com.iss.middleware.redis.config.JedisUtil;
-import com.iss.module.platform.user.pojo.User;
-import com.iss.module.platform.user.service.UserService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.Collections;
-import java.util.List;
+import com.iss.middleware.redis.config.JedisUtil;
+import com.iss.module.platform.user.pojo.User;
+import com.iss.module.platform.user.service.UserService;
 
 @Controller
 public class IndexController {
