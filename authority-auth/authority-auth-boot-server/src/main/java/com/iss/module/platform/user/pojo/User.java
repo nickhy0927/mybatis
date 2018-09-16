@@ -1,21 +1,26 @@
 package com.iss.module.platform.user.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+@ApiModel(value = "系统用户对象")
 public class User implements Serializable {
 
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = -6592398108019365430L;
+	@ApiModelProperty(value = "用户主键ID字段")
 	private String id;
     /**
      * 真实姓名
      */
+    @ApiModelProperty(value = "真实姓名")
     private String realName;
 
     /**

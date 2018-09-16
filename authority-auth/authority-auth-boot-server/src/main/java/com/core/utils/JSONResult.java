@@ -1,9 +1,16 @@
 package com.core.utils;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class JSONResult {
 
+    @ApiModelProperty(value = "请求状态值")
     private int status;
+
+    @ApiModelProperty(value = "请求返回信息")
     private String msg;
+
+    @ApiModelProperty(value = "请求返回的数据")
     private Object data;
 
     public JSONResult(Object data, int status) {
