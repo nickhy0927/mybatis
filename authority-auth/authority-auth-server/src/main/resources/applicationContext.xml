@@ -38,5 +38,5 @@
     </bean>
     <import resource="application-redis.xml"/>
     <import resource="dubbo-customer.xml"/>
-    <import resource="spring-security.xml"/>
+    <import resource="spring-security2.xml"/>
 </beans>

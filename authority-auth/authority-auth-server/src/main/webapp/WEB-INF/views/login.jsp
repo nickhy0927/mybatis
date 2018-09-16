@@ -48,18 +48,8 @@
 			});
 		}
     	$(function () {
-			document.onkeydown = function(e){ 
-			    var ev = document.all ? window.event : e;
-			    if (ev.keyCode == 13) {
-					open();
-		    	}
-   				setInterval(function () {
-   					$("#loginErr").html('');
-   				}, 10000);
-	    	}
    			$("#login_btn").click(function () {
    				open();
-   				
 			});
    			setInterval(function () {
    				$("#loginErr").html('');
