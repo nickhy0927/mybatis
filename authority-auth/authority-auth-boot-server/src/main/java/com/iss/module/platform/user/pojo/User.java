@@ -2,10 +2,11 @@ package com.iss.module.platform.user.pojo;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class User extends org.springframework.security.core.userdetails.User {
+public class User implements Serializable {
 
     /**
 	 * 
@@ -73,10 +74,6 @@ public class User extends org.springframework.security.core.userdetails.User {
     private String lastLoginIp;
 
     private List<GrantedAuthority> grantedAuthorities;
-
-    public User(String loginName, String password, List<GrantedAuthority> grantedAuthorities) {
-        super(loginName, password, grantedAuthorities);
-    }
 
     public String getId() {
         return id;

@@ -22,6 +22,6 @@
     <page:block name="javascript"></page:block>
 </head>
 <body>
-
+	<page:block name="body"></page:block>
 </body>
 </html>

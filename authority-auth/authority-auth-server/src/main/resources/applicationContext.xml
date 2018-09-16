@@ -6,7 +6,7 @@
        default-lazy-init="false">
     <context:annotation-config />
     <!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
-    <context:component-scan base-package="com.iss,com.mybatis">
+    <context:component-scan base-package="com.iss,com.mybatis,com.authority">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
     <bean id="propertyResources" class="java.util.ArrayList">
@@ -38,4 +38,5 @@
     </bean>
     <import resource="application-redis.xml"/>
     <import resource="dubbo-customer.xml"/>
+    <import resource="spring-security.xml"/>
 </beans>
