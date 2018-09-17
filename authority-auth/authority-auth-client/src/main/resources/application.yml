@@ -1,0 +1,11 @@
+spring:
+  freemarker:
+    suffix: .ftl
+    request-context-attribute: request
+    content-type: text/html
+    charset: UTF-8
+    cache: false
+    allow-request-override: true
+    allow-session-override: true
+sso:
+  loginPage: http://localhost:8081/auth/login.do
