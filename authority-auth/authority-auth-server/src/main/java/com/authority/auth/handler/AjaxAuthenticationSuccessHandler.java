@@ -21,7 +21,7 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.setHeader("Content-Type", "application/json;charset=UTF-8");
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
-		messageObject.setErrorMessage("登录失败，用户名或密码错误");
+		messageObject.error("登录失败，用户名或密码错误");
 		messageObject.returnData(response, messageObject);
 		
 

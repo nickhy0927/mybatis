@@ -24,7 +24,7 @@ public class AjaxAuthenticationFailureHandler implements AuthenticationFailureHa
 		response.setHeader("Content-Type", "application/json;charset=UTF-8");
 		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication failed");
 		MessageObject messageObject = MessageObject.getDefaultMessageObjectInstance();
-		messageObject.setErrorMessage("登录失败，用户名或密码错误");
+		messageObject.error("登录失败，用户名或密码错误");
 		messageObject.returnData(response, messageObject);
 	}
 

@@ -8,8 +8,8 @@ import java.io.PrintWriter;
 
 public class MessageObject {
 
-	private int responseCode;
-	private String responseMessage;
+	private int code;
+	private String msg;
 	private Object object;
 
 	private MessageObject() {
@@ -19,12 +19,12 @@ public class MessageObject {
 		return new MessageObject();
 	}
 
-	public String getResponseMessage() {
-		return responseMessage;
+	public String getMsg() {
+		return msg;
 	}
-	
-	public int getResponseCode() {
-		return responseCode;
+
+	public int getCode() {
+		return code;
 	}
 
 	public Object getObject() {
@@ -37,19 +37,24 @@ public class MessageObject {
 
 	public static class ResultCode {
 		public static int SUCCESS = 200;
-		public static int UNAUTH = 201;
+		public static int UNAUTH = 401;
 		public static int FAILIAR = 403;
 
 	}
 
-	public void setErrorMessage(String responseMessage) {
-		this.responseMessage = responseMessage;
-		this.responseCode = ResultCode.FAILIAR;
+	public void error(String msg) {
+		this.msg = msg;
+		this.code = ResultCode.FAILIAR;
 	}
 
-	public void setSuccessMessage(String responseMessage) {
-		this.responseMessage = responseMessage;
-		this.responseCode = ResultCode.SUCCESS;
+	public void error(int code, String msg) {
+		this.msg = msg;
+		this.code = code;
+	}
+
+	public void ok(String msg) {
+		this.msg = msg;
+		this.code = ResultCode.SUCCESS;
 	}
 
 	public void returnData(HttpServletResponse response, MessageObject messageObject) throws IOException {

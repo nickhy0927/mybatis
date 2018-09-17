@@ -78,7 +78,7 @@
 	 	<img style="height: 30px;" src="${ctx}/static/assets/jquery/loading_circle_40b82ef.gif">
 	 	&nbsp;&nbsp;<span>正在操作，请稍候...</span>
 	</div>
-    <form method="post" id="loginForm" action="${ctx}/login">
+    <form method="post" id="loginForm" action="${ctx}/user/login.do">
     	<div class="login_m">
 		    <div class="login_boder">
 		    	<div style="margin-left:15px;float:left;padding:10px 20px 15px 10px;color:#000;font-size:25px;">

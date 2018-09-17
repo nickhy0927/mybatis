@@ -15,26 +15,36 @@
 	   	-->
 	   	<security:intercept-url pattern="/static/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 	   	<security:intercept-url pattern="/auth/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-	   	<security:intercept-url pattern="/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 		<security:intercept-url pattern="/login.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 		<!-- 配置用户正常访问page-->
 	    <security:intercept-url pattern="/**" access="ROLE_USER"/>
 	    <!-- 自定义用户登陆page default-target-url登陆成功跳转的page ，authentication-failure-url="/login.jsp?error=true"这里是登陆失败跳转的page-->
-	    <security:form-login login-page="/login.do" default-target-url="/index.do" authentication-failure-forward-url="/login.do?error=true"/>
-	    
+	    <security:form-login login-page="/login.do" 
+	    	default-target-url="/index.do" 
+	    	login-processing-url="/user/login.do"
+	    	authentication-success-handler-ref="loginSuccessHandler"
+    		password-parameter="password" 
+    		username-parameter="username"/>
 	  	<!-- 登出功能 -->
         <security:logout/>
         <security:csrf disabled="true" />
 		<security:custom-filter ref="authenticationFilter" before="FORM_LOGIN_FILTER"/>
 	</security:http>
+	<bean id="loginSuccessHandler" class="com.authority.auth.handler.LoginSuccessHandler" >
+		<property name="forwardToDestination" value="false" />
+		<property name="defaultTargetUrl" value="/index.do"/>
+	</bean>
 	<!-- 自定义过滤器 -->
 	<bean id="authenticationFilter" class="com.authority.auth.filter.MyUsernamePasswordAuthenticationFilter">
         <property name="filterProcessesUrl" value="/login.json" />
         <property name="authenticationManager" ref="authenticationManager" />
     </bean>
     
-     <security:authentication-manager alias="authenticationManager">
-    	<security:authentication-provider user-service-ref="userDetailsService"/>
+    <bean id="passwordEncoder" class="com.authority.auth.password.PasswordEncoderBean" />
+    <security:authentication-manager alias="authenticationManager">
+    	<security:authentication-provider user-service-ref="userDetailsService">
+    		<security:password-encoder ref="passwordEncoder" />
+    	</security:authentication-provider>
     </security:authentication-manager>
     <bean class="com.authority.auth.service.UserDetailsServiceImpl" id="userDetailsService"/>
 </beans>

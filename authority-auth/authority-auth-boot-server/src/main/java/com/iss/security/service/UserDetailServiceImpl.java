@@ -1,4 +1,4 @@
-package com.authority.auth.service;
+package com.iss.security.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,10 +8,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
-import com.authority.security.SecurityUser;
+import com.iss.security.entity.SecurityUser;
 
-public class UserDetailsServiceImpl implements UserDetailsService {
+@Component
+public class UserDetailServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -26,5 +28,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException("用户不存在");
 		}
 	}
-	
+
 }
