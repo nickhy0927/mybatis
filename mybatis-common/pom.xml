@@ -44,7 +44,7 @@
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework.data</groupId>
-					<artifactId>spring-data-commons</artifactId>s
+					<artifactId>spring-data-commons</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
