@@ -42,6 +42,16 @@
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-commons</artifactId>
 			<version>1.9.4.RELEASE</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-beans</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.dubbo.base</groupId>
@@ -66,16 +76,9 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- <dependency>
-			<groupId>com.sun.jmx</groupId>
-			<artifactId>jmxri</artifactId>
-			<version>1.2.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.jdmk</groupId>
-			<artifactId>jmxtools</artifactId>
-			<version>1.2.1</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>com.sun.jmx</groupId> <artifactId>jmxri</artifactId> 
+			<version>1.2.1</version> </dependency> <dependency> <groupId>com.sun.jdmk</groupId> 
+			<artifactId>jmxtools</artifactId> <version>1.2.1</version> </dependency> -->
 		<dependency>
 			<groupId>com.101tec</groupId>
 			<artifactId>zkclient</artifactId>
