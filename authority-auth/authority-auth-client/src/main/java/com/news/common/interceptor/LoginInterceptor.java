@@ -1,14 +1,15 @@
 package com.news.common.interceptor;
 
-import com.news.SystemConfig;
-import com.news.platform.user.User;
+import java.util.Enumeration;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Enumeration;
+import com.news.SystemConfig;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
