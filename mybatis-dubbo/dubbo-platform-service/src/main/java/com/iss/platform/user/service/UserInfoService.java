@@ -5,5 +5,5 @@ import com.iss.utils.ResponesEntity;
 
 public interface UserInfoService {
 
-    ResponesEntity<UserInfo> findUserInfoByLoginname(String loginname, String password);
+    ResponesEntity<UserInfo> findUserInfoByLoginname(String loginname);
 }

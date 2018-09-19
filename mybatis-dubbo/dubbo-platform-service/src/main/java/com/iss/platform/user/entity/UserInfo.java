@@ -14,6 +14,8 @@ public class UserInfo extends IdEntity implements Serializable{
      */
     private String realName;
 
+    private String password;
+
     /**
      * 登录账号
      */
@@ -206,4 +208,11 @@ public class UserInfo extends IdEntity implements Serializable{
         this.lastLoginTime = lastLoginTime;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
