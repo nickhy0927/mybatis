@@ -1,7 +1,5 @@
 package com.news.common.interceptor;
 
-import java.util.Enumeration;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,11 +26,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         //验证用户是否登陆
         Object object = request.getSession().getAttribute(TOKEN);
         if (object == null) {
-            Enumeration<String> headerNames = request.getHeaderNames();
-            while (headerNames.hasMoreElements()) {
-                System.out.println(headerNames.nextElement());
-            }
-            String token = response.getHeader("token");
+            String token = request.getParameter("token");
             if (StringUtils.isEmpty(token)) {
                 String url = "http://" + request.getServerName() //服务器地址
                         + ":"
