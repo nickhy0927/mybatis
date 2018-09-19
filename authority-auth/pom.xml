@@ -11,7 +11,6 @@
 	<modules>
 		<module>authority-auth-client</module>
 		<module>authority-auth-server</module>
-		<module>authority-auth-boot-server</module>
 	</modules>
 	<properties>
 		<spring-security>4.2.1.RELEASE</spring-security>
