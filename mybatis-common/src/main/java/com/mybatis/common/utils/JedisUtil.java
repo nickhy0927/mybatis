@@ -12,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -28,7 +27,6 @@ import redis.clients.jedis.JedisPool;
  * @date 2018年9月7日 下午12:58:04
  */
 @SuppressWarnings("deprecation")
-@Component
 public class JedisUtil {
 	protected final static Logger logger = LoggerFactory.getLogger(JedisUtil.class);
 
