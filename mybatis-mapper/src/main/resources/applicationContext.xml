@@ -83,6 +83,4 @@
     <import resource="application-redis.xml"/>
 	<!-- 导入文件存储系统配置 -->
 	<import resource="application-fastdfs.xml" />
-	<!-- 导入dubbo配置 -->
-	<import resource="dubbo-provider.xml" />
 </beans>

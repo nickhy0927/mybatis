@@ -2,7 +2,7 @@
 <configuration>
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>%d{yyyy-MM-dd HH:mm:ss:SSS} [%-5level] %logger{36} - %msg%n</pattern>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss:SSS} [%-5level] %logger - %msg%n</pattern>
 		</encoder>
 	</appender>
 
@@ -23,6 +23,8 @@
     <logger name="org.mybatis.spring.SqlSessionTemplate" level="debug" />
     <logger name="org.mybatis.spring.SqlSessionFactoryBean" level="WARN" />
     <logger name="o.m.spring.SqlSessionFactoryBean" level="WARN" />
+    <logger name="org.apache.commons.beanutils.converters" level="WARN" />
+    <logger name="org.mybatis.spring.mapper" level="WARN" />
 	<root level="DEBUG">
 		<appender-ref ref="console" />
 		<appender-ref ref="rollingFile" />

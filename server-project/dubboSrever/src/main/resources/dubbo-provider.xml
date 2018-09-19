@@ -11,7 +11,7 @@
     <!-- 使用zookeeper注册中心暴露服务地址 -->
     <dubbo:registry address="${dubbo.registry.address}" id="dubbodemo" /> 
     <!-- 用dubbo协议在20880端口暴露服务 -->
-    <dubbo:protocol name="${dubbo.protocol.name}"  host="192.168.18.128" port="${dubbo.protocol.port}" />
+    <dubbo:protocol name="${dubbo.protocol.name}" port="${dubbo.protocol.port}" />
     <!-- 声明需要暴露的服务接口 -->
 	<bean class="com.iss.platform.user.impl.UserInfoServiceImpl" id="userInfoService"/>
     <dubbo:service registry="dubbodemo" interface="com.iss.platform.user.service.UserInfoService" ref="userInfoService" timeout="1200000"/>

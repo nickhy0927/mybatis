@@ -40,10 +40,6 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <bean class="org.mybatis.auth.AuthHandlerInterceptor"/>
-        </mvc:interceptor>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
             <bean class="com.mybatis.interceptor.OperateLogInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
@@ -53,8 +49,6 @@
             <props>
                 <prop key="MessageResources">com.mybatis.interceptor.MessageResources</prop>
                 <prop key="StringUtils">org.apache.commons.lang3.StringUtils</prop>
-                <prop key="LanguageConstants">com.mybatis.utils.LanguageConstants</prop>
-                <prop key="SysConstant">com.mybatis.cms.SysConstant</prop>
             </props>
         </property>
     </bean>

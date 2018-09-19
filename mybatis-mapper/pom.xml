@@ -31,10 +31,6 @@
 			<artifactId>mybatis-config</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.mybatis.base</groupId>
-			<artifactId>mybatis-cms</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-commons</artifactId>
 			<version>1.9.4.RELEASE</version>
@@ -49,46 +45,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<dependency>
-			<groupId>com.dubbo.base</groupId>
-			<artifactId>dubbo-platform-service-impl</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-		<!-- **************************** Dubbo 依赖 **************************** -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>dubbo</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.zookeeper</groupId>
-            <artifactId>zookeeper</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.sun.jmx</groupId>
-                    <artifactId>jmxri</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.sun.jdmk</groupId>
-                    <artifactId>jmxtools</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.jms</groupId>
-                    <artifactId>jms</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.github.sgroschupf</groupId>
-            <artifactId>zkclient</artifactId>
-            <version>0.1</version>
-        </dependency>
-        <!-- **************************** /Dubbo 依赖 **************************** -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
