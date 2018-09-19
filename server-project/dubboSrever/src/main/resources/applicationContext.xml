@@ -50,7 +50,7 @@
 	<!-- 导入mybatis数据库配置 -->
     <import resource="application-mybatis.xml"/>
     <!-- 导入redis配置 -->
-    <import resource="application-redis.xml"/>
+    <!-- <import resource="application-redis.xml"/> -->
 	<!-- 导入dubbo配置 -->
 	<import resource="dubbo-provider.xml" />
 </beans>
