@@ -48,7 +48,11 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler, Initia
 			request.getSession().setAttribute("token", token);
 			boolean empty = StringUtils.isNoneEmpty(StaticConfig.backUrl);
 			response.setHeader("token", token.toLowerCase());
-			this.redirectStrategy.sendRedirect(request, response, empty ? backUrl : this.defaultTargetUrl);
+			StringBuffer buffer = new StringBuffer();
+			if (backUrl.contains("?"))
+				buffer.append("&");
+			buffer.append("token").append("=").append(token);
+			this.redirectStrategy.sendRedirect(request, response, empty ? backUrl + buffer.toString() : this.defaultTargetUrl);
 		}
 
 	}
