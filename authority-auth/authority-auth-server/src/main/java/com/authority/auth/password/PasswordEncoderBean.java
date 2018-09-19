@@ -14,7 +14,8 @@ public class PasswordEncoderBean implements PasswordEncoder {
 
 	@Override
 	public boolean matches(CharSequence rawPassword, String encodedPassword) {
-		if (StringUtils.equals(rawPassword, encodedPassword)) {
+        String encode = MD5.MD5Encode(rawPassword.toString()).toUpperCase();
+        if (StringUtils.equals(encode, encodedPassword)) {
 			return true;
 		}
 		return false;
