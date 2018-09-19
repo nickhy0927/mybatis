@@ -15,5 +15,8 @@
 		<constructor-arg name="timeout" value="${redis.maxWait}"/>
 		<constructor-arg name="password" value="${redis.password}"/>
 	</bean>	
+	<bean class="com.mybatis.common.utils.JedisUtil">
+		<property name="jedisPool" ref="jedisPool" />
+	</bean>
 	<!--  redis配置结束 -->
 </beans>
