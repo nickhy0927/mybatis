@@ -232,4 +232,17 @@ public class User extends IdEntity {
         this.lastLoginTime = lastLoginTime;
     }
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "User [realName=" + realName + ", loginName=" + loginName + ", password=" + password + ", locked="
+				+ locked + ", enable=" + enable + ", email=" + email + ", mobile=" + mobile + ", remark=" + remark
+				+ ", position=" + position + ", lastLoginTime=" + lastLoginTime + ", loginCount=" + loginCount
+				+ ", lastLoginIp=" + lastLoginIp + "]";
+	}
+    
+    
+
 }

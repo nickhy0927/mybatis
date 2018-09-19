@@ -45,6 +45,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler, Initia
 		} else {
 			String backUrl = StaticConfig.backUrl + "?jsessionid=" + MD5.MD5Encode(token.toLowerCase());
 			logger.info("Login success,Redirecting to " + this.defaultTargetUrl);
+			request.getSession().setAttribute("token", token);
 			boolean empty = StringUtils.isNoneEmpty(StaticConfig.backUrl);
 			response.setHeader("token", token.toLowerCase());
 			this.redirectStrategy.sendRedirect(request, response, empty ? backUrl : this.defaultTargetUrl);
