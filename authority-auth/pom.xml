@@ -11,35 +11,56 @@
 	<modules>
 		<module>authority-auth-client</module>
 		<module>authority-auth-server</module>
+		<module>shiro-sso</module>
 	</modules>
 	<properties>
 		<spring-security>4.2.1.RELEASE</spring-security>
 	</properties>
 	<dependencyManagement>
-		<!--spring security  -->
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-core</artifactId>
-                <version>${spring-security}</version>
-            </dependency>
+		<!--spring security -->
+		<dependencies>
+			<dependency>
+				<groupId>org.mybatis.base</groupId>
+				<artifactId>mybatis-common</artifactId>
+				<version>1.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis.base</groupId>
+				<artifactId>mybatis-core</artifactId>
+				<version>1.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis.base</groupId>
+				<artifactId>platform</artifactId>
+				<version>1.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.dubbo.base</groupId>
+				<artifactId>dubbo-platform-service</artifactId>
+				<version>1.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-core</artifactId>
+				<version>${spring-security}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-web</artifactId>
-                <version>${spring-security}</version>
-            </dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-web</artifactId>
+				<version>${spring-security}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-config</artifactId>
-                <version>${spring-security}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-taglibs</artifactId>
-                <version>${spring-security}</version>
-            </dependency>
-        </dependencies>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>${spring-security}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-taglibs</artifactId>
+				<version>${spring-security}</version>
+			</dependency>
+		</dependencies>
 	</dependencyManagement>
 </project>

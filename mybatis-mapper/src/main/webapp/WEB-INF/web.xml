@@ -41,6 +41,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath*:applicationContext.xml
+			classpath*:config/spring-shiro.xml
 		</param-value>
 	</context-param>
 	<servlet>
@@ -116,6 +117,19 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<!--druid监控页面 -->
+
+	<filter>
+		<filter-name>shiroFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetFilterLifecycle</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>shiroFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<error-page>
 		<error-code>404</error-code>
