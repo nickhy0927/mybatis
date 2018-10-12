@@ -6,19 +6,12 @@
 	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<modules>
-		<module>mybatis-core</module>
-		<module>mybatis-common</module>
-		<module>mybatis-config</module>
-		<module>mybatis-resources</module>
 		<module>mybatis-auth</module>
-		<module>mybatis-mapper</module>
-		<module>mybatis-cms</module>
-		<module>platform</module>
 		<module>mybatis-dubbo</module>
 		<module>server-project</module>
 		<module>authority-auth</module>
-		<module>service-platform</module>
-  </modules>
+		<module>mybatis-module</module>
+	</modules>
 	<dependencyManagement>
 		<dependencies>
 			<!-- **************************** Dubbo 依赖 **************************** -->

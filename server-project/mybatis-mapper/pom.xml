@@ -9,15 +9,30 @@
 		<artifactId>server-project</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<groupId>com.dubbo.server</groupId>
-	<artifactId>dubboSrever</artifactId>
+	<artifactId>mybatis-mapper</artifactId>
 	<packaging>war</packaging>
-	<name>dubboSrever dubbo服务端</name>
+	<name>mybatis-mapper</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
 			<groupId>org.mybatis.base</groupId>
+			<artifactId>mybatis-cms</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis.base</groupId>
+			<artifactId>mybatis-auth</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis.base</groupId>
 			<artifactId>platform</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis.base</groupId>
+			<artifactId>mybatis-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.authority.base</groupId>
+			<artifactId>shiro-sso</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.data</groupId>
@@ -35,25 +50,6 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>com.dubbo.base</groupId>
-			<artifactId>dubbo-platform-service-impl</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-		<!-- **************************** Dubbo 依赖 **************************** -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>dubbo</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.zookeeper</groupId>
-            <artifactId>zookeeper</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.sgroschupf</groupId>
-            <artifactId>zkclient</artifactId>
-        </dependency>
-        <!-- **************************** /Dubbo 依赖 **************************** -->
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>RELEASE</version>
@@ -65,7 +61,22 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>dubboServer</finalName>
+		<finalName>mapper</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 	<profiles>
 		<profile>
