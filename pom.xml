@@ -8,6 +8,7 @@
 	<modules>
 		<module>mybatis-auth</module>
 		<module>mybatis-dubbo</module>
+		<module>mybatis-common</module>
 		<module>server-project</module>
 		<module>authority-auth</module>
 		<module>mybatis-module</module>
