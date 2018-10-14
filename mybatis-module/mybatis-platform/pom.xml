@@ -7,8 +7,8 @@
 		<artifactId>mybatis-module</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>platform</artifactId>
-	<name>platform</name>
+	<artifactId>mybatis-platform</artifactId>
+	<name>平台管理</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

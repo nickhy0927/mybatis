@@ -22,7 +22,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.mybatis.base</groupId>
-			<artifactId>platform</artifactId>
+			<artifactId>mybatis-platform</artifactId>
 		</dependency>
 		<!-- apache shiro 相关jar -->
 		<dependency>

@@ -31,7 +31,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.mybatis.base</groupId>
-				<artifactId>platform</artifactId>
+				<artifactId>mybatis-platform</artifactId>
 				<version>1.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>

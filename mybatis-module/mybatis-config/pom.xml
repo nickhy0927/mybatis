@@ -22,7 +22,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.mybatis.base</groupId>
-			<artifactId>platform</artifactId>
+			<artifactId>mybatis-platform</artifactId>
 		</dependency>
 		<!-- 测试 begin -->
 		<!-- junit -->

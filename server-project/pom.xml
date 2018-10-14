@@ -23,7 +23,7 @@
 				<exclusions>
 					<exclusion>
 						<groupId>org.mybatis.base</groupId>
-						<artifactId>platform</artifactId>
+						<artifactId>mybatis-platform</artifactId>
 					</exclusion>
 				</exclusions>
 			</dependency>

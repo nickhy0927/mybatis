@@ -24,7 +24,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.mybatis.base</groupId>
-			<artifactId>platform</artifactId>
+			<artifactId>mybatis-platform</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.mybatis.base</groupId>
@@ -59,6 +59,17 @@
 			<artifactId>spring-test</artifactId>
 			<version>4.3.5.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+			<type>pom.lastUpdated</type>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>mapper</finalName>
@@ -77,6 +88,32 @@
 				</includes>
 			</resource>
 		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<uriEncoding>UTF-8</uriEncoding>
+					<path>/</path>
+					<port>52500</port>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.3.11.v20160721</version>
+				<configuration>
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<httpConnector>
+						<port>8011</port>
+					</httpConnector>
+					<webApp>
+						<contextPath>/mapper</contextPath>
+					</webApp>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 	<profiles>
 		<profile>
