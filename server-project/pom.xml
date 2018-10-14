@@ -12,7 +12,6 @@
 	<packaging>pom</packaging>
 	<name>web项目目录</name>
 	<modules>
-		<module>mybatis-cms</module>
 		<module>mybatis-mapper</module>
 	</modules>
 	<dependencyManagement>
