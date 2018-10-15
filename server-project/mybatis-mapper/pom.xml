@@ -63,7 +63,6 @@
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
 			<version>2.1</version>
-			<type>pom.lastUpdated</type>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
