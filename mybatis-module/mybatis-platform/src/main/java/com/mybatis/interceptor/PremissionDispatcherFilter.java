@@ -1,19 +1,21 @@
 package com.mybatis.interceptor;
 
-import com.google.common.collect.Sets;
-import com.mybatis.common.utils.InitEnvironment;
-import com.mybatis.common.utils.MessageObject;
-import com.mybatis.core.orm.config.SpringContextHolder;
-import com.mybatis.platform.user.entity.User;
-import com.mybatis.singleton.UserSingleton;
-import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.google.common.collect.Sets;
+import com.mybatis.common.utils.InitEnvironment;
+import com.mybatis.common.utils.MessageObject;
+import com.mybatis.common.utils.SpringContextHolder;
+import com.mybatis.platform.user.entity.User;
+import com.mybatis.singleton.UserSingleton;
 
 /**
  * 权限拦截器

@@ -7,8 +7,8 @@ import org.mybatis.singleton.UserSingleton;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mybatis.common.utils.SpringContextHolder;
 import com.mybatis.copy.CopyInit;
-import com.mybatis.core.orm.config.SpringContextHolder;
 
 public class AuthHandlerInterceptor implements HandlerInterceptor {
 

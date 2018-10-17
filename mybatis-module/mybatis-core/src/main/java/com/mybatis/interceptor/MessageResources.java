@@ -5,7 +5,7 @@ import java.util.Locale;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
-import com.mybatis.core.orm.config.SpringContextHolder;
+import com.mybatis.common.utils.SpringContextHolder;
 
 /**
  * @program: mybatis-base

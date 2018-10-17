@@ -1,8 +1,8 @@
 package com.mybatis.interceptor;
 
-import com.mybatis.core.orm.config.SpringContextHolder;
-
 import java.util.List;
+
+import com.mybatis.common.utils.SpringContextHolder;
 
 public class StaticResources {
 

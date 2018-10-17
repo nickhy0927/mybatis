@@ -1,21 +1,23 @@
 package com.mybatis.interceptor;
 
-import com.mybatis.common.utils.JsonMapper;
-import com.mybatis.common.utils.RequestData;
-import com.mybatis.core.orm.config.SpringContextHolder;
-import com.mybatis.system.optlog.entity.OptLog;
-import com.mybatis.system.optlog.service.OptLogService;
-import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.mybatis.common.utils.JsonMapper;
+import com.mybatis.common.utils.RequestData;
+import com.mybatis.common.utils.SpringContextHolder;
+import com.mybatis.system.optlog.entity.OptLog;
+import com.mybatis.system.optlog.service.OptLogService;
 
 public class OperateLogInterceptor implements HandlerInterceptor {
 

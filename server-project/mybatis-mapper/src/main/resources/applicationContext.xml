@@ -12,7 +12,7 @@
     <context:component-scan base-package="com.iss,com.mybatis">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
-    <bean class="com.mybatis.core.orm.config.SpringContextHolder"/>
+    <bean class="com.mybatis.common.utils.SpringContextHolder"/>
     <!-- 将多个配置文件位置放到列表中 -->
     <bean id="propertyResources" class="java.util.ArrayList">
         <constructor-arg>
