@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -14,6 +16,13 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
+		<!-- freemarker + shiro（标签） begin -->
+		<dependency>
+			<groupId>com.iss</groupId>
+			<artifactId>shiro-freemarker-tags</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- freemarker + shiro（标签） begin -->
 		<dependency>
 			<groupId>org.mybatis.base</groupId>
 			<artifactId>mybatis-core</artifactId>
@@ -22,6 +31,7 @@
 			<groupId>org.mybatis.base</groupId>
 			<artifactId>mybatis-resources</artifactId>
 		</dependency>
+
 	</dependencies>
 	<build>
 		<resources>

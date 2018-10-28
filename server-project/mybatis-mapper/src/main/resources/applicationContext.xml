@@ -41,7 +41,7 @@
         <property name="absoluteWebappPath" value="D:\develop\tools\sts\works\20180522\mybatis\mybatis-mapper\src\main\webapp"/>
         <property name="jars">
             <list>
-                <value>platform-1.0-SNAPSHOT.jar</value>
+                <value>mybatis-platform-1.0-SNAPSHOT.jar</value>
                 <value>mybatis-config-1.0-SNAPSHOT.jar</value>
                 <value>mybatis-cms-1.0-SNAPSHOT.jar</value>
             </list>

@@ -28,7 +28,7 @@ public class CopyInit {
 			File file = resource.getFile();
 			String target = file.getPath();
 			String path = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-			path = path.substring(1);
+//			path = path.substring(1);
 			int endIndex = path.lastIndexOf("/");
 			path = path.substring(0, endIndex);
 			try {
